@@ -12,9 +12,8 @@
     "db:migrate": "tsx src/server/db/migrate.ts"
   },
   "dependencies": {
-    "@tiptap/extension-text-align": "^3.11.0",
-    "@tiptap/react": "^3.11.0",
-    "@tiptap/starter-kit": "^3.11.0",
+    "@ckeditor/ckeditor5-react": "^11.2.0",
+    "ckeditor5": "^48.4.0",
     "drizzle-orm": "^0.44.7",
     "lucide-react": "^0.554.0",
     "next": "16.3.0",

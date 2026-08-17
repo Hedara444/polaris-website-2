@@ -293,7 +293,7 @@ export function ArticleEditor({
       <div className="editor-panel">
         <div className="editor-heading">
           <h2>Body</h2>
-          <p>TipTap editor with UTF-8 content and direction-aware rendering.</p>
+          <p>CKEditor 5 rich text editing with HTML storage and direction-aware rendering.</p>
         </div>
         <div className="editor-preview-meta">
           <strong>Admin preview</strong>

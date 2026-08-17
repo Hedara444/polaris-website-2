@@ -2163,41 +2163,25 @@ dd {
 
 .editor-shell {
   border: 1px solid var(--line);
+  overflow: hidden;
 }
 
-.editor-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.editor-shell .ck.ck-editor {
+  border: 0;
+}
+
+.editor-shell .ck.ck-editor__top .ck.ck-toolbar {
+  border: 0;
   border-bottom: 1px solid var(--line);
-  padding: 12px;
+  border-radius: 0;
   background: #f8fafc;
 }
 
-.editor-button {
-  min-width: 40px;
-  border: 1px solid var(--line);
-  background: var(--white);
-  padding: 8px 10px;
-  cursor: pointer;
-}
-
-.editor-content {
+.editor-shell .ck.ck-editor__main .ck.ck-editor__editable {
   min-height: 320px;
+  border: 0;
+  box-shadow: none;
   padding: 18px;
-}
-
-.editor-content .ProseMirror {
-  min-height: 280px;
-  outline: none;
-}
-
-.editor-content .ProseMirror p.is-editor-empty:first-child::before {
-  float: left;
-  height: 0;
-  color: var(--muted);
-  content: attr(data-placeholder);
-  pointer-events: none;
 }
 
 .slug-preview {
