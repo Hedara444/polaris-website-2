@@ -13,6 +13,7 @@ export const siteConfig = {
   originalSiteUrl:
     process.env.NEXT_PUBLIC_ORIGINAL_SITE_URL ??
     "https://thingsline.co.jp/index",
+  ckEditorKey:process.env.NEXT_PUBLIC_CK_EDITOR_LICENCE_KEY ?? 'GPL'
 } as const;
 
 export const defaultKeywords = {
