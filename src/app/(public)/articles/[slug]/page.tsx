@@ -5,13 +5,21 @@ import { buildContentMetadata } from "@/lib/seo";
 import { formatDate, resolveDirection } from "@/lib/utils";
 import { getArticleBySlug } from "@/server/content-service";
 
+function decodeSlug(slug: string) {
+  try {
+    return decodeURIComponent(slug);
+  } catch {
+    return slug;
+  }
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await getArticleBySlug(slug);
+  const article = await getArticleBySlug(decodeSlug(slug));
 
   if (!article) {
     return {};
@@ -34,7 +42,7 @@ export default async function ArticleDetailsPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const article = await getArticleBySlug(slug);
+  const article = await getArticleBySlug(decodeSlug(slug));
 
   if (!article) {
     notFound();

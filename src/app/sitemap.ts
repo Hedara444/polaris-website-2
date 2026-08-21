@@ -16,7 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...articles
       .filter((article) => article.publishedAt)
       .map((article) => ({
-        url: `${siteConfig.siteUrl}/articles/${article.slug}`,
+        url: `${siteConfig.siteUrl}/articles/${encodeURIComponent(article.slug)}`,
         changeFrequency: "weekly" as const,
         priority: 0.7,
       })),
