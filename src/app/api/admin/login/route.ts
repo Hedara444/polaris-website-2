@@ -46,5 +46,28 @@ export async function POST(request: Request) {
     maxAge: session.maxAge,
   });
 
+  // Case 1: also set legacy cookie name so checks for __ckeditor-session-id pass
+  response.cookies.set("__ckeditor-session-id", session.sessionId, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+    maxAge: session.maxAge,
+  });
+
+  // Case 3: mirror auth-storage (Zustand persist) as a cookie so the provider/middleware
+  // can validate "no auth-storage / empty / not valid" without accessing localStorage
+  const authStorageValue = JSON.stringify({
+    state: { isAuthenticated: true, username: admin.username, sessionId: session.sessionId },
+    version: 0,
+  });
+  response.cookies.set("auth-storage", authStorageValue, {
+    httpOnly: false,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+    maxAge: session.maxAge,
+  });
+
   return response;
 }
