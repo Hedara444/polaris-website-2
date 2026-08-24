@@ -1,7 +1,8 @@
-import { getDatabaseState } from "@/server/db/sqlite";
+import { queryFirst } from "@/server/db";
 
 async function main() {
-  await getDatabaseState();
+  // Triggers DB initialization for either provider (local sql.js file or Turso remote)
+  await queryFirst("SELECT 1 as ready");
   console.log("Database is ready.");
 }
 

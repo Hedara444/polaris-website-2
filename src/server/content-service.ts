@@ -9,7 +9,7 @@ import type {
   PaginationResult,
 } from "@/lib/types";
 import { parseKeywords, slugify } from "@/lib/utils";
-import { nowIso, queryFirst, queryRows, runInTransaction } from "@/server/db/sqlite";
+import { nowIso, queryFirst, queryRows, runInTransaction } from "@/server/db";
 
 interface CountRow {
   count: number;
@@ -90,8 +90,8 @@ async function ensureCategory(name: string) {
     return Number(existing.id);
   }
 
-  await runInTransaction((db) => {
-    db.run(
+  await runInTransaction(async (db) => {
+    await db.run(
       "INSERT INTO article_categories (name, slug, created_at, updated_at) VALUES (?, ?, ?, ?)",
       [trimmed, slug, nowIso(), nowIso()],
     );
@@ -279,9 +279,9 @@ export async function upsertArticle(id: number | null, input: ArticleEditorInput
   const publishedAt = input.status === "published" ? nowIso() : null;
   const keywords = parseKeywords(input.keywords);
 
-  const articleId = await runInTransaction((db) => {
+  const articleId = await runInTransaction(async (db) => {
     if (id) {
-      db.run(
+      await db.run(
         `
           UPDATE articles
           SET title = ?, slug = ?, description = ?, cover_image_url = ?, category_id = ?, body_html = ?,
@@ -302,10 +302,10 @@ export async function upsertArticle(id: number | null, input: ArticleEditorInput
           id,
         ],
       );
-      db.run("DELETE FROM article_keywords WHERE article_id = ?", [id]);
+      await db.run("DELETE FROM article_keywords WHERE article_id = ?", [id]);
 
       for (const keyword of keywords) {
-        db.run("INSERT INTO article_keywords (article_id, keyword) VALUES (?, ?)", [
+        await db.run("INSERT INTO article_keywords (article_id, keyword) VALUES (?, ?)", [
           id,
           keyword,
         ]);
@@ -314,7 +314,7 @@ export async function upsertArticle(id: number | null, input: ArticleEditorInput
       return id;
     }
 
-    db.run(
+    await db.run(
       `
         INSERT INTO articles (title, slug, description, cover_image_url, category_id, body_html, direction, status, published_at, created_at, updated_at)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -334,10 +334,10 @@ export async function upsertArticle(id: number | null, input: ArticleEditorInput
       ],
     );
 
-    const inserted = db.exec("SELECT last_insert_rowid() as id");
+    const inserted = await db.exec("SELECT last_insert_rowid() as id");
     const newId = Number(inserted[0].values[0][0]);
     for (const keyword of keywords) {
-      db.run("INSERT INTO article_keywords (article_id, keyword) VALUES (?, ?)", [
+      await db.run("INSERT INTO article_keywords (article_id, keyword) VALUES (?, ?)", [
         newId,
         keyword,
       ]);
@@ -350,36 +350,36 @@ export async function upsertArticle(id: number | null, input: ArticleEditorInput
 }
 
 export async function deleteArticle(id: number) {
-  await runInTransaction((db) => {
-    db.run("DELETE FROM article_keywords WHERE article_id = ?", [id]);
-    db.run("DELETE FROM articles WHERE id = ?", [id]);
+  await runInTransaction(async (db) => {
+    await db.run("DELETE FROM article_keywords WHERE article_id = ?", [id]);
+    await db.run("DELETE FROM articles WHERE id = ?", [id]);
   });
 }
 
 export async function upsertFaq(id: number | null, input: FaqEditorInput) {
   const keywords = parseKeywords(input.keywords);
 
-  const faqId = await runInTransaction((db) => {
+  const faqId = await runInTransaction(async (db) => {
     if (id) {
-      db.run(
+      await db.run(
         "UPDATE faq_items SET question = ?, answer = ?, sort_order = ?, status = ?, updated_at = ? WHERE id = ?",
         [input.question, input.answer, input.sortOrder, input.status, nowIso(), id],
       );
-      db.run("DELETE FROM faq_keywords WHERE faq_id = ?", [id]);
+      await db.run("DELETE FROM faq_keywords WHERE faq_id = ?", [id]);
       for (const keyword of keywords) {
-        db.run("INSERT INTO faq_keywords (faq_id, keyword) VALUES (?, ?)", [id, keyword]);
+        await db.run("INSERT INTO faq_keywords (faq_id, keyword) VALUES (?, ?)", [id, keyword]);
       }
       return id;
     }
 
-    db.run(
+    await db.run(
       "INSERT INTO faq_items (question, answer, sort_order, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
       [input.question, input.answer, input.sortOrder, input.status, nowIso(), nowIso()],
     );
-    const inserted = db.exec("SELECT last_insert_rowid() as id");
+    const inserted = await db.exec("SELECT last_insert_rowid() as id");
     const newId = Number(inserted[0].values[0][0]);
     for (const keyword of keywords) {
-      db.run("INSERT INTO faq_keywords (faq_id, keyword) VALUES (?, ?)", [newId, keyword]);
+      await db.run("INSERT INTO faq_keywords (faq_id, keyword) VALUES (?, ?)", [newId, keyword]);
     }
     return newId;
   });
@@ -388,16 +388,16 @@ export async function upsertFaq(id: number | null, input: FaqEditorInput) {
 }
 
 export async function deleteFaq(id: number) {
-  await runInTransaction((db) => {
-    db.run("DELETE FROM faq_keywords WHERE faq_id = ?", [id]);
-    db.run("DELETE FROM faq_items WHERE id = ?", [id]);
+  await runInTransaction(async (db) => {
+    await db.run("DELETE FROM faq_keywords WHERE faq_id = ?", [id]);
+    await db.run("DELETE FROM faq_items WHERE id = ?", [id]);
   });
 }
 
 export async function reorderFaq(items: Array<{ id: number; sortOrder: number }>) {
-  await runInTransaction((db) => {
+  await runInTransaction(async (db) => {
     for (const item of items) {
-      db.run("UPDATE faq_items SET sort_order = ?, updated_at = ? WHERE id = ?", [
+      await db.run("UPDATE faq_items SET sort_order = ?, updated_at = ? WHERE id = ?", [
         item.sortOrder,
         nowIso(),
         item.id,

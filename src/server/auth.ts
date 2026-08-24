@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { sessionCookieName } from "@/lib/site-config";
-import { createSessionId, execute, hashPassword, nowIso, queryFirst } from "@/server/db/sqlite";
+import { createSessionId, execute, hashPassword, nowIso, queryFirst } from "@/server/db";
 
 // --- Provider-level constants for the 3 guard cases ---
 // Case 1: session cookie may be stored under the legacy name "__ckeditor-session-id"

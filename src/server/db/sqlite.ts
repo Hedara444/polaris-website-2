@@ -1,4 +1,3 @@
-import { createHash, randomUUID } from "node:crypto";
 import { mkdir, readdir, readFile, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 
@@ -6,6 +5,7 @@ import initSqlJs, { type Database, type ParamsObject, type SqlJsStatic } from "s
 
 import { seedArticles, seedFaqs } from "@/lib/content";
 import { slugify } from "@/lib/utils";
+import { createSessionId, hashPassword, nowIso } from "@/server/db/common";
 
 const storageDir = path.join(process.cwd(), "data");
 const databaseFile = path.join(storageDir, "polariss.sqlite");
@@ -84,14 +84,6 @@ async function applyMigrations(db: Database) {
   }
 
   await persistDatabase(db);
-}
-
-function hashPassword(password: string, salt: string) {
-  return createHash("sha256").update(`${salt}:${password}`).digest("hex");
-}
-
-function nowIso() {
-  return new Date().toISOString();
 }
 
 async function seedDatabase(db: Database) {
@@ -306,8 +298,4 @@ export async function getLastInsertId() {
   return Number(row?.["last_insert_rowid()"] ?? 0);
 }
 
-export async function createSessionId() {
-  return randomUUID();
-}
-
-export { hashPassword, nowIso };
+export { createSessionId, hashPassword, nowIso };
