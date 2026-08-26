@@ -14,6 +14,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-react": "^11.2.0",
     "@libsql/client": "^0.17.4",
+    "@vercel/blob": "^2.8.0",
     "ckeditor5": "^48.4.0",
     "drizzle-orm": "^0.44.7",
     "lucide-react": "^0.554.0",

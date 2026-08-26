@@ -2,6 +2,7 @@ import { randomUUID } from "node:crypto";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
+import { put } from "@vercel/blob";
 import { NextResponse } from "next/server";
 
 import { slugify } from "@/lib/utils";
@@ -46,12 +47,46 @@ export async function POST(request: Request) {
   const baseName = path.basename(asset.name, extension);
   const safeName = slugify(baseName) || "article-cover";
   const fileName = `${safeName}-${randomUUID()}${extension}`;
-  const relativePath = `/articles-assets/${fileName}`;
-  const targetDirectory = path.join(process.cwd(), "public", "articles-assets");
-  const targetFile = path.join(targetDirectory, fileName);
+  const useBlobStorage = process.env.BLOB_STORAGE_ENABLED?.trim().toLowerCase() === "true";
 
-  await mkdir(targetDirectory, { recursive: true });
-  await writeFile(targetFile, Buffer.from(await asset.arrayBuffer()));
+  if (!useBlobStorage) {
+    const relativePath = `/articles-assets/${fileName}`;
+    const targetDirectory = path.join(process.cwd(), "public", "articles-assets");
+    const targetFile = path.join(targetDirectory, fileName);
 
-  return NextResponse.json({ path: relativePath });
+    await mkdir(targetDirectory, { recursive: true });
+    await writeFile(targetFile, Buffer.from(await asset.arrayBuffer()));
+
+    return NextResponse.json({ path: relativePath });
+  }
+
+  if (!process.env.BLOB_READ_WRITE_TOKEN?.trim()) {
+    return NextResponse.json(
+      {
+        error:
+          "Photo storage is configured to use Vercel Blob, but BLOB_READ_WRITE_TOKEN is missing. Add the token to your local environment or set BLOB_STORAGE_ENABLED=false to store photos in public/articles-assets.",
+      },
+      { status: 503 },
+    );
+  }
+
+  try {
+    const blob = await put(`articles-assets/${fileName}`, asset, {
+      access: "public",
+      contentType: asset.type || `image/${extension.slice(1)}`,
+      addRandomSuffix: false,
+      allowOverwrite: false,
+    });
+
+    return NextResponse.json({ path: blob.url });
+  } catch (error) {
+    console.error("[article-assets] Vercel Blob upload failed:", error);
+    return NextResponse.json(
+      {
+        error:
+          "The photo could not be uploaded to Vercel Blob. Check that BLOB_READ_WRITE_TOKEN belongs to the correct Blob store and is available in this environment.",
+      },
+      { status: 502 },
+    );
+  }
 }
