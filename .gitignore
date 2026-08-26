@@ -13,7 +13,9 @@
 # testing
 /coverage
 /refrence
-public/articles-assets/*
+!.gitkeep
+public/articles-assets/*.jpg
+
 # next.js
 /.next/
 /out/
