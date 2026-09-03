@@ -1,0 +1,64 @@
+.hero{position:relative;min-height:clamp(620px,88vh,880px);display:flex;align-items:center;
+  background:var(--warm);overflow:hidden}
+.hero-media{position:absolute;inset:0}
+.hero-media .bgfill{background-image:var(--i-hero);background-position:42% 46%}
+.hero-scrim{position:absolute;inset:0;
+  background:linear-gradient(96deg,#F7F4EE 0%,#F7F4EE 53.5%,rgba(247,244,238,.86) 56%,rgba(247,244,238,.4) 59%,rgba(247,244,238,0) 63%)}
+.hero-copy{position:relative;z-index:3;width:100%;padding:clamp(48px,6vw,80px) var(--pad)}
+.hero-tag{display:inline-flex;align-items:center;gap:10px;font-size:13.5px;font-weight:700;
+  color:#6E6F6F;letter-spacing:.04em;margin-bottom:clamp(18px,2vw,26px)}
+.hero-tag i{width:7px;height:7px;border-radius:50%;background:var(--gray);flex:none}
+.hero h1{margin:0;font-weight:900;font-size:clamp(30px,4.6vw,66px);line-height:1.2;letter-spacing:.005em;color:#131312}
+.hero h1 span{display:block;overflow:hidden}
+.hero h1 span i{display:inline-block;vertical-align:top;font-style:normal;transform:translateY(104%);will-change:transform;
+  animation:riseIn .58s var(--ease) forwards}
+.hero h1 .w1{animation-delay:.15s}
+/* 「動いた。」— reveals while sliding a few px, then settles. No bounce, plays once. */
+.hero h1 .w2{transform:translate(-13px,104%);animation:moveIn .62s cubic-bezier(.2,.74,.24,1) .52s forwards}
+.hero h1 .w3{animation-delay:1.36s;animation-duration:.6s}
+@keyframes riseIn{to{transform:translateY(0)}}
+@keyframes moveIn{to{transform:translate(0,0)}}
+.hero p.sub{margin:clamp(20px,2.4vw,30px) 0 0;max-width:30em;font-size:clamp(15px,1.25vw,18px);
+  line-height:1.95;color:#4B4B47;font-weight:500}
+.hero-btns{display:flex;gap:13px;flex-wrap:wrap;margin-top:clamp(28px,3.2vw,40px)}
+/* benefit strip under the hero */
+.notif{position:absolute;z-index:4;right:clamp(18px,4vw,72px);bottom:clamp(48px,8vh,92px);
+  width:min(340px,86vw);background:#fff;border-radius:17px;padding:16px 18px 15px;
+  box-shadow:0 26px 60px rgba(20,18,14,.24),0 2px 6px rgba(20,18,14,.06);
+  opacity:0;transform:translateY(16px) scale(.97)}
+/* slides in as 「その瞬間に気づける。」 lands — one soft pulse, then rests */
+.notif-float{animation:notifIn .95s var(--ease) 1.42s forwards}
+@keyframes notifIn{
+  0%{opacity:0;transform:translateY(16px) scale(.97)}
+  58%{opacity:1;transform:translateY(0) scale(1)}
+  74%{transform:translateY(0) scale(1.026)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+.hero .avatar::after{animation:ping 2.6s ease-out 2.1s 3}
+.notif-hd{display:flex;align-items:center;gap:11px;margin-bottom:11px}
+.avatar{position:relative;width:38px;height:38px;border-radius:11px;background:var(--gray);
+  display:flex;align-items:center;justify-content:center;flex:none;color:#fff}
+.avatar svg{width:23px;height:23px;position:relative;z-index:2}
+.avatar::after{content:"";position:absolute;inset:0;border-radius:11px;background:var(--gray);
+  animation:ping 2.8s ease-out infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.45}70%,100%{transform:scale(2.3);opacity:0}}
+.notif-hd b{font-size:14.5px;font-weight:700}
+.notif-hd .when{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:12px;color:#9A9A93;font-weight:500}
+.notif-hd .when i{width:7px;height:7px;border-radius:50%;background:var(--green);flex:none}
+.notif h3{margin:0;font-size:17px;font-weight:700;line-height:1.5}
+.notif p{margin:5px 0 0;font-size:13px;line-height:1.7;color:#6B6B65;font-weight:500}
+.notif-ac{display:flex;align-items:center;gap:11px;margin-top:13px;padding-top:13px;border-top:1px solid #F0EEE9}
+.pill-line{display:inline-flex;align-items:center;gap:7px;background:var(--green);color:#fff;
+  font-size:12.5px;font-weight:700;padding:8px 13px;border-radius:8px}
+.pill-line svg{width:14px;height:14px}
+.notif-ac .more{font-size:12.5px;font-weight:700;color:#75767A}
+@media(max-width:900px){
+  .hero{display:block;min-height:0;background:var(--warm)}
+  .hero-media{position:relative;height:clamp(280px,58vw,400px)}
+  .hero-media .bgfill{background-position:58% 42%}
+  .hero-scrim{background:linear-gradient(180deg,rgba(247,244,238,0) 55%,rgba(247,244,238,.35) 100%)}
+  .hero-media{height:clamp(320px,62vw,420px)}
+  .notif{position:absolute;left:18px;right:18px;bottom:-46px;width:auto;max-width:340px;margin:0 auto;z-index:5;
+    animation:notifIn .8s var(--ease) .6s forwards}
+  .hero-copy{padding-top:84px}
+}

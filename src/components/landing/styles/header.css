@@ -1,0 +1,31 @@
+.hdr{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.9);
+  backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);
+  border-bottom:1px solid var(--line)}
+.hdr-in{display:flex;align-items:center;gap:clamp(16px,2.4vw,36px);height:74px;
+  padding-left:var(--pad);padding-right:var(--pad)}
+.logo{display:flex;align-items:center;gap:9px;flex:none}
+.logo b{font-family:var(--num);font-weight:800;font-size:20px;letter-spacing:.19em;color:var(--ink)}
+.logo svg{width:15px;height:15px;color:var(--gray);flex:none}
+.nav{display:flex;gap:clamp(12px,1.5vw,24px);font-size:13.5px;font-weight:700;color:#3E3E3B}
+.nav a{position:relative;padding:6px 0;transition:color .2s}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1.5px;background:var(--gray);transition:right .3s var(--ease)}
+.nav a:hover{color:var(--gray)}
+.nav a:hover::after{right:0}
+.hdr-cta{margin-left:auto;display:flex;align-items:center;gap:12px}
+.hdr-cta .btn{height:44px;padding:0 22px;font-size:14px;border-radius:8px}
+.burger{display:none;width:44px;height:44px;align-items:center;justify-content:center}
+.burger span{display:block;width:22px;height:1.6px;background:var(--ink);position:relative;transition:transform .3s var(--ease)}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:22px;height:1.6px;background:var(--ink);transition:transform .3s var(--ease),top .3s var(--ease)}
+.burger span::before{top:-7px}.burger span::after{top:7px}
+.burger.open span{transform:rotate(45deg)}
+.burger.open span::before{top:0;transform:rotate(-90deg)}
+.burger.open span::after{top:0;opacity:0}
+.mnav{display:none;border-bottom:1px solid var(--line);background:#fff;padding:6px var(--pad) 22px}
+.mnav.open{display:block}
+.mnav a{display:block;padding:15px 2px;font-size:16px;font-weight:700;border-bottom:1px solid var(--line)}
+@media(max-width:1180px){
+  .nav{display:none}
+  .burger{display:flex}
+  .hdr-cta .btn{padding:0 18px}
+}
+@media(max-width:520px){ .hdr-cta .btn{height:40px;font-size:13px;padding:0 15px} }
