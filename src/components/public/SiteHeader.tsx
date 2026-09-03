@@ -3,19 +3,21 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import "../landing/styles/header.css";
 
-import newLogo from "../../../public/ref-2.png";
-
-import { siteConfig } from "@/lib/site-config";
-
+// Japanese labels matching new UI, mapped to existing + new stub routes
 const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/articles", label: "Articles" },
-  { href: "/compare", label: "Compare" },
-  { href: "/steps", label: "Steps" },
-  { href: "/voices", label: "Voices" },
+  { href: "/about", label: "POLARISSとは" },
+  { href: "/howto", label: "使い方" },
+  { href: "/compare", label: "比較する" },
+  { href: "/price", label: "料金" },
+  { href: "/voices", label: "利用者の声" },
+  { href: "/articles", label: "盗難対策ガイド" },
   { href: "/faq", label: "FAQ" },
+  { href: "/contact", label: "お問い合わせ" },
 ];
+
+const spriteHref = "/sprite.svg#pl-logo"; // fallback if external sprite not loaded, we inline below
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -30,70 +32,85 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="site-header">
-        <Link className="brand brand-left" href="/" aria-label="POLARISS home">
-          <img src={newLogo.src} alt="POLARISS" />
-        </Link>
+      {/* Inline sprite - hidden but required for <use href="#pl-logo"> */}
+      <svg className="pl-sprite" aria-hidden="true" focusable="false" style={{ position: "absolute", width: 0, height: 0, overflow: "hidden" }}>
+        <symbol id="pl-logo" viewBox="62.5 38 946 106" fillRule="nonzero">
+          <path d="M 495.320 73.5 L 491.5 92.593 L 487.679 73.5 L 491.5 54.406 Z M 495.320 73.5" />
+          <path d="M 491.5 71.781 L 517.656 73.5 L 491.5 75.218 L 465.343 73.5 Z M 491.5 71.781" />
+          <path d="M 493.796 71.203 L 502.976 84.976 L 489.203 75.796 L 480.023 62.023 Z M 493.796 71.203" />
+          <path d="M 489.203 71.203 L 502.976 62.023 L 493.796 75.796 L 480.023 84.976 Z M 489.203 71.203" />
+          <path d="M 442.378 93.621 L 543.179 93.621 L 543.179 56.187 C 543.179 54.632 542.484 53.289 541.101 52.167 C 539.714 51.046 538.058 50.484 536.132 50.484 L 449.425 50.484 C 447.496 50.484 445.839 51.046 444.457 52.167 C 443.070 53.289 442.378 54.632 442.378 56.187 Z M 449.425 38.640 L 536.132 38.640 C 542.152 38.640 547.269 40.347 551.484 43.761 C 555.699 47.171 557.812 51.316 557.812 56.187 L 557.812 143.917 L 543.179 143.917 L 543.179 105.464 L 442.378 105.464 L 442.378 143.917 L 427.746 143.917 L 427.746 56.187 C 427.746 51.316 429.855 47.171 434.070 43.761 C 438.285 40.347 443.402 38.640 449.425 38.640" />
+          <path d="M 592.671 92.742 L 679.378 92.742 C 681.304 92.742 682.929 92.207 684.257 91.136 C 685.582 90.062 686.246 88.746 686.246 87.187 L 686.246 56.335 C 686.246 54.777 685.582 53.433 684.257 52.312 C 682.929 51.195 681.304 50.632 679.378 50.632 L 592.671 50.632 C 590.746 50.632 589.089 51.195 587.703 52.312 C 586.320 53.433 585.628 54.777 585.628 56.335 L 585.628 87.187 C 585.628 88.746 586.320 90.062 587.703 91.136 C 589.089 92.207 590.746 92.742 592.671 92.742 M 701.058 56.335 L 701.058 87.187 C 701.058 92.062 698.949 96.203 694.734 99.613 C 690.519 103.027 685.402 104.734 679.378 104.734 L 659.511 104.734 L 700.335 143.917 L 681.007 143.917 L 640.363 104.734 L 592.671 104.734 C 591.589 104.734 589.238 104.539 585.628 104.148 L 585.628 143.917 L 570.996 143.917 L 570.996 38.789 L 679.378 38.789 C 685.402 38.789 690.519 40.496 694.734 43.906 C 698.949 47.320 701.058 51.460 701.058 56.335" />
+          <path d="M 713.160 38.644 L 727.792 38.644 L 727.792 143.917 L 713.160 143.917 Z M 713.160 38.644" />
+          <path d="M 871.035 56.187 L 871.035 60.281 L 856.406 60.281 L 856.406 56.187 C 856.406 54.632 855.710 53.289 854.328 52.167 C 852.941 51.046 851.285 50.484 849.359 50.484 L 762.652 50.484 C 760.722 50.484 759.066 51.046 757.683 52.167 C 756.300 53.289 755.605 54.632 755.605 56.187 L 755.605 79.730 C 755.605 81.289 756.300 82.605 757.683 83.679 C 759.066 84.75 760.722 85.285 762.652 85.285 L 849.359 85.285 C 855.378 85.285 860.496 86.992 864.714 90.402 C 868.929 93.816 871.035 97.960 871.035 102.832 L 871.035 126.371 C 871.035 131.246 868.929 135.390 864.714 138.800 C 860.496 142.214 855.378 143.917 849.359 143.917 L 762.652 143.917 C 756.628 143.917 751.511 142.214 747.296 138.800 C 743.082 135.390 740.976 131.246 740.976 126.371 L 740.976 122.277 L 755.605 122.277 L 755.605 126.371 C 755.605 127.933 756.300 129.273 757.683 130.394 C 759.066 131.515 760.722 132.074 762.652 132.074 L 849.359 132.074 C 851.285 132.074 852.941 131.515 854.328 130.394 C 855.710 129.273 856.406 127.933 856.406 126.371 L 856.406 102.832 C 856.406 101.273 855.710 99.957 854.328 98.882 C 852.941 97.812 851.285 97.277 849.359 97.277 L 762.652 97.277 C 756.628 97.277 751.511 95.570 747.296 92.156 C 743.082 88.746 740.976 84.605 740.976 79.730 L 740.976 56.187 C 740.976 51.316 743.082 47.171 747.296 43.761 C 751.511 40.347 756.628 38.644 762.652 38.644 L 849.359 38.644 C 855.378 38.644 860.496 40.347 864.714 43.761 C 868.929 47.171 871.035 51.316 871.035 56.187" />
+          <path d="M 1008.683 56.187 L 1008.683 60.281 L 994.050 60.281 L 994.050 56.187 C 994.050 54.632 993.359 53.289 991.972 52.167 C 990.589 51.046 988.933 50.484 987.007 50.484 L 900.300 50.484 C 898.371 50.484 896.714 51.046 895.332 52.167 C 893.945 53.289 893.253 54.632 893.253 56.187 L 893.253 79.730 C 893.253 81.289 893.945 82.605 895.332 83.679 C 896.714 84.75 898.371 85.285 900.300 85.285 L 987.007 85.285 C 993.027 85.285 998.144 86.992 1002.363 90.402 C 1006.578 93.816 1008.683 97.960 1008.683 102.832 L 1008.683 126.371 C 1008.683 131.246 1006.578 135.390 1002.363 138.800 C 998.144 142.214 993.027 143.917 987.007 143.917 L 900.300 143.917 C 894.277 143.917 889.160 142.214 884.945 138.800 C 880.730 135.390 878.621 131.246 878.621 126.371 L 878.621 122.277 L 893.253 122.277 L 893.253 126.371 C 893.253 127.933 893.945 129.273 895.332 130.394 C 896.714 131.515 898.371 132.074 900.300 132.074 L 987.007 132.074 C 988.933 132.074 990.589 131.515 991.972 130.394 C 993.359 129.273 994.050 127.933 994.050 126.371 L 994.050 102.832 C 994.050 101.273 993.359 99.957 991.972 98.882 C 990.589 97.812 988.933 97.277 987.007 97.277 L 900.300 97.277 C 894.277 97.277 889.160 95.570 884.945 92.156 C 880.730 88.746 878.621 84.605 878.621 79.730 L 878.621 56.187 C 878.621 51.316 880.730 47.171 884.945 43.761 C 889.160 40.347 894.277 38.644 900.300 38.644 L 987.007 38.644 C 993.027 38.644 998.144 40.347 1002.363 43.761 C 1006.578 47.171 1008.683 51.316 1008.683 56.187" />
+          <path d="M 342 144 C 342.07 108.855 342.144 73.71 342.214 38.566 L 359.574 38.566 L 359.574 144 Z M 342 144" />
+        </symbol>
+        <symbol id="pl-star" viewBox="0 0 56 56" fillRule="nonzero">
+          <g transform="translate(-463.5 -45.5)">
+            <path d="M 495.320 73.5 L 491.5 92.593 L 487.679 73.5 L 491.5 54.406 Z M 495.320 73.5" />
+            <path d="M 491.5 71.781 L 517.656 73.5 L 491.5 75.218 L 465.343 73.5 Z M 491.5 71.781" />
+            <path d="M 493.796 71.203 L 502.976 84.976 L 489.203 75.796 L 480.023 62.023 Z M 493.796 71.203" />
+            <path d="M 489.203 71.203 L 502.976 62.023 L 493.796 75.796 L 480.023 84.976 Z M 489.203 71.203" />
+          </g>
+        </symbol>
+      </svg>
 
-        <nav className="desktop-nav" aria-label="Primary navigation">
-          {navItems.map((item) => {
-            const isActive =
-              item.href === "/"
-                ? pathname === "/"
-                : pathname === item.href || pathname.startsWith(`${item.href}/`);
+      <header className="hdr">
+        <div className="hdr-in">
+          <Link className="logo" href="/" aria-label="POLARISS ホーム">
+            <svg className="wordmark" viewBox="0 0 946 106" aria-hidden="true">
+              <use href="#pl-logo" />
+            </svg>
+          </Link>
 
-            return (
-              <Link
-                className={isActive ? "is-active" : undefined}
-                href={item.href}
-                key={item.href}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
+          <nav className="nav" aria-label="Primary navigation">
+            {navItems.map((item) => {
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname === item.href || pathname.startsWith(`${item.href}/`);
+              return (
+                <Link
+                  href={item.href}
+                  key={item.href}
+                  style={isActive ? { color: "var(--ink)", fontWeight: 900 } : undefined}
+                  onClick={closeMenu}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
 
-        <div className="header-actions header-actions-right">
-          <a target="_blank" className="button button-small button-primary" href={siteConfig.buyNowUrl}>
-            Buy Now <span aria-hidden="true">↗</span>
-          </a>
-          <button
-            className="menu-button"
-            type="button"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            onClick={() => setMenuOpen((current) => !current)}
-          >
-            <span />
-            <span />
-          </button>
+          <div className="hdr-cta">
+            <Link href="/order" className="btn btn-fill">
+              購入
+            </Link>
+            <button
+              className={`burger ${menuOpen ? "open" : ""}`}
+              type="button"
+              aria-expanded={menuOpen}
+              aria-controls="mnav"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              onClick={() => setMenuOpen((v) => !v)}
+            >
+              <span />
+            </button>
+          </div>
         </div>
-      </header>
 
-      <div
-        className={`mobile-menu ${menuOpen ? "is-open" : ""}`}
-        id="mobile-menu"
-        aria-hidden={!menuOpen}
-      >
-        <nav aria-label="Mobile navigation">
-          {navItems.map((item, index) => (
+        <div className={`mnav ${menuOpen ? "open" : ""}`} id="mnav">
+          {navItems.map((item) => (
             <Link href={item.href} key={item.href} onClick={closeMenu}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
               {item.label}
             </Link>
           ))}
-        </nav>
-        <div className="mobile-menu-actions">
-          <a  target="_blank" className="button button-primary" href={siteConfig.buyNowUrl}>
-            Buy Now
-          </a>
-          <a className="button button-ghost" href={siteConfig.partnerUrl}>
-            Partner
-          </a>
+          <Link href="/order" onClick={closeMenu}>
+            購入
+          </Link>
         </div>
-      </div>
+      </header>
     </>
   );
 }

@@ -1,50 +1,45 @@
 import Link from "next/link";
-
-import companyNameImg from "../../../public/images/company-name.jpg";
-
-import { footerSections } from "@/lib/content";
-import { siteConfig } from "@/lib/site-config";
+import "../landing/styles/footer.css";
 
 export function SiteFooter() {
   return (
-    <footer className="site-footer">
-      <div className="shell footer-top">
-        <div className="footer-brand">
-          <img src={companyNameImg.src} alt="POLARISS" />
-          <p>LINE + GPS SMART VEHICLE SECURITY</p>
-        </div>
-
-        <div className="footer-links">
-          {footerSections.map((section) => (
-            <div key={section.title}>
-              <h3>{section.title}</h3>
-              {section.links.map((link) =>
-                link.external ? (
-                  <a href={link.href} key={link.href}>
-                    {link.label}
-                  </a>
-                ) : (
-                  <Link href={link.href} key={link.href}>
-                    {link.label}
-                  </Link>
-                ),
-              )}
+    <footer>
+      <div className="wrap">
+        <div className="ft-top">
+          <div className="ft-brand">
+            <div className="logo">
+              <svg className="wordmark" viewBox="0 0 946 106" aria-hidden="true">
+                <use href="#pl-logo" />
+              </svg>
             </div>
-          ))}
-          <div>
-            <h3>Origin</h3>
-            <a href={siteConfig.originalSiteUrl}>Original Site</a>
-         
+            <p>愛車の移動を検知して、LINEへ通知。クルマ・バイクのための盗難対策サービス。</p>
+          </div>
+          <div className="ft-cols">
+            <div className="ft-col">
+              <b>SERVICE</b>
+              <Link href="/">POLARISSとは</Link>
+              <Link href="/steps">使い方</Link>
+              <Link href="/compare">比較する</Link>
+              <Link href="/order">料金</Link>
+            </div>
+            <div className="ft-col">
+              <b>CONTENT</b>
+              <Link href="/voices">利用者の声</Link>
+              <Link href="/articles">盗難対策ガイド</Link>
+              <Link href="/faq">FAQ</Link>
+            </div>
+            <div className="ft-col">
+              <b>COMPANY / LEGAL</b>
+              <a href="/company">運営会社：株式会社OWL-TY</a>
+              <Link href="/contact">お問い合わせ</Link>
+              <Link href="/commerce">特定商取引法に基づく表記</Link>
+              <Link href="/privacy">個人情報保護方針</Link>
+              <Link href="/terms">利用規約</Link>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div className="shell footer-bottom">
-        <p>© POLARISS.NET All Rights Reserved.</p>
-        <div>
-          <Link href="/">Home</Link>
-          <Link href="/articles">Articles</Link>
-          <Link href="/faq">FAQ</Link>
+        <div className="ft-bot">
+          <div>© POLARISS</div>
         </div>
       </div>
     </footer>
