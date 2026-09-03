@@ -1,0 +1,15 @@
+.faq{background:#fff;padding:clamp(72px,9vw,112px) 0}
+.faq-in{max-width:820px;margin:0 auto}
+.faq-hd{text-align:center;margin-bottom:clamp(34px,4.6vw,52px)}
+.acc{border-top:1px solid var(--line)}
+.acc-item{border-bottom:1px solid var(--line)}
+.acc-q{display:flex;align-items:center;gap:20px;width:100%;text-align:left;padding:26px 4px}
+.acc-q span{flex:1;font-size:clamp(16px,1.4vw,19px);font-weight:700;line-height:1.6}
+.acc-q i{font-style:normal;font-size:24px;font-weight:300;color:var(--gray);line-height:1;flex:none;
+  transition:transform .35s var(--ease)}
+.acc-item.open .acc-q i{transform:rotate(45deg)}
+.acc-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s var(--ease)}
+.acc-item.open .acc-a{grid-template-rows:1fr}
+.acc-a>div{overflow:hidden}
+.acc-a p{margin:0;padding:0 4px 28px;font-size:15.5px;line-height:1.95;color:#57574F;max-width:44em;font-weight:500}
+.faq-more{text-align:center;margin-top:40px}

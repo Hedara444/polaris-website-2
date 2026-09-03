@@ -1,0 +1,12 @@
+.final{position:relative;min-height:clamp(420px,48vw,560px);display:flex;align-items:center;overflow:hidden}
+.final .bgfill{background-image:var(--i-emotion);background-position:72% 30%}
+.final .scrim{position:absolute;inset:0;
+  background:linear-gradient(92deg,rgba(15,15,14,.9) 0%,rgba(15,15,14,.82) 44%,rgba(15,15,14,.52) 62%,rgba(15,15,14,.2) 82%,rgba(15,15,14,.12) 100%)}
+.final-in{position:relative;z-index:3;width:100%;max-width:800px;padding-left:var(--pad);padding-right:24px}
+.final h2{margin:0;font-size:clamp(26px,3.7vw,48px);font-weight:900;line-height:1.42;color:#fff}
+.final p{margin:24px 0 0;font-size:clamp(15px,1.2vw,18px);line-height:1.9;color:rgba(255,255,255,.9);font-weight:500}
+.final-btns{display:flex;gap:13px;flex-wrap:wrap;margin-top:clamp(28px,3.4vw,38px)}
+@media(max-width:900px){
+  .final .bgfill{background-position:72% 40%}
+  .final-in{padding:70px var(--pad);max-width:none}
+}

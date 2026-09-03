@@ -1,0 +1,13 @@
+.emotion{position:relative;min-height:clamp(430px,58vw,640px);display:flex;align-items:center;overflow:hidden}
+.emotion .bgfill{background-image:var(--i-emotion);background-position:58% 48%}
+.emotion .scrim{position:absolute;inset:0;
+  background:linear-gradient(94deg,rgba(255,255,255,.98) 0%,rgba(255,255,255,.96) 44%,rgba(255,255,255,.85) 52%,rgba(255,255,255,.35) 61%,rgba(255,255,255,0) 71%)}
+.emotion-in{position:relative;z-index:3;width:100%;max-width:830px;padding-left:var(--pad);padding-right:24px}
+.emotion h2{margin:0;font-size:clamp(26px,3.4vw,45px);font-weight:900;line-height:1.44}
+.emotion p{margin:26px 0 0;font-size:clamp(15px,1.15vw,17px);line-height:2.05;color:#454541;font-weight:500}
+@media(max-width:900px){
+  .emotion{min-height:0;padding:0}
+  .emotion .bgfill{background-position:66% 46%}
+  .emotion .scrim{background:linear-gradient(180deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.93) 48%,rgba(255,255,255,.55) 78%,rgba(255,255,255,.2) 100%)}
+  .emotion-in{padding:64px var(--pad) 190px;max-width:none}
+}

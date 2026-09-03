@@ -1,0 +1,15 @@
+footer{background:#1B1B19;color:#B9B9B1;padding:clamp(52px,6vw,70px) 0 108px}
+.ft-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid #333330}
+.ft-brand{max-width:330px}
+.ft-brand .logo b{color:#fff}
+.ft-brand p{margin:16px 0 0;font-size:14px;line-height:1.9;color:#93938C;font-weight:500}
+.ft-cols{display:flex;gap:clamp(32px,5vw,64px);flex-wrap:wrap}
+.ft-col{display:flex;flex-direction:column;gap:12px;font-size:14px}
+.ft-col b{color:#fff;font-weight:700;margin-bottom:2px}
+.ft-col a{color:#A6A69E;transition:color .2s}
+.ft-col a:hover{color:#fff}
+.ft-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+  padding-top:26px;font-size:12.5px;color:#77776F}
+.ft-bot .lg{display:flex;gap:22px;flex-wrap:wrap}
+.ft-bot a{color:#77776F}
+.ft-bot a:hover{color:#B9B9B1}
