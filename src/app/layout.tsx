@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { siteConfig } from "@/lib/site-config";
 
 import "./globals.css";
+import "./other-pages.css";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
