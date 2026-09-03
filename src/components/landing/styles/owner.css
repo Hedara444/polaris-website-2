@@ -1,0 +1,12 @@
+.owner{display:grid;grid-template-columns:57% 43%;background:#ECEBE7}
+.owner-img{position:relative;min-height:clamp(340px,48vw,640px)}
+.owner-img .bgfill{background-image:var(--i-owner);background-position:46% 52%}
+.owner-txt{padding:clamp(52px,6vw,96px) clamp(24px,5vw,80px);display:flex;flex-direction:column;justify-content:center}
+.quotemark{font-family:var(--num);font-size:clamp(52px,6vw,78px);font-weight:800;color:var(--gray);line-height:.55;margin-bottom:12px}
+.owner-txt h2{margin:0;font-size:clamp(22px,2.6vw,35px);font-weight:900;line-height:1.62}
+.owner-who{font-size:15px;color:#77776F;font-weight:700;margin-top:26px}
+.owner-meta{margin-top:32px;padding-top:28px;border-top:1px solid #D8D7D1}
+.owner-meta dt{font-size:13px;font-weight:700;color:#9A9A93;margin-bottom:5px}
+.owner-meta dd{margin:0 0 18px;font-size:15.5px;color:#484844;line-height:1.75;font-weight:500}
+.owner-meta dd:last-child{margin-bottom:0}
+@media(max-width:900px){.owner{grid-template-columns:1fr}}
