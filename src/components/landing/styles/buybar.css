@@ -1,0 +1,18 @@
+.buybar{position:fixed;left:0;right:0;bottom:0;z-index:70;background:rgba(20,20,19,.96);
+  backdrop-filter:blur(10px);color:#fff;transform:translateY(115%);transition:transform .45s var(--ease);
+  padding-bottom:env(safe-area-inset-bottom)}
+.buybar.show{transform:none}
+.buybar-in{display:flex;align-items:center;gap:18px;padding:12px var(--pad)}
+.buybar .devimg{width:44px;flex:none}
+.buybar .txt{min-width:0}
+.buybar .txt b{display:block;font-size:14px;font-weight:700;letter-spacing:.02em}
+.buybar .txt small{display:block;font-size:12px;color:#A8A8A0;margin-top:2px;font-weight:600}
+.buybar .btn{margin-left:auto;height:46px;padding:0 26px;font-size:15px}
+@media(max-width:640px){
+  .buybar .devimg{display:none}
+  .buybar-in{gap:12px;padding:10px 16px}
+  .buybar .txt b{font-size:13.5px}
+  .buybar .d-lg{display:none}
+  .buybar .txt small{font-size:11px}
+  .buybar .btn{height:44px;padding:0 18px;font-size:14px}
+}

@@ -1,0 +1,31 @@
+.data{position:relative;background:var(--dark);color:#fff;padding:clamp(76px,9vw,118px) 0;overflow:hidden}
+.data-bg{position:absolute;inset:0;opacity:.13}
+.data-bg .bgfill{background-image:var(--i-route);background-position:50% 40%}
+.data-in{position:relative;z-index:2}
+.data .eyebrow{color:#A9A9A2}
+.data h2{margin:0;font-size:clamp(30px,4.4vw,58px);font-weight:900;line-height:1.26;color:#fff}
+.figs{display:flex;gap:clamp(26px,5vw,84px);flex-wrap:wrap;align-items:flex-start;margin-top:clamp(38px,5vw,62px)}
+.fig .v{display:flex;align-items:baseline;gap:6px}
+.fig .v .n{font-family:var(--num);font-weight:800;font-size:clamp(64px,10.4vw,158px);line-height:.84;
+  letter-spacing:-.035em;color:#fff}
+.fig .v .u{font-size:clamp(18px,2.2vw,32px);font-weight:700;color:#fff}
+.fig .lab{font-size:clamp(13px,1vw,16px);color:#BEBEB6;margin-top:14px;font-weight:600;line-height:1.6}
+.figdiv{width:1px;height:clamp(70px,9vw,132px);background:#3B3B37}
+.data-side{max-width:360px;margin:clamp(16px,2vw,26px) 0 0 auto}
+.data-side p{margin:0 0 22px;font-size:15px;line-height:1.85;color:#C6C6BE;font-weight:500}
+.data-sub{margin:20px 0 0;font-size:clamp(15px,1.45vw,21px);font-weight:700;color:#CFCFC7;line-height:1.6}
+.fig .trend{display:inline-flex;align-items:center;gap:5px;margin-left:clamp(8px,1vw,16px);font-size:12px;
+  font-weight:700;color:#DEDED6;border:1px solid #47474A;border-radius:20px;padding:4px 11px;vertical-align:middle}
+.fig .micro{margin-top:12px;font-size:12.5px;line-height:1.8;color:#95958E;font-weight:500;max-width:23em}
+.twopt{margin-top:20px;max-width:300px}
+.tp{display:grid;grid-template-columns:38px 1fr 56px;align-items:center;gap:10px;margin-top:9px}
+.tp .y{font-family:var(--num);font-size:11.5px;font-weight:700;color:#8E8E87}
+.tp .bar{display:block;height:8px;border-radius:4px;background:rgba(255,255,255,.06)}
+.tp .bar i{display:block;height:100%;border-radius:4px;background:#4E4E47;transform:scaleX(0);transform-origin:0 50%;
+  transition:transform 1s var(--ease) .25s}
+.twopt.in .bar i{transform:scaleX(1)}
+.tp.now .bar i{background:#EDEDE6}
+.tp .v{font-family:var(--num);font-size:12.5px;font-weight:800;color:#B9B9B1;text-align:right}
+.tp.now .v{color:#fff}
+.data-note{margin:clamp(24px,3vw,34px) 0 0;font-size:12px;color:#86867F;font-weight:500;line-height:1.8;max-width:60em}
+@media(max-width:900px){.data-side{margin-left:0;max-width:none}.figdiv{display:none}.figs{gap:34px}}
