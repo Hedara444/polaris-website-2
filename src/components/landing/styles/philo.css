@@ -1,0 +1,10 @@
+.philo{background:#fff;padding:clamp(72px,9.4vw,124px) 0;text-align:center}
+.philo-in{max-width:1140px;margin:0 auto}
+.philo h2{margin:0;font-size:clamp(24px,3.5vw,46px);font-weight:900;line-height:1.44}
+.philo .dim{color:#9B9B94}
+.means{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:clamp(10px,1.6vw,22px);
+  margin:clamp(26px,3vw,38px) 0 0}
+.means span{font-size:clamp(12.5px,1vw,15px);font-weight:700;color:#8F8F88;letter-spacing:.06em}
+.means u{width:4px;height:4px;border-radius:50%;background:#D2CFC6;text-decoration:none;flex:none}
+.philo hr{width:1px;height:clamp(38px,5vw,58px);background:#DCD9D1;border:0;margin:clamp(32px,4.4vw,48px) auto}
+.philo .turn{font-size:clamp(15px,1.4vw,19px);color:var(--gray);font-weight:700;margin-bottom:16px}
