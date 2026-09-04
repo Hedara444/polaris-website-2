@@ -4,6 +4,7 @@ import { ArticleCard } from "@/components/public/ArticleCard";
 import { defaultKeywords } from "@/lib/site-config";
 import { buildMetadata } from "@/lib/seo";
 import { getCategoryList, listPublishedArticles } from "@/server/content-service";
+import "./articles.css";
 
 export const metadata = buildMetadata({
   title: "POLARISS | Articles",

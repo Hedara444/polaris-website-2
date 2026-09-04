@@ -1,5 +1,6 @@
 import { siteConfig, defaultKeywords } from "@/lib/site-config";
 import { buildMetadata } from "@/lib/seo";
+import "./order.css";
 
 export const metadata = buildMetadata({
   title: "POLARISS | ご注文 (Purchase)",

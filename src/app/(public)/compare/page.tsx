@@ -6,6 +6,7 @@ import { buildMetadata } from "@/lib/seo";
 
 import { TABLE_ROWS } from "./compare-data";
 import { MobileCompare, RevealObserver, ScenarioInteractive } from "./CompareInteractive";
+import "./compare.css";
 
 export const metadata = buildMetadata({
   title: "POLARISS | 比較する",

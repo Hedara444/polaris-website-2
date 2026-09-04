@@ -3,6 +3,7 @@ import Link from "next/link";
 import { testimonials } from "@/lib/content";
 import { defaultKeywords } from "@/lib/site-config";
 import { buildMetadata } from "@/lib/seo";
+import "./voices.css";
 
 export const metadata = buildMetadata({
   title: "POLARISS | 利用者の声",
@@ -30,7 +31,7 @@ function parseTestimonial(text: string, idx: number) {
 
 export default function VoicesPage() {
   return (
-    <main>
+    <main id="top">
       <section className="ohero">
         <div className="ohero-in wrap">
           <div className="crumb">
@@ -76,33 +77,29 @@ export default function VoicesPage() {
 
       <section className="onote">
         <div className="wrap">
-          <p>
-            当社ではサービス向上のため、利用者様に定期的にご意見を伺っております。
-            <br />
-            お答えくださった利用者様の声をご紹介いたします。
-          </p>
-          <p style={{ marginTop: 16, fontSize: 12, color: "var(--ink3)" }}>
-            ※掲載内容は個人の感想です。効果を保証するものではありません。
-          </p>
+          <p className="rv in">※POLARISSは、盗難の防止や車両の発見・回収を保証するサービスではありません。</p>
         </div>
       </section>
 
       <section className="ofin" id="final">
-        <div className="wrap">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 24, flexWrap: "wrap" }}>
-            <div>
-              <p className="kicker">NEXT</p>
-              <h2 style={{ marginTop: 12, fontSize: 24, fontWeight: 900 }}>利用者の声をもっと見る</h2>
-              <p style={{ marginTop: 12, color: "var(--ink2)", lineHeight: 1.8 }}>他のお客様の体験談や、導入のきっかけも随時更新しています。</p>
-            </div>
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <Link href="/order" className="btn btn-fill">
-                購入
-              </Link>
-              <Link href="/faq" className="btn btn-line">
-                FAQを見る
-              </Link>
-            </div>
+        <div className="bgfill" role="img" aria-label="愛車と過ごす時間"></div>
+        <div className="scrim"></div>
+        <div className="ofin-in">
+          <h2 className="rv in">
+            あなたの愛車にも、
+            <br />
+            もしもの備えを。
+          </h2>
+          <p className="rv in">
+            停める場所も、乗り方も違います。それでも、動かされたことに気づけるという一点は、多くの利用者にとって大切な備えになります。
+          </p>
+          <div className="ofin-btns rv in">
+            <Link href="/order" className="btn btn-white">
+              購入
+            </Link>
+            <Link href="/howto" className="btn btn-ghost">
+              使い方を見る
+            </Link>
           </div>
         </div>
       </section>

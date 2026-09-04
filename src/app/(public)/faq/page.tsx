@@ -3,6 +3,7 @@ import Link from "next/link";
 import { defaultKeywords } from "@/lib/site-config";
 import { buildMetadata } from "@/lib/seo";
 import { getPublishedFaqs } from "@/server/content-service";
+import "./faq.css";
 
 export const metadata = buildMetadata({
   title: "POLARISS | よくあるご質問",

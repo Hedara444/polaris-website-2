@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import "@/components/landing/styles/price-page.css";
+import "./price.css";
 import { PriceInteractions } from "./PriceInteractions";
 
 export const metadata = buildMetadata({

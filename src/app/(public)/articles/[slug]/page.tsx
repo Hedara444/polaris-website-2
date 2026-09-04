@@ -4,6 +4,7 @@ import { defaultKeywords } from "@/lib/site-config";
 import { buildContentMetadata } from "@/lib/seo";
 import { formatDate, resolveDirection } from "@/lib/utils";
 import { getArticleBySlug } from "@/server/content-service";
+import "../articles.css";
 
 function decodeSlug(slug: string) {
   try {
