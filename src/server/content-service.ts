@@ -6,6 +6,7 @@ import type {
   DashboardStats,
   FaqEditorInput,
   FaqItem,
+  FaqCategoryItem,
   PaginationResult,
 } from "@/lib/types";
 import { parseKeywords, slugify } from "@/lib/utils";
@@ -34,6 +35,8 @@ interface FaqRow {
   id: number;
   question: string;
   answer: string;
+  category_id: number | null;
+  category_name: string | null;
   sort_order: number;
   status: "draft" | "published";
   updated_at: string;
@@ -59,6 +62,8 @@ function mapFaq(row: FaqRow, keywords: string[]): FaqItem {
     id: Number(row.id),
     question: row.question,
     answer: row.answer,
+    categoryId: row.category_id ? Number(row.category_id) : null,
+    categoryName: row.category_name,
     keywords,
     sortOrder: Number(row.sort_order),
     status: row.status,
@@ -113,10 +118,12 @@ export async function getCategoryList() {
 
 export async function getPublishedFaqs(limit?: number) {
   const sql = `
-    SELECT id, question, answer, sort_order, status, updated_at
+    SELECT faq_items.id, faq_items.question, faq_items.answer, faq_items.category_id,
+           faq_categories.name as category_name, faq_items.sort_order, faq_items.status, faq_items.updated_at
     FROM faq_items
-    WHERE status = 'published'
-    ORDER BY sort_order ASC, updated_at DESC
+    LEFT JOIN faq_categories ON faq_categories.id = faq_items.category_id
+    WHERE faq_items.status = 'published' AND faq_items.category_id IS NOT NULL
+    ORDER BY faq_items.sort_order ASC, faq_items.updated_at DESC
     ${typeof limit === "number" ? `LIMIT ${limit}` : ""}
   `;
   const rows = await queryRows<FaqRow>(sql);
@@ -128,7 +135,11 @@ export async function getPublishedFaqs(limit?: number) {
 
 export async function getAdminFaqs() {
   const rows = await queryRows<FaqRow>(
-    "SELECT id, question, answer, sort_order, status, updated_at FROM faq_items ORDER BY sort_order ASC, updated_at DESC",
+    `SELECT faq_items.id, faq_items.question, faq_items.answer, faq_items.category_id,
+            faq_categories.name as category_name, faq_items.sort_order, faq_items.status, faq_items.updated_at
+     FROM faq_items
+     LEFT JOIN faq_categories ON faq_categories.id = faq_items.category_id
+     ORDER BY faq_items.sort_order ASC, faq_items.updated_at DESC`
   );
 
   return Promise.all(
@@ -138,7 +149,11 @@ export async function getAdminFaqs() {
 
 export async function getFaqById(id: number) {
   const row = await queryFirst<FaqRow>(
-    "SELECT id, question, answer, sort_order, status, updated_at FROM faq_items WHERE id = ?",
+    `SELECT faq_items.id, faq_items.question, faq_items.answer, faq_items.category_id,
+            faq_categories.name as category_name, faq_items.sort_order, faq_items.status, faq_items.updated_at
+     FROM faq_items
+     LEFT JOIN faq_categories ON faq_categories.id = faq_items.category_id
+     WHERE faq_items.id = ?`,
     [id],
   );
 
@@ -356,14 +371,55 @@ export async function deleteArticle(id: number) {
   });
 }
 
+export async function getFaqCategories() {
+  return queryRows<FaqCategoryItem>(
+    "SELECT id, name, slug, keywords, sort_order as sortOrder FROM faq_categories ORDER BY sort_order ASC",
+  );
+}
+
+export async function getFaqCategoryById(id: number) {
+  return queryFirst<FaqCategoryItem>(
+    "SELECT id, name, slug, keywords, sort_order as sortOrder FROM faq_categories WHERE id = ?",
+    [id],
+  );
+}
+
+export async function upsertFaqCategory(id: number | null, input: import("@/lib/types").FaqCategoryEditorInput) {
+  const slug = slugify(input.name);
+  
+  return runInTransaction(async (db) => {
+    if (id) {
+      await db.run(
+        "UPDATE faq_categories SET name = ?, slug = ?, keywords = ?, sort_order = ?, updated_at = ? WHERE id = ?",
+        [input.name, slug, input.keywords, input.sortOrder, nowIso(), id],
+      );
+      return id;
+    }
+
+    await db.run(
+      "INSERT INTO faq_categories (name, slug, keywords, sort_order, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
+      [input.name, slug, input.keywords, input.sortOrder, nowIso(), nowIso()],
+    );
+    const inserted = await db.exec("SELECT last_insert_rowid() as id");
+    return Number(inserted[0].values[0][0]);
+  });
+}
+
+export async function deleteFaqCategory(id: number) {
+  await runInTransaction(async (db) => {
+    // When a category is deleted, ON DELETE SET NULL should handle the foreign key in faq_items
+    await db.run("DELETE FROM faq_categories WHERE id = ?", [id]);
+  });
+}
+
 export async function upsertFaq(id: number | null, input: FaqEditorInput) {
   const keywords = parseKeywords(input.keywords);
 
   const faqId = await runInTransaction(async (db) => {
     if (id) {
       await db.run(
-        "UPDATE faq_items SET question = ?, answer = ?, sort_order = ?, status = ?, updated_at = ? WHERE id = ?",
-        [input.question, input.answer, input.sortOrder, input.status, nowIso(), id],
+        "UPDATE faq_items SET question = ?, answer = ?, category_id = ?, sort_order = ?, status = ?, updated_at = ? WHERE id = ?",
+        [input.question, input.answer, input.categoryId, input.sortOrder, input.status, nowIso(), id],
       );
       await db.run("DELETE FROM faq_keywords WHERE faq_id = ?", [id]);
       for (const keyword of keywords) {
@@ -373,8 +429,8 @@ export async function upsertFaq(id: number | null, input: FaqEditorInput) {
     }
 
     await db.run(
-      "INSERT INTO faq_items (question, answer, sort_order, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
-      [input.question, input.answer, input.sortOrder, input.status, nowIso(), nowIso()],
+      "INSERT INTO faq_items (question, answer, category_id, sort_order, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [input.question, input.answer, input.categoryId, input.sortOrder, input.status, nowIso(), nowIso()],
     );
     const inserted = await db.exec("SELECT last_insert_rowid() as id");
     const newId = Number(inserted[0].values[0][0]);

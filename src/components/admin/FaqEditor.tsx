@@ -3,20 +3,21 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import type { FaqEditorInput, FaqItem } from "@/lib/types";
+import type { FaqEditorInput, FaqItem, FaqCategoryItem } from "@/lib/types";
 import { parseKeywords } from "@/lib/utils";
 
 function toEditorState(faq?: FaqItem | null): FaqEditorInput {
   return {
     question: faq?.question ?? "",
     answer: faq?.answer ?? "",
+    categoryId: faq?.categoryId ?? null,
     keywords: faq?.keywords ?? [],
     sortOrder: faq?.sortOrder ?? 1,
     status: faq?.status ?? "published",
   };
 }
 
-export function FaqEditor({ faq }: { faq?: FaqItem | null }) {
+export function FaqEditor({ faq, categories = [] }: { faq?: FaqItem | null, categories?: FaqCategoryItem[] }) {
   const router = useRouter();
   const [form, setForm] = useState<FaqEditorInput>(toEditorState(faq));
   const [keywordsInput, setKeywordsInput] = useState((faq?.keywords ?? []).join(", "));
@@ -96,6 +97,24 @@ export function FaqEditor({ faq }: { faq?: FaqItem | null }) {
         </label>
 
         <div className="field-grid">
+          <label className="field">
+            <span>Category</span>
+            <select
+              value={form.categoryId ?? ""}
+              onChange={(event) =>
+                setForm((current) => ({
+                  ...current,
+                  categoryId: event.target.value ? Number(event.target.value) : null,
+                }))
+              }
+            >
+              <option value="">-- No Category --</option>
+              {categories.map(cat => (
+                <option key={cat.id} value={cat.id}>{cat.name}</option>
+              ))}
+            </select>
+          </label>
+
           <label className="field">
             <span>Sort order</span>
             <input

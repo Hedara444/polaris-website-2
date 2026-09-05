@@ -16,9 +16,19 @@ let readyPromise: Promise<void> | null = null;
 function getClient(): Client {
   if (client) return client;
   assertTursoConfig();
+  
+  // Create a custom fetch that bypasses Next.js cache
+  const customFetch = (url: RequestInfo | URL, init?: RequestInit) => {
+    return fetch(url, {
+      ...init,
+      cache: "no-store",
+    });
+  };
+
   client = createClient({
     url: dbConfig.tursoUrl!,
     authToken: dbConfig.tursoAuthToken,
+    fetch: customFetch as any,
   });
   return client;
 }
@@ -250,8 +260,8 @@ async function seedDatabase(c: Client) {
   if (faqCheck.rows.length === 0) {
     for (const faq of seedFaqs) {
       const faqRes = await c.execute({
-        sql: "INSERT INTO faq_items (question, answer, sort_order, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
-        args: [faq.question, faq.answer, faq.sortOrder, "published", nowIso(), nowIso()],
+        sql: "INSERT INTO faq_items (question, answer, category_id, sort_order, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        args: [faq.question, faq.answer, null, faq.sortOrder, "published", nowIso(), nowIso()],
       });
       let faqId = Number(faqRes.lastInsertRowid ?? 0);
       if (!faqId) {

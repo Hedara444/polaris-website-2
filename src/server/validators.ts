@@ -24,7 +24,14 @@ export const articleInputSchema = z.object({
 export const faqInputSchema = z.object({
   question: z.string().min(5),
   answer: z.string().min(5),
+  categoryId: z.number().nullable().default(null),
   keywords: z.array(z.string()).default([]),
   sortOrder: z.number().int(),
   status: z.enum(["draft", "published"]),
+});
+
+export const faqCategoryInputSchema = z.object({
+  name: z.string().min(1),
+  keywords: z.string().default(""),
+  sortOrder: z.number().int().default(0),
 });

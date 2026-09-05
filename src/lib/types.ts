@@ -35,10 +35,26 @@ export interface FaqItem {
   id: number;
   question: string;
   answer: string;
+  categoryId: number | null;
+  categoryName: string | null;
   keywords: string[];
   sortOrder: number;
   status: PublishStatus;
   updatedAt: string;
+}
+
+export interface FaqCategoryItem {
+  id: number;
+  name: string;
+  slug: string;
+  keywords: string;
+  sortOrder: number;
+}
+
+export interface FaqCategoryEditorInput {
+  name: string;
+  keywords: string;
+  sortOrder: number;
 }
 
 export interface StepsFeatureItem {
@@ -65,6 +81,7 @@ export interface TestimonialItem {
 export interface FaqEditorInput {
   question: string;
   answer: string;
+  categoryId: number | null;
   keywords: string[];
   sortOrder: number;
   status: PublishStatus;

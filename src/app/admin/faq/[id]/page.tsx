@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { FaqEditor } from "@/components/admin/FaqEditor";
 import { requireAdminPageAccess } from "@/server/auth";
-import { getFaqById } from "@/server/content-service";
+import { getFaqById, getFaqCategories } from "@/server/content-service";
 
 export default async function EditFaqPage({
   params,
@@ -23,12 +23,14 @@ export default async function EditFaqPage({
     notFound();
   }
 
+  const categories = await getFaqCategories();
+
   return (
     <AdminShell
       title="Edit FAQ item"
       description="Update support content, ordering, and keyword metadata."
     >
-      <FaqEditor faq={faq} />
+      <FaqEditor faq={faq} categories={categories} />
     </AdminShell>
   );
 }

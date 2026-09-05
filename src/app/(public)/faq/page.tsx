@@ -2,8 +2,9 @@ import Link from "next/link";
 
 import { defaultKeywords } from "@/lib/site-config";
 import { buildMetadata } from "@/lib/seo";
-import { getPublishedFaqs } from "@/server/content-service";
+import { getPublishedFaqs, getFaqCategories } from "@/server/content-service";
 import "./faq.css";
+import FaqClient from "./FaqClient";
 
 export const metadata = buildMetadata({
   title: "POLARISS | よくあるご質問",
@@ -14,148 +15,66 @@ export const metadata = buildMetadata({
 
 export default async function FaqPage() {
   const faqs = await getPublishedFaqs();
+  const categories = await getFaqCategories();
+  
+  const groupedFaqs = categories.map(cat => ({
+    ...cat,
+    items: faqs.filter(f => f.categoryId === cat.id)
+  })).filter(cat => cat.items.length > 0);
+
+  const uncategorizedFaqs = faqs.filter(f => !f.categoryId);
+  if (uncategorizedFaqs.length > 0) {
+    groupedFaqs.push({
+      id: 0,
+      name: "その他の質問",
+      slug: "uncategorized",
+      keywords: "",
+      sortOrder: 999,
+      items: uncategorizedFaqs
+    });
+  }
 
   return (
     <main>
-      <section className="qhero">
-        <div className="wrap">
-          <div className="crumb">
-            <Link href="/">ホーム</Link>／<span>よくあるご質問</span>
-          </div>
-        </div>
-        <div className="qhero-in wrap">
-          <p className="kicker">FAQ</p>
-          <h1>よくあるご質問。</h1>
-          <p>購入前から、ご利用中の疑問まで。</p>
-          <div className="qsearch">
-            <label className="visually-hidden" htmlFor="qs" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>
-              質問を検索
-            </label>
-            <input id="qs" type="search" placeholder="キーワードで探す（例：アプリ、充電、解約）" autoComplete="off" disabled />
-            <span className="ic" aria-hidden="true" />
-          </div>
-          <p className="qcount" id="qcount">
-            {faqs.length}件の質問
-          </p>
-        </div>
-      </section>
-
-      <section className="qbody">
-        <div className="wrap qgrid">
-          <aside className="qnav" id="qnav">
-            <span className="k">CATEGORY</span>
-            <a href="#g1">
-              <span>すべて</span>
-              <span className="n">{faqs.length}</span>
-            </a>
-            <a href="#g1">
-              <span>購入前について</span>
-              <span className="n">{faqs.length}</span>
-            </a>
-            <a href="#g1">
-              <span>料金・契約について</span>
-              <span className="n">—</span>
-            </a>
-            <a href="#g1">
-              <span>取り付け・電源について</span>
-              <span className="n">—</span>
-            </a>
-          </aside>
-
-          <div id="qlist">
-            <div className="qchips" id="qchips">
-              <button className="on" data-g="all">
-                すべて
-              </button>
-              <button data-g="g1">購入前</button>
-              <button data-g="g2">料金・契約</button>
-            </div>
-
-            <section className="qgroup" id="g1">
-              <div className="qgroup-hd">
-                <span className="n">01</span>
-                <h2>よくある質問</h2>
-              </div>
-
-              {faqs.map((item, idx) => (
-                <div key={item.id} className={`qitem ${idx === 0 ? "open" : ""}`}>
-                  <button className="qq" aria-expanded={idx === 0 ? "true" : "false"}>
-                    <span>{item.question}</span>
-                    <i>＋</i>
-                  </button>
-                  <div className="qa">
-                    <div>
-                      <div className="in">
-                        <p className="lead" style={{ fontSize: 15, lineHeight: 1.9, color: "#57574F" }}>
-                          {item.answer}
-                        </p>
-                        {item.keywords && item.keywords.length > 0 && (
-                          <p style={{ marginTop: 12, fontSize: 12, color: "var(--gray)" }}>キーワード: {item.keywords.join("、")}</p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-
-              {faqs.length === 0 && (
-                <>
-                  <div className="qitem open">
-                    <button className="qq" aria-expanded="true">
-                      <span>POLARISSはどんなサービスですか？</span>
-                      <i>＋</i>
-                    </button>
-                    <div className="qa">
-                      <div>
-                        <div className="in">
-                          <p className="lead">クルマ・バイクの移動を検知して、いつものLINEへ通知し、地図で位置を確認できるGPS盗難対策サービスです。</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="qitem">
-                    <button className="qq" aria-expanded="false">
-                      <span>毎月いくらかかりますか？</span>
-                      <i>＋</i>
-                    </button>
-                    <div className="qa">
-                      <div>
-                        <div className="in">
-                          <p>月額2,178円（税込）です。</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
-            </section>
-
-            <section className="qgroup" id="g2" style={{ marginTop: 48 }}>
-              <div className="qgroup-hd">
-                <span className="n">02</span>
-                <h2>お困りのときは</h2>
-              </div>
-              <p style={{ color: "var(--ink2)", lineHeight: 1.8, marginTop: 16 }}>
-                解決しない場合は、<Link href="/contact" style={{ textDecoration: "underline", fontWeight: 700 }}>お問い合わせ</Link>よりご連絡ください。管理画面からFAQの並び順や内容を更新できます。
-              </p>
-            </section>
-          </div>
-        </div>
-      </section>
-
-      <section className="ofin" id="final" style={{ padding: "56px 0", background: "var(--warm)" }}>
-        <div className="wrap" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 24, flexWrap: "wrap" }}>
+      <FaqClient groupedFaqs={groupedFaqs} totalFaqs={faqs.length} />
+      
+      <section className="qhelp" id="help">
+        <div className="wrap qhelp-grid">
           <div>
-            <p className="kicker">NEXT</p>
-            <h2 style={{ marginTop: 12, fontSize: 22, fontWeight: 900 }}>他にも気になることがありますか？</h2>
+            <p className="kicker rv in">STILL LOOKING?</p>
+            <h2 className="rv in">解決しない場合は。</h2>
+            <p className="rv in">操作や設定については使い方ページにてご案内しております。ご不明な点はお問い合わせページよりご連絡ください。</p>
           </div>
-          <div style={{ display: "flex", gap: 12 }}>
-            <Link href="/contact" className="btn btn-fill">
-              お問い合わせ
+          <div className="qlinks rv in">
+            <Link href="/contact">
+              <span><b>お問い合わせ</b><small>POLARISSについて個別に相談する。</small></span>
+              <span className="go">Contact →</span>
             </Link>
-            <Link href="/order" className="btn btn-line">
-              購入
+            <Link href="/howto">
+              <span><b>使い方を見る</b><small>購入から設定、通知を受けるまでの流れ。</small></span>
+              <span className="go">How to use →</span>
             </Link>
+            <Link href="/compare">
+              <span><b>他のGPSとの違いを見る</b><small>見守りや紛失防止、セキュリティと用途が異なります。</small></span>
+              <span className="go">Compare →</span>
+            </Link>
+            <Link href="/price">
+              <span><b>費用を確認する</b><small>初期費用や月額料金の内訳。</small></span>
+              <span className="go">Fees →</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="qfin">
+        <div className="wrap qfin-in">
+          <div>
+            <b className="rv in">疑問がクリアになったら、はじめられます。</b>
+            <p className="rec rv in">初回 19,800円（税込・送料無料） / 月額 2,178円（税込）</p>
+          </div>
+          <div className="qfin-btns rv in">
+            <Link href="/order" className="btn btn-fill">購入</Link>
+            <Link href="/howto" className="btn btn-line">使い方を見る</Link>
           </div>
         </div>
       </section>

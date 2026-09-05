@@ -21,6 +21,7 @@ export function AdminShell({
           <Link href="/admin">Dashboard</Link>
           <Link href="/admin/articles">Articles</Link>
           <Link href="/admin/faq">FAQ</Link>
+          <Link href="/admin/faq-categories">FAQ Categories</Link>
           <Link href="/">Public site</Link>
         </nav>
         <form action="/api/admin/logout" method="post">

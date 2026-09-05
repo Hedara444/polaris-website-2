@@ -167,10 +167,11 @@ async function seedDatabase(db: Database) {
   if (faqExists.length === 0 || faqExists[0].values.length === 0) {
     for (const faq of seedFaqs) {
       db.run(
-        "INSERT INTO faq_items (question, answer, sort_order, status, created_at, updated_at) VALUES ($question, $answer, $sortOrder, 'published', $createdAt, $updatedAt)",
+        "INSERT INTO faq_items (question, answer, category_id, sort_order, status, created_at, updated_at) VALUES ($question, $answer, $categoryId, $sortOrder, 'published', $createdAt, $updatedAt)",
         {
           $question: faq.question,
           $answer: faq.answer,
+          $categoryId: null,
           $sortOrder: faq.sortOrder,
           $createdAt: nowIso(),
           $updatedAt: nowIso(),
