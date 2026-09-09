@@ -60,9 +60,9 @@ export function FaqSection() {
             </div>
           ))}
         </div>
-        <div className="faq-more">
-          <Link href="/faq" className="btn btn-line">
-            FAQを詳しく見る
+        <div className="faq-more rv">
+          <Link href="/faq" className="txtlink">
+            FAQをすべて見る →
           </Link>
         </div>
       </div>

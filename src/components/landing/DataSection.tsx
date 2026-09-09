@@ -19,7 +19,7 @@ export function DataSection() {
           <div className="fig rv">
             <div className="v">
               <span className="n" data-count="6386">
-                0
+                6,386
               </span>
               <span className="u">件</span>
               <span className="trend">↗ 増加傾向</span>
@@ -62,7 +62,11 @@ export function DataSection() {
             盗難について詳しく見る
           </Link>
         </div>
-        <p className="data-note">出典：JAF Mate／日本損害保険協会ほか　※Prototype簡易表記</p>
+        <p className="data-note">
+          出典：自動車＝JAF Mate／日本損害保険協会ほか盗難統計資料　二輪車＝日本二輪車普及安全協会／UMDAほか盗難統計資料
+          <br />
+          ※Prototypeのため簡易表記です。公開時に一次統計および出典リンクを確認のうえ掲載します。
+        </p>
       </div>
     </section>
   );

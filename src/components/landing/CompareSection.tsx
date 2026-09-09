@@ -1,4 +1,3 @@
-import Link from "next/link";
 import "./styles/compare.css";
 
 export function CompareSection() {
@@ -46,19 +45,20 @@ export function CompareSection() {
             <div className="cv dash">—</div>
             <div className="cv">通知あり</div>
 
-            <div className="cl">バッテリー内蔵</div>
-            <div className="cv cp">あり（2WAY）</div>
-            <div className="cv dash">—</div>
-            <div className="cv">あり</div>
-            <div className="cv dash">—</div>
+            <div className="cl">通信のしくみ</div>
+            <div className="cv cp">LTE（携帯回線）</div>
+            <div className="cv">携帯回線など</div>
+            <div className="cv">近くのスマホ</div>
+            <div className="cv">携帯回線など</div>
+
+            <div className="cl">ふだんの使い方</div>
+            <div className="cv cp bot">LINEだけ</div>
+            <div className="cv">専用アプリ</div>
+            <div className="cv">専用アプリ</div>
+            <div className="cv">専用アプリ</div>
           </div>
         </div>
-        <p className="cnote">※表は用途の違いを簡潔に示したものです。詳しくは比較ページで。</p>
-        <div style={{ marginTop: 24 }}>
-          <Link href="/compare" className="btn btn-line">
-            比較を詳しく見る
-          </Link>
-        </div>
+        <p className="cnote">目的が違えば、得意なことも違います。それぞれに良さがあります。</p>
       </div>
     </section>
   );
