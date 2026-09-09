@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
-import { siteConfig } from "@/lib/site-config";
+import Link from "next/link";
+//import { siteConfig } from "@/lib/site-config";
 import "./styles/buybar.css";
 
 export function BuybarSection() {
@@ -56,12 +57,18 @@ export function BuybarSection() {
       <div className="buybar-in">
         <div className="devimg" />
         <div className="txt">
-          <b>19,800円</b>
-          <small>税込・送料無料</small>
+          <b>
+            <span className="d-lg">POLARISS　</span>初回 19,800円
+            <span className="d-lg">（税込・送料無料）</span>
+          </b>
+          <small>
+            その後 月額 2,178円
+            <span className="d-lg">（税込）／ アプリ不要・LINEだけ</span>
+          </small>
         </div>
-        <a href={siteConfig.buyNowUrl} target="_blank" rel="noopener noreferrer" className="btn btn-fill">
+        <Link href="/order" className="btn btn-white">
           購入
-        </a>
+        </Link>
       </div>
     </div>
   );

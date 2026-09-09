@@ -2,25 +2,47 @@ import Link from "next/link";
 
 import type { ArticleListItem } from "@/lib/types";
 
-export function ArticleCard({ article }: { article: ArticleListItem }) {
+interface ArticleCardProps {
+  article: ArticleListItem;
+  variant?: "feature" | "compact";
+}
+
+function formatDate(dateStr?: string | Date | null): string {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return String(dateStr);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${year}.${month}.${day}`;
+}
+
+export function ArticleCard({ article, variant = "feature" }: ArticleCardProps) {
+  const isFeature = variant === "feature";
+  const dateText = formatDate(article.publishedAt || article.updatedAt);
+
   return (
-    <article className="content-card article-card">
-      <div className="article-card-media">
+    <article className={`guide-card ${isFeature ? "feature" : "compact"}`}>
+      <Link
+        className="guide-visual"
+        href={`/articles/${article.slug}`}
+        aria-label={article.title}
+      >
         <img
-          src={article.coverImageUrl ?? "/images/hero-bike.webp"}
+          src={article.coverImageUrl || "/images/hero-bike.webp"}
           alt={article.title}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
-      </div>
-      <div className="article-card-body">
-        <div className="card-chip-row">
-          <span className="card-chip">{article.categoryName ?? "General"}</span>
+      </Link>
+      <div className="guide-card-body">
+        <div className="guide-meta">
+          <span>{article.categoryName || "盗難対策"}</span>
+          {dateText && <time dateTime={String(article.publishedAt || article.updatedAt)}>{dateText}</time>}
         </div>
-        <h3>{article.title}</h3>
-        <p>{article.description}</p>
-        <Link className="arrow-link" href={`/articles/${article.slug}`}>
-          <span>Read article</span>
-          <span aria-hidden="true">↗</span>
-        </Link>
+        <h3>
+          <Link href={`/articles/${article.slug}`}>{article.title}</Link>
+        </h3>
+        {isFeature && article.description && <p>{article.description}</p>}
       </div>
     </article>
   );

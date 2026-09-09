@@ -1,2 +1,276 @@
-/* ===== guide.html specific ===== */
-
+/* Guide / Articles Page Styles matching guide.html */
+
+.guide-page-hero {
+  background: var(--warm);
+  padding: clamp(58px, 7vw, 96px) 0;
+}
+
+.guide-page-hero h1 {
+  margin: 16px 0 0;
+  font-size: clamp(32px, 4.2vw, 60px);
+  line-height: 1.28;
+  font-weight: 900;
+}
+
+.guide-page-hero p {
+  margin: 20px 0 0;
+  max-width: 38em;
+  font-size: clamp(14.5px, 1.1vw, 17px);
+  line-height: 1.9;
+  color: #696962;
+  font-weight: 500;
+}
+
+.guide-page-body {
+  background: #fff;
+  padding: clamp(58px, 7vw, 96px) 0;
+}
+
+/* Category Filters */
+.articles-filter-section {
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink2);
+  font-size: 13px;
+  font-weight: 700;
+  background: #fff;
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+  text-decoration: none;
+}
+
+.filter-chip:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.filter-chip.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+/* Guide Index Layout */
+.guide-index {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(320px, .88fr);
+  gap: clamp(22px, 4vw, 54px);
+  align-items: start;
+}
+
+.guide-index-feature .guide-visual {
+  min-height: clamp(280px, 34vw, 460px);
+}
+
+.guide-index-list {
+  display: grid;
+  gap: 18px;
+}
+
+/* Guide Cards */
+.guide-card {
+  display: block;
+  background: #fff;
+  border: 1px solid #E3E0D8;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.guide-card:hover {
+  border-color: #cbc8bf;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.guide-visual {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: #d8d6cf;
+  min-height: 180px;
+}
+
+.guide-visual img {
+  transition: transform .55s cubic-bezier(.22,.72,.28,1);
+}
+
+.guide-card:hover .guide-visual img {
+  transform: scale(1.04);
+}
+
+.guide-card-body {
+  padding: clamp(20px, 2.5vw, 34px);
+}
+
+.guide-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-family: var(--num);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  color: #8c8c84;
+  text-transform: uppercase;
+}
+
+.guide-meta time {
+  color: #9C9C94;
+}
+
+.guide-card h3 {
+  margin: 12px 0 0;
+  font-size: clamp(17px, 1.7vw, 26px);
+  line-height: 1.55;
+  font-weight: 900;
+}
+
+.guide-card h3 a {
+  color: var(--ink);
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.guide-card h3 a:hover {
+  color: var(--gray);
+}
+
+.guide-card p {
+  margin: 14px 0 0;
+  font-size: clamp(13.5px, 1vw, 15.5px);
+  line-height: 1.85;
+  color: #6f6f68;
+  font-weight: 500;
+}
+
+/* Compact Card */
+.guide-card.compact {
+  display: grid;
+  grid-template-columns: 168px 1fr;
+  min-height: 168px;
+}
+
+.guide-card.compact .guide-visual {
+  min-height: 100%;
+}
+
+.guide-card.compact h3 {
+  font-size: clamp(15px, 1.25vw, 18px);
+}
+
+/* Theme Row */
+.theme-row {
+  margin-top: clamp(56px, 7vw, 92px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.theme-row div {
+  padding: 22px 20px;
+}
+
+.theme-row div + div {
+  border-left: 1px solid var(--line);
+}
+
+.theme-row span {
+  font-family: var(--num);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  color: #999;
+}
+
+.theme-row b {
+  display: block;
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+/* Pagination */
+.pagination-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: clamp(42px, 5vw, 64px);
+}
+
+.pagination-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--ink);
+  font-family: var(--num);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  background: #fff;
+  transition: border-color .2s ease, background .2s ease, color .2s ease;
+}
+
+.pagination-button:hover {
+  border-color: var(--ink);
+}
+
+.pagination-button.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+/* Responsive Overrides */
+@media (max-width: 900px) {
+  .guide-index {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-card.compact {
+    grid-template-columns: 132px 1fr;
+  }
+
+  .theme-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .guide-card.compact {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-card.compact .guide-visual {
+    min-height: 180px;
+  }
+
+  .theme-row {
+    grid-template-columns: 1fr;
+  }
+
+  .theme-row div + div {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+}
