@@ -48,26 +48,33 @@ export function HowSection() {
               <span className="n">01</span>
               <div>
                 <h3>愛車にPOLARISSを設置</h3>
-                <p>付属のハーネスで電源をつなぎ、車両の目立たない場所へ。本体は手のひらサイズです。</p>
+                <p>クルマ・バイクに端末を取り付けます。基本はご自身で設置でき、本体にバッテリーを内蔵。車両からの給電にも対応します。</p>
               </div>
             </div>
             <div className="tl-row rv">
               <span className="n">02</span>
               <div>
-                <h3>普段は見守るだけ</h3>
-                <p>監視エリアを設定すれば、あとはPOLARISSにお任せ。毎日操作する必要はありません。</p>
+                <h3>移動を検知</h3>
+                <p>停めた愛車が動くと、POLARISSがすぐにキャッチします。</p>
               </div>
             </div>
             <div className="tl-row rv">
               <span className="n">03</span>
               <div>
-                <h3>異変はLINEへ</h3>
-                <p>移動を検知すると、いつものLINEへ即時通知。地図で現在地を確認できます。</p>
+                <h3>LINEへ通知</h3>
+                <p>「移動を検知しました」と、いつものLINEにお知らせが届きます。</p>
               </div>
             </div>
-            <div className="how-cta">
-              <Link href="/steps" className="btn btn-fill">
-                使い方を詳しく見る
+            <div className="tl-row rv">
+              <span className="n">04</span>
+              <div>
+                <h3>地図で位置を確認</h3>
+                <p>地図を開いて、いま愛車がどこにあるかを確認できます。</p>
+              </div>
+            </div>
+            <div className="how-cta rv">
+              <Link href="/howto" className="btn btn-fill btn-sm">
+                使い方をくわしく見る →
               </Link>
             </div>
           </div>

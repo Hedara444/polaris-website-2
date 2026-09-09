@@ -124,16 +124,16 @@ body [class*="caption"], body [class*="source"], body [class*="disc"] {
 .card-map-ui,
 .ui-map,
 .locmap {
-  background-image: var(--polariss-city-map);
-  background-size: 100% 100%;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image: var(--polariss-city-map) !important;
+  background-size: 100% 100% !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
 }
 .card-map-ui::before, .card-map-ui::after,
 .ui-map::before, .ui-map::after,
-.locmap::before, .locmap::after { display: none; }
+.locmap::before, .locmap::after { display: none !important; }
 .ui-map > .ui-road, .locmap > .locroad,
-.map-label-ui, .loclabel { display: none; }
+.map-label-ui, .loclabel { display: none !important; }
 
 .map-route-ui {
   position: absolute;
@@ -2607,4 +2607,4 @@ dd {
 }
 
 
-
+
