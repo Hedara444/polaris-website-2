@@ -1,4 +1,3 @@
-import Link from "next/link";
 import "./styles/owner.css";
 
 export function OwnerSection() {
@@ -22,11 +21,6 @@ export function OwnerSection() {
           <dt>選んだ理由</dt>
           <dd>チェーンロックなど、これまでの盗難対策と併用できること。</dd>
         </dl>
-        <div style={{ marginTop: 24 }}>
-          <Link href="/voices" className="btn btn-line">
-            利用者の声を詳しく見る
-          </Link>
-        </div>
       </div>
     </section>
   );

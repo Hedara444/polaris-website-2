@@ -8,6 +8,7 @@
 .stage-map{position:relative;aspect-ratio:1200/560;border-radius:18px;overflow:hidden;
   border:1px solid #E5E1D8;background:#EEF1E9;box-shadow:0 22px 50px rgba(70,66,55,.10)}
 .stage-map .mapbg,.stage-map .route{position:absolute;inset:0;width:100%;height:100%}
+.stage-map .mapbg{object-fit:cover;object-position:center;pointer-events:none}
 .stage-map .mob{display:none}
 @media(max-width:900px){
   .stage-map{aspect-ratio:480/760;border-radius:14px}
@@ -48,6 +49,11 @@
 .stage-map.t3 .back{opacity:1}
 .route .path{opacity:0;transition:opacity .6s var(--ease)}
 .stage-map.t0 .path{opacity:1}
+.m-user{position:absolute;z-index:7;left:70%;top:34%;transform:translate(-50%,-50%);width:22px;height:22px}
+.m-user-dot{display:block;position:relative;width:22px;height:22px;border-radius:50%;background:#4D514D;flex:none}
+.m-user-dot::before{content:"";position:absolute;left:8px;top:4px;width:6px;height:6px;border-radius:50%;background:#fff}
+.m-user-dot::after{content:"";position:absolute;left:5px;bottom:4px;width:12px;height:7px;border-radius:7px 7px 5px 5px;background:#fff}
+.m-user>span{position:absolute;left:29px;top:50%;transform:translateY(-50%);padding:6px 10px;border-radius:16px;background:#fff;box-shadow:0 7px 20px rgba(45,42,34,.2);font-size:clamp(9px,.82vw,11px);font-weight:800;white-space:nowrap}
 
 .m-n1{left:3%;top:45%;width:25%}
 .m-n2{left:38%;top:32%}
@@ -59,6 +65,7 @@
 .m-notif .avatar svg{width:17px;height:17px}
 .m-notif .avatar::after{animation:none;opacity:0}
 .m-notif .tx{min-width:0}
+.m-card.m-n3 .tx{padding:clamp(5px,0vw,106px) 17px}
 .m-notif .hd{display:flex;align-items:center;gap:7px;font-size:10.5px;font-weight:700;color:#8E8E86;letter-spacing:.05em}
 .m-notif .hd u{width:6px;height:6px;border-radius:50%;background:var(--green);text-decoration:none;flex:none}
 .m-notif b{display:block;font-size:clamp(12.5px,1.1vw,15.5px);font-weight:900;margin-top:5px;line-height:1.5}
@@ -70,6 +77,7 @@
   .m-arealab{left:4%;top:40%}
   .m-n3{left:4%;top:64%;width:88%}
   .m-n4{left:4%;top:90%}
+  .m-user>span{left:auto;right:29px;width:120px;white-space:normal;line-height:1.35;text-align:right}
 }
 .m-disc{margin:14px 0 0;font-size:11.5px;line-height:1.75;color:#9A9A92;font-weight:500}
 .m-opt{display:inline-flex;align-items:center;gap:9px;margin-top:clamp(26px,3vw,34px);

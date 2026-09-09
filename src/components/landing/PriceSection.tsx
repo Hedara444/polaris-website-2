@@ -57,6 +57,8 @@ export function PriceSection() {
           <span>位置確認</span>
           <u />
           <span>移動履歴</span>
+          <u />
+          <span>通信費込み</span>
         </div>
       </div>
     </section>

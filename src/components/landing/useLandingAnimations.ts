@@ -95,55 +95,5 @@ export function useLandingAnimations() {
     } else {
       nums.forEach(countUp);
     }
-
-    const stage = document.getElementById("mstage") as HTMLElement | null;
-    if (stage) {
-      let timers: number[] = [];
-      let playing = false;
-      let seen = false;
-      const clearAll = () => {
-        timers.forEach((t) => clearTimeout(t));
-        timers = [];
-      };
-      const reset = () => {
-        clearAll();
-        playing = false;
-        stage.classList.remove("t0", "t1", "t2", "t3");
-      };
-      const endState = () => {
-        clearAll();
-        stage.classList.add("t0", "t1", "t2", "t3");
-      };
-      const play = () => {
-        if (playing) return;
-        playing = true;
-        reset();
-        playing = true;
-        timers.push(window.setTimeout(() => stage.classList.add("t0"), 260));
-        timers.push(window.setTimeout(() => stage.classList.add("t1"), 2140));
-        timers.push(window.setTimeout(() => stage.classList.add("t2"), 2950));
-        timers.push(window.setTimeout(() => stage.classList.add("t3"), 3700));
-      };
-      if (reduce) endState();
-      else if (!("IntersectionObserver" in window)) endState();
-      else {
-        const io = new IntersectionObserver(
-          (entries) => {
-            const e = entries[0];
-            if (e.isIntersecting) {
-              if (!seen) {
-                seen = true;
-                play();
-              }
-            } else {
-              seen = false;
-              reset();
-            }
-          },
-          { threshold: 0.35 },
-        );
-        io.observe(stage);
-      }
-    }
   }, []);
 }

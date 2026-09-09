@@ -346,7 +346,7 @@ export default function AboutPage() {
       </div>
 
       <div className="mut-wrap">
-          <AboutMapSection />
+        <AboutMapSection />
         <p className="m-disc rv in">※相互監視の仕組みを簡略化したイメージです。実際の画面・表示内容とは異なります。</p>
 
         <div className="m-opt rv in"><i></i>相互監視の受付・開始は、それぞれON / OFFを選択できます。初期設定では受付がONですが、いつでもOFFに変更できます。</div>

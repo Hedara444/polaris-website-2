@@ -1,20 +1,13 @@
 import { buildMetadata } from "@/lib/seo";
+import { ContactClient } from "./ContactClient";
+import "./contact.css";
 
 export const metadata = buildMetadata({
   title: "POLARISS | お問い合わせ",
-  description: "お問い合わせフォームは準備中です。",
+  description: "POLARISSに関するお問い合わせ（購入前のご相談、取り付け、ご利用方法など）を受け付けています。",
   path: "/contact",
 });
 
-export default function Page() {
-  return (
-    <section className="section" style={{ padding: "clamp(72px,9vw,112px) 0" }}>
-      <div className="wrap">
-        <p className="eyebrow">POLARISS</p>
-        <h1 className="h2">お問い合わせ</h1>
-        <p className="lead" style={{ maxWidth: "40em" }}>お問い合わせフォームは準備中です。</p>
-        <p style={{ marginTop: 24, color: "var(--ink2)" }}>お問い合わせフォームは準備中です。 詳細は後日公開予定です。</p>
-      </div>
-    </section>
-  );
+export default function ContactPage() {
+  return <ContactClient />;
 }
