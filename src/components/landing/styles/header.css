@@ -11,6 +11,8 @@
 .nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1.5px;background:var(--gray);transition:right .3s var(--ease)}
 .nav a:hover{color:var(--gray)}
 .nav a:hover::after{right:0}
+.nav a.on{color:var(--ink)}
+.nav a.on::after{right:0;background:var(--ink);height:2px}
 .hdr-cta{margin-left:auto;display:flex;align-items:center;gap:12px}
 .hdr-cta .btn{height:44px;padding:0 22px;font-size:14px;border-radius:8px}
 .burger{display:none;width:44px;height:44px;align-items:center;justify-content:center}

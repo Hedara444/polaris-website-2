@@ -3,6 +3,7 @@ import Link from "next/link";
 import { testimonials } from "@/lib/content";
 import { defaultKeywords } from "@/lib/site-config";
 import { buildMetadata } from "@/lib/seo";
+import { VoicesInteractions } from "@/components/voices/VoicesInteractions";
 import "./voices.css";
 
 export const metadata = buildMetadata({
@@ -32,6 +33,7 @@ function parseTestimonial(text: string, idx: number) {
 export default function VoicesPage() {
   return (
     <main id="top">
+      <VoicesInteractions />
       <section className="ohero">
         <div className="ohero-in wrap">
           <div className="crumb">
@@ -50,15 +52,15 @@ export default function VoicesPage() {
       <section className="voices" id="voices">
         <div className="wrap">
           <div className="voices-head">
-            <p className="kicker rv in">USERS COMMENT</p>
-            <h2 className="rv in">利用者の声</h2>
+            <p className="kicker rv">USERS COMMENT</p>
+            <h2 className="rv">利用者の声</h2>
           </div>
 
           <div className="voice-grid">
             {testimonials.map((item, idx) => {
               const { p1, p2, summary } = parseTestimonial(item.text, idx);
               return (
-                <article key={item.name} className="voice-card rv in">
+                <article key={item.name} className="voice-card rv">
                   <div className="voice-body">
                     <div className="voice-k">VOICE 0{idx + 1}</div>
                     <span className="voice-name">{item.name}</span>
@@ -77,7 +79,7 @@ export default function VoicesPage() {
 
       <section className="onote">
         <div className="wrap">
-          <p className="rv in">※POLARISSは、盗難の防止や車両の発見・回収を保証するサービスではありません。</p>
+          <p className="rv">※POLARISSは、盗難の防止や車両の発見・回収を保証するサービスではありません。</p>
         </div>
       </section>
 
@@ -85,15 +87,15 @@ export default function VoicesPage() {
         <div className="bgfill" role="img" aria-label="愛車と過ごす時間"></div>
         <div className="scrim"></div>
         <div className="ofin-in">
-          <h2 className="rv in">
+          <h2 className="rv">
             あなたの愛車にも、
             <br />
             もしもの備えを。
           </h2>
-          <p className="rv in">
+          <p className="rv">
             停める場所も、乗り方も違います。それでも、動かされたことに気づけるという一点は、多くの利用者にとって大切な備えになります。
           </p>
-          <div className="ofin-btns rv in">
+          <div className="ofin-btns rv">
             <Link href="/order" className="btn btn-white">
               購入
             </Link>

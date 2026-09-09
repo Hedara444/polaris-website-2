@@ -7,12 +7,19 @@
   --warm2:#F8F6F1;
   --ink:#171716;
   --ink2:#4E4E4A;
+  --mist:#f1f1f1;
+  --white:#ffffff;
+  --blue:rgb(93 106 244);
+  --blue-bright: #7793f3;
+  --ice:#7793ff;
   --ink3:#807F79;
   --gray:#989999;
   --ghost:#DFDACE;
   --line:#E3DFD6;
   --dark:#161615;
   --green:#06C755;
+  --danger: #af1111;
+  --font-jp:"Zen Kaku Gothic New" , ui-sans-serif;
   --jp:"Zen Kaku Gothic New",ui-sans-serif,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
   --num:"Manrope","Zen Kaku Gothic New",ui-sans-serif,sans-serif;
   --pad:clamp(20px,7vw,120px);
@@ -278,7 +285,7 @@ body {
   margin: 0;
   background: var(--white);
   color: var(--ink);
-  font-family: var(--font-body);
+  /*font-family: var(--font-body);*/
   -webkit-font-smoothing: antialiased;
 }
 
@@ -359,7 +366,7 @@ dd {
 .eyebrow,
 .overline {
   margin-bottom: 20px;
-  color: var(--blue);
+  color: var(--ink3);
   font-size: 0.73rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -478,7 +485,7 @@ dd {
 
 .arrow-link:hover {
   gap: 28px;
-  color: var(--blue);
+  color: var(--ink2);
 }
 
 .site-header {
@@ -593,7 +600,7 @@ dd {
   flex-direction: column;
   justify-content: center;
   padding: calc(var(--header-height) + 42px) 28px 42px;
-  background: var(--navy);
+  /*background: var(--navy);*/
   color: var(--white);
   opacity: 0;
   transform: translateY(-12px);
@@ -799,7 +806,7 @@ dd {
 .metric span {
   margin-top: 8px;
   color: var(--muted);
-  font-family: var(--font-jp);
+  font-family: var(--font-jp), serif;
   font-size: 0.72rem;
   font-weight: 500;
 }
@@ -915,7 +922,7 @@ dd {
 .feature-copy > p:not(.eyebrow),
 .article-body,
 .product-heading > p:not(.eyebrow) {
-  color: var(--ink-soft);
+  color: var(--ink3);
   font-family: var(--font-jp);
   line-height: 2;
 }
@@ -1411,7 +1418,7 @@ dd {
 
 .specs-intro > p:not(.eyebrow) {
   margin-top: 22px;
-  color: var(--ink-soft);
+  color: var(--ink3);
   font-size: 0.8rem;
   line-height: 1.9;
 }
@@ -1595,7 +1602,7 @@ dd {
 
 .voice-text {
   margin-top: 18px;
-  color: var(--ink-soft);
+  color: var(--ink3);
   font-family: var(--font-jp);
   font-size: 0.86rem;
   line-height: 2;
@@ -1642,7 +1649,7 @@ dd {
 
 .compare-hero-tagline {
   margin-top: 26px;
-  color: var(--blue-bright);
+  color: var(--ink2);
   font-family: var(--font-jp);
   font-size: 1.1rem;
   font-weight: 500;
@@ -1736,7 +1743,7 @@ dd {
 .steps-worry-card span {
   display: block;
   margin-bottom: 18px;
-  color: var(--blue-bright);
+  /*color: var(--blue-bright);*/
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.12em;

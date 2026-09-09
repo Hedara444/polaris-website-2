@@ -77,6 +77,8 @@ export function SiteHeader() {
                 <Link
                   href={item.href}
                   key={item.href}
+                  className={isActive ? "on" : undefined}
+                  aria-current={isActive ? "page" : undefined}
                   style={isActive ? { color: "var(--ink)", fontWeight: 900 } : undefined}
                   onClick={closeMenu}
                 >

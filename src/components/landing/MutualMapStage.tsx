@@ -37,9 +37,7 @@ export function MutualMapStage({ stageId, className = "" }: MutualMapStageProps)
       clearAll();
       stage.classList.add("t0", "t1", "t2", "t3");
       const desktopVehicle = stage.querySelector(".route.desk .veh");
-      const mobileVehicle = stage.querySelector(".route.mob .veh");
       if (desktopVehicle) desktopVehicle.setAttribute("transform", "translate(830,245)");
-      if (mobileVehicle) mobileVehicle.setAttribute("transform", "translate(250,428)");
     };
 
     const play = () => {
@@ -137,39 +135,6 @@ export function MutualMapStage({ stageId, className = "" }: MutualMapStageProps)
             dur="2.2s"
             fill="freeze"
             path="M120 565C190 525 270 492 360 472L430 462V355C430 333 448 316 470 316H620V250C620 230 636 214 656 214L830 245"
-          />
-        </g>
-      </svg>
-
-      <svg className="route mob" viewBox="0 0 480 760" preserveAspectRatio="none" aria-hidden="true">
-        <path
-          className="back"
-          d="M252 622 C 190 662 140 660 96 640"
-          fill="none"
-          stroke="#9EA09B"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeDasharray="2 9"
-        />
-        <path
-          className="path"
-          d="M96 152 C 152 220 182 320 250 428"
-          fill="none"
-          stroke="#26261F"
-          strokeWidth="3.6"
-          strokeLinecap="round"
-          strokeDasharray="1 12"
-        />
-        <g className="veh">
-          <circle r="14" fill="#26261F" opacity=".14" />
-          <circle r="8" fill="#26261F" />
-          <circle r="2.8" fill="#fff" />
-          <animateMotion
-            id="vehM"
-            begin="indefinite"
-            dur="2.2s"
-            fill="freeze"
-            path="M96 152 C 152 220 182 320 250 428"
           />
         </g>
       </svg>
