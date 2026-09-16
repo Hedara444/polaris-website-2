@@ -23,7 +23,7 @@ export function FaqCategoryEditor({ category }: { category?: FaqCategoryItem | n
     setSaving(true);
     setError("");
 
-    const response = await fetch(category ? `/api/admin/faq-categories/${category.id}` : "/api/admin/faq-categories", {
+    const response = await fetch(category ? `/api/admin/faq-categories/${category.id}` : "/api/admin/faq-deprecated-categories", {
       method: category ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),

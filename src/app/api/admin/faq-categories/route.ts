@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
   const id = await upsertFaqCategory(null, parsed.data);
   revalidatePath("/");
-  revalidatePath("/faq");
-  revalidatePath("/admin/faq-categories");
+  revalidatePath("/faq-deprecated");
+  revalidatePath("/admin/faq-deprecated-categories");
   return NextResponse.json({ id });
 }

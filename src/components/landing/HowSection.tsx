@@ -48,7 +48,7 @@ export function HowSection() {
               <span className="n">01</span>
               <div>
                 <h3>愛車にPOLARISSを設置</h3>
-                <p>クルマ・バイクに端末を取り付けます。基本はご自身で設置でき、本体にバッテリーを内蔵。車両からの給電にも対応します。</p>
+                <p>クルマ・バイクに端末を取り付けます。<br />基本はご自身で設置でき、本体にバッテリーを内蔵。車両からの給電にも対応します。</p>
               </div>
             </div>
             <div className="tl-row rv">

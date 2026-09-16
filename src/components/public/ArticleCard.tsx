@@ -31,7 +31,7 @@ export function ArticleCard({ article, variant = "feature" }: ArticleCardProps) 
         <img
           src={article.coverImageUrl || "/images/hero-bike.webp"}
           alt={article.title}
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          style={{ width: "100%", height: "100%", maxHeight: "500px", objectFit: "cover" }}
         />
       </Link>
       <div className="guide-card-body">

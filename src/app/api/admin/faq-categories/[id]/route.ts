@@ -45,8 +45,8 @@ export async function PUT(request: Request, props: { params: Promise<{ id: strin
 
   await upsertFaqCategory(id, parsed.data);
   revalidatePath("/");
-  revalidatePath("/faq");
-  revalidatePath("/admin/faq-categories");
+  revalidatePath("/faq-deprecated");
+  revalidatePath("/admin/faq-deprecated-categories");
   revalidatePath(`/admin/faq-categories/${id}`);
   return NextResponse.json({ success: true });
 }
@@ -65,7 +65,7 @@ export async function DELETE(request: Request, props: { params: Promise<{ id: st
 
   await deleteFaqCategory(id);
   revalidatePath("/");
-  revalidatePath("/faq");
-  revalidatePath("/admin/faq-categories");
+  revalidatePath("/faq-deprecated");
+  revalidatePath("/admin/faq-deprecated-categories");
   return NextResponse.json({ success: true });
 }

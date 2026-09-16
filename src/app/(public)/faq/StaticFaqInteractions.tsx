@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 /**
  * Minimal interactions for the static FAQ variation.
- * Direct port of the inline script in `polariss-site_all-pages/faq.html`:
+ * Direct port of the inline script in `polariss-site_all-pages/faq-deprecated.html`:
  * scroll reveal, accordion, keyword search, mobile chips, desktop rail
  * highlight. Content itself stays static server-rendered HTML.
  * (Burger menu is handled by the shared site header.)

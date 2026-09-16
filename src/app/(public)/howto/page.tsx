@@ -118,7 +118,7 @@ export default function HowtoPage() {
             <div className="scene-txt rv">
               <span className="stepno">01</span>
               <h3>POLARISSを購入する</h3>
-              <p>GPS本体と、通信のサブスクリプション。届くのは手のひらに収まる端末ひとつです。</p>
+              <p>GPS本体と、通信のサブスクリプション。<br />届くのは手のひらに収まる端末ひとつです。</p>
               <p className="fine">初回に本体費用、そのあとは通信費のみ。</p>
               <div className="go">
                 <Link href="/price" className="txtlink">

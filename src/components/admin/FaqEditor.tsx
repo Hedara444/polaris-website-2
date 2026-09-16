@@ -29,7 +29,7 @@ export function FaqEditor({ faq, categories = [] }: { faq?: FaqItem | null, cate
     setSaving(true);
     setError("");
 
-    const response = await fetch(faq ? `/api/admin/faq/${faq.id}` : "/api/admin/faq", {
+    const response = await fetch(faq ? `/api/admin/faq/${faq.id}` : "/api/admin/faq-deprecated", {
       method: faq ? "PATCH" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

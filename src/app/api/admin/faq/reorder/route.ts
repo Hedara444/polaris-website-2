@@ -28,6 +28,6 @@ export async function POST(request: Request) {
 
   await reorderFaq(parsed.data.items);
   revalidatePath("/");
-  revalidatePath("/faq");
+  revalidatePath("/faq-deprecated");
   return NextResponse.json({ ok: true });
 }

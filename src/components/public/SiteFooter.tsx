@@ -26,7 +26,7 @@ export function SiteFooter() {
               <b>CONTENT</b>
               <Link href="/voices">利用者の声</Link>
               <Link href="/articles">盗難対策ガイド</Link>
-              <Link href="/faq-static">FAQ</Link>
+              <Link href="/faq">FAQ</Link>
             </div>
             <div className="ft-col">
               <b>COMPANY / LEGAL</b>

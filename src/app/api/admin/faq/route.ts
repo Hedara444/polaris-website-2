@@ -29,8 +29,8 @@ export async function POST(request: Request) {
 
   const faq = await upsertFaq(null, parsed.data);
   revalidatePath("/");
-  revalidatePath("/faq");
-  revalidatePath("/admin/faq");
+  revalidatePath("/faq-deprecated");
+  revalidatePath("/admin/faq-deprecated");
   revalidatePath(`/admin/faq/${faq?.id ?? ""}`);
   return NextResponse.json({ faq });
 }

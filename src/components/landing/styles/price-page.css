@@ -115,7 +115,7 @@
   .tbd .st{justify-self:start}
 }
 
-/* ---- 07 price faq ---- */
+/* ---- 07 price faq-deprecated ---- */
 .pfaq{background:var(--warm)}
 .acc2{margin-top:clamp(28px,3.6vw,44px);max-width:880px;border-top:1px solid #DFDBD2}
 .acc2-item{border-bottom:1px solid #DFDBD2}

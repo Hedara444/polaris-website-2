@@ -173,7 +173,7 @@ export const footerSections = [
     links: [
       { label: "Home", href: "/" },
       { label: "Articles", href: "/articles" },
-      { label: "FAQ", href: "/faq" },
+      { label: "FAQ", href: "/faq-deprecated" },
       { label: "Compare", href: "/compare" },
       { label: "Steps", href: "/steps" },
       { label: "Voices", href: "/voices" },

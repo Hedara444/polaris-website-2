@@ -21,7 +21,7 @@
 @media(max-width:860px){.guide-grid{grid-template-columns:1fr;gap:38px}}
 
 /* POLARISS guide components */
-.guide-visual{display:block;position:relative;overflow:hidden;background:#d8d6cf;min-height:180px}
+.guide-visual{display:block;position:relative;overflow:hidden;background:#d8d6cf;min-height:180px;max-height:500px}
 .guide-visual::before{content:"";position:absolute;inset:0;background:var(--i-hero) center/cover no-repeat;transition:transform .55s var(--ease)}
 .guide-visual-hero::before{background-image:var(--i-hero);background-position:26% 58%}
 .guide-visual-emotion::before{background-image:var(--i-emotion);background-position:58% 44%}

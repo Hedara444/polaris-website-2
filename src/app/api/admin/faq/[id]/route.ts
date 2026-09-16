@@ -43,8 +43,8 @@ export async function PATCH(
 
   const faq = await upsertFaq(Number(id), parsed.data);
   revalidatePath("/");
-  revalidatePath("/faq");
-  revalidatePath("/admin/faq");
+  revalidatePath("/faq-deprecated");
+  revalidatePath("/admin/faq-deprecated");
   revalidatePath(`/admin/faq/${faq?.id ?? ""}`);
   return NextResponse.json({ faq });
 }
@@ -61,7 +61,7 @@ export async function DELETE(
   const { id } = await params;
   await deleteFaq(Number(id));
   revalidatePath("/");
-  revalidatePath("/faq");
-  revalidatePath("/admin/faq");
+  revalidatePath("/faq-deprecated");
+  revalidatePath("/admin/faq-deprecated");
   return NextResponse.json({ ok: true });
 }

@@ -64,8 +64,6 @@ export function DataSection() {
         </div>
         <p className="data-note">
           出典：自動車＝JAF Mate／日本損害保険協会ほか盗難統計資料　二輪車＝日本二輪車普及安全協会／UMDAほか盗難統計資料
-          <br />
-          ※Prototypeのため簡易表記です。公開時に一次統計および出典リンクを確認のうえ掲載します。
         </p>
       </div>
     </section>
