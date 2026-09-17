@@ -1,23 +1,40 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
+import { AsyncButton } from "@/components/ui/AsyncButton";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import type { ArticleDetails, ArticleEditorInput, CategoryItem } from "@/lib/types";
 import { parseKeywords, slugify } from "@/lib/utils";
 
 function toEditorState(article?: ArticleDetails | null): ArticleEditorInput {
+  const categoryNames =
+    article?.categories && article.categories.length > 0
+      ? article.categories.map((category) => category.name)
+      : article?.categoryName
+        ? [article.categoryName]
+        : [];
   return {
     title: article?.title ?? "",
     description: article?.description ?? "",
     coverImageUrl: article?.coverImageUrl ?? "",
-    categoryName: article?.categoryName ?? "",
+    categoryName: categoryNames[0] ?? "",
+    categoryNames,
     bodyHtml: article?.bodyHtml ?? "<p>Start writing here.</p>",
     keywords: article?.keywords ?? [],
     direction: article?.direction ?? "auto",
     status: article?.status ?? "published",
   };
+}
+
+function toggleCategoryName(names: string[], name: string) {
+  const key = name.toLowerCase();
+  if (names.some((item) => item.toLowerCase() === key)) {
+    return names.filter((item) => item.toLowerCase() !== key);
+  }
+  return [...names, name];
 }
 
 export function ArticleEditor({
@@ -31,10 +48,74 @@ export function ArticleEditor({
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [form, setForm] = useState<ArticleEditorInput>(toEditorState(article));
   const [keywordsInput, setKeywordsInput] = useState((article?.keywords ?? []).join(", "));
+  const [newCategoryInput, setNewCategoryInput] = useState("");
+  // Tracks chips playing their vanish animation before moving lists.
+  const [leavingChips, setLeavingChips] = useState<Record<string, "available" | "selected">>({});
+  const leavingTimers = useRef<Array<ReturnType<typeof setTimeout>>>([]);
+
+  useEffect(() => {
+    const timers = leavingTimers.current;
+    return () => {
+      for (const timer of timers) {
+        clearTimeout(timer);
+      }
+    };
+  }, []);
+
+  const selectedNames = form.categoryNames ?? [];
+  const availableCategories = categories.filter(
+    (category) =>
+      !selectedNames.some((name) => name.toLowerCase() === category.name.toLowerCase()),
+  );
+
+  function moveChipWithAnimation(name: string, from: "available" | "selected") {
+    const key = name.toLowerCase();
+    if (leavingChips[key]) {
+      return;
+    }
+    setLeavingChips((current) => ({ ...current, [key]: from }));
+    const timer = setTimeout(() => {
+      setForm((current) => ({
+        ...current,
+        categoryNames: toggleCategoryName(current.categoryNames ?? [], name),
+      }));
+      setLeavingChips((current) => {
+        const next = { ...current };
+        delete next[key];
+        return next;
+      });
+    }, 160);
+    leavingTimers.current.push(timer);
+  }
+
+  function addCustomCategory() {
+    const value = newCategoryInput.trim();
+    if (!value) {
+      return;
+    }
+    setForm((current) => {
+      if (
+        (current.categoryNames ?? []).some(
+          (name) => name.toLowerCase() === value.toLowerCase(),
+        )
+      ) {
+        return current;
+      }
+      return {
+        ...current,
+        categoryNames: [...(current.categoryNames ?? []), value],
+      };
+    });
+    setNewCategoryInput("");
+  }
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [error, setError] = useState("");
   const [uploadError, setUploadError] = useState("");
+  // Sync guard: state updates don't commit before a second click can land.
+  const busyRef = useRef(false);
 
   const slugPreview = useMemo(() => slugify(form.title), [form.title]);
   const previewHref =
@@ -78,68 +159,97 @@ export function ArticleEditor({
   }
 
   async function saveArticle() {
+    if (busyRef.current) {
+      return;
+    }
+    busyRef.current = true;
     setSaving(true);
     setError("");
 
     if (!form.coverImageUrl.trim()) {
       setSaving(false);
+      busyRef.current = false;
       setError("Cover image is required.");
+      return;
+    }
+
+    const categoryNames = (form.categoryNames ?? [])
+      .map((name) => name.trim())
+      .filter(Boolean);
+    if (categoryNames.length === 0) {
+      setSaving(false);
+      busyRef.current = false;
+      setError("Select at least one category.");
       return;
     }
 
     const payload = {
       ...form,
+      categoryName: categoryNames[0],
+      categoryNames,
       keywords: parseKeywords(keywordsInput),
     };
 
-    const response = await fetch(
-      article ? `/api/admin/articles/${article.id}` : "/api/admin/articles",
-      {
-        method: article ? "PATCH" : "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      },
-    );
+    try {
+      const response = await fetch(
+        article ? `/api/admin/articles/${article.id}` : "/api/admin/articles",
+        {
+          method: article ? "PATCH" : "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        },
+      );
 
-    setSaving(false);
+      if (!response.ok) {
+        const body = (await response.json()) as { error?: string };
+        setError(body.error ?? "Unable to save article.");
+        return;
+      }
 
-    if (!response.ok) {
-      const body = (await response.json()) as { error?: string };
-      setError(body.error ?? "Unable to save article.");
-      return;
+      const saved = (await response.json()) as { article: ArticleDetails };
+      for (let attempt = 0; attempt < 10; attempt += 1) {
+        try {
+          const probe = await fetch(`/api/admin/articles/${saved.article.id}`, { cache: "no-store" });
+          if (probe.ok) {
+            break;
+          }
+        } catch {}
+        await new Promise((resolve) => setTimeout(resolve, 200));
+      }
+      window.location.assign(
+        new URL(`/admin/articles/${saved.article.id}`, window.location.origin).toString(),
+      );
+    } finally {
+      setSaving(false);
+      busyRef.current = false;
     }
-
-    const saved = (await response.json()) as { article: ArticleDetails };
-    for (let attempt = 0; attempt < 10; attempt += 1) {
-      try {
-        const probe = await fetch(`/api/admin/articles/${saved.article.id}`, { cache: "no-store" });
-        if (probe.ok) {
-          break;
-        }
-      } catch {}
-      await new Promise((resolve) => setTimeout(resolve, 200));
-    }
-    window.location.assign(
-      new URL(`/admin/articles/${saved.article.id}`, window.location.origin).toString(),
-    );
   }
 
-  async function deleteArticle() {
-    if (!article || !window.confirm("Delete this article?")) {
+  async function handleConfirmDelete() {
+    if (!article || busyRef.current) {
       return;
     }
+    busyRef.current = true;
+    setDeleting(true);
+    setError("");
 
-    const response = await fetch(`/api/admin/articles/${article.id}`, {
-      method: "DELETE",
-    });
+    try {
+      const response = await fetch(`/api/admin/articles/${article.id}`, {
+        method: "DELETE",
+      });
 
-    if (!response.ok) {
-      setError("Unable to delete article.");
-      return;
+      if (!response.ok) {
+        setError("Unable to delete article.");
+        return;
+      }
+
+      router.push("/admin/articles");
+      router.refresh();
+    } finally {
+      setDeleting(false);
+      busyRef.current = false;
+      setConfirmOpen(false);
     }
-
-    router.push("/admin/articles");
-    router.refresh();
   }
 
   return (
@@ -204,21 +314,106 @@ export function ArticleEditor({
           {uploadError ? <p className="form-error">{uploadError}</p> : null}
         </label>
 
-        <label className="field">
-          <span>Category</span>
-          <input
-            list="article-category-options"
-            value={form.categoryName}
-            onChange={(event) =>
-              setForm((current) => ({ ...current, categoryName: event.target.value }))
-            }
-          />
+        <div className="field">
+          <span id="article-categories-label">Categories — at least one required</span>
+          <p className="cat-picker-hint">
+            Tap a category to select it. Extra categories are optional.
+          </p>
+          {availableCategories.length > 0 ? (
+            <div
+              className="cat-chip-row"
+              role="group"
+              aria-labelledby="article-categories-label"
+              aria-label="Available categories"
+            >
+              {availableCategories.map((category) => {
+                const isLeaving = leavingChips[category.name.toLowerCase()] === "available";
+                return (
+                  <button
+                    key={category.id}
+                    type="button"
+                    aria-pressed="false"
+                    title={`Select ${category.name}`}
+                    disabled={isLeaving}
+                    className={`cat-chip cat-chip--available${isLeaving ? " is-leaving" : ""}`}
+                    onClick={() => moveChipWithAnimation(category.name, "available")}
+                  >
+                    <span className="cat-chip__text">{category.name}</span>
+                    <span className="cat-chip__icon" aria-hidden="true">
+                      +
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          ) : (
+            <p className="editor-preview-meta">
+              <span>
+                {categories.length === 0
+                  ? "No categories yet — add one below."
+                  : "All categories selected."}
+              </span>
+            </p>
+          )}
+          <div className="category-add-row">
+            <input
+              list="article-category-options"
+              placeholder="Add a category (existing or new)"
+              value={newCategoryInput}
+              onChange={(event) => setNewCategoryInput(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  addCustomCategory();
+                }
+              }}
+            />
+            <button
+              className="button button-dark"
+              type="button"
+              onClick={addCustomCategory}
+            >
+              Add
+            </button>
+          </div>
           <datalist id="article-category-options">
             {categories.map((category) => (
               <option value={category.name} key={category.id} />
             ))}
           </datalist>
-        </label>
+          <div className="cat-selected-zone">
+            <span className="cat-selected-title">Selected ({selectedNames.length})</span>
+            {selectedNames.length > 0 ? (
+              <div
+                className="cat-chip-row cat-chip-row--selected"
+                role="group"
+                aria-label="Selected categories"
+              >
+                {selectedNames.map((name) => {
+                  const isLeaving = leavingChips[name.toLowerCase()] === "selected";
+                  return (
+                    <button
+                      key={name.toLowerCase()}
+                      type="button"
+                      aria-pressed="true"
+                      title={`Remove ${name}`}
+                      disabled={isLeaving}
+                      className={`cat-chip cat-chip--selected${isLeaving ? " is-leaving" : ""}`}
+                      onClick={() => moveChipWithAnimation(name, "selected")}
+                    >
+                      <span className="cat-chip__text">{name}</span>
+                      <span className="cat-chip__icon" aria-hidden="true">
+                        ×
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="cat-empty">Nothing selected yet — pick at least one category above.</p>
+            )}
+          </div>
+        </div>
 
         <div className="field-grid">
           <label className="field">
@@ -269,18 +464,27 @@ export function ArticleEditor({
         {error ? <p className="form-error">{error}</p> : null}
 
         <div className="form-actions">
-          <button
+          <AsyncButton
             className="button button-primary"
-            disabled={saving || uploading}
+            disabled={uploading || deleting}
             onClick={saveArticle}
+            pending={saving}
+            pendingLabel={uploading ? "Upload in progress" : "Saving..."}
             type="button"
           >
-            {saving ? "Saving..." : uploading ? "Upload in progress" : "Save article"}
-          </button>
+            {uploading ? "Upload in progress" : "Save article"}
+          </AsyncButton>
           {article ? (
-            <button className="button button-danger" onClick={deleteArticle} type="button">
+            <AsyncButton
+              className="button button-danger"
+              disabled={saving}
+              onClick={() => setConfirmOpen(true)}
+              pending={deleting}
+              pendingLabel="Deleting..."
+              type="button"
+            >
               Delete
-            </button>
+            </AsyncButton>
           ) : null}
           {article && previewHref ? (
             <a className="button button-dark" href={previewHref} rel="noreferrer" target="_blank">
@@ -288,6 +492,19 @@ export function ArticleEditor({
             </a>
           ) : null}
         </div>
+        <ConfirmDialog
+          confirmLabel="Delete"
+          message={`Delete "${article?.title ?? "this article"}"? This cannot be undone.`}
+          onCancel={() => {
+            if (!deleting) {
+              setConfirmOpen(false);
+            }
+          }}
+          onConfirm={handleConfirmDelete}
+          open={confirmOpen}
+          pending={deleting}
+          title="Delete article"
+        />
       </div>
 
       <div className="editor-panel">
@@ -319,7 +536,15 @@ export function ArticleEditor({
           </div>
           <div className="article-copy">
             <div className="card-chip-row">
-              <span className="card-chip">{form.categoryName || "General"}</span>
+              {(form.categoryNames ?? []).length > 0 ? (
+                (form.categoryNames ?? []).map((name) => (
+                  <span className="card-chip" key={name}>
+                    {name}
+                  </span>
+                ))
+              ) : (
+                <span className="card-chip">General</span>
+              )}
               <span className="meta-chip">{form.status === "published" ? "Published" : "Draft"}</span>
             </div>
             <h1>{form.title || "Article title preview"}</h1>

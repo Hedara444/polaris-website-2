@@ -60,7 +60,15 @@ export default async function ArticleDetailsPage({
         </div>
         <div className="article-copy">
           <div className="card-chip-row">
-            <span className="card-chip">{article.categoryName ?? "General"}</span>
+            {article.categories && article.categories.length > 0 ? (
+              article.categories.map((category) => (
+                <span className="card-chip" key={category.id}>
+                  {category.name}
+                </span>
+              ))
+            ) : (
+              <span className="card-chip">{article.categoryName ?? "General"}</span>
+            )}
             <span className="meta-chip">{formatDate(article.publishedAt)}</span>
           </div>
           <h1>{article.title}</h1>

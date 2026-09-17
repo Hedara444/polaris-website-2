@@ -32,7 +32,7 @@ export default async function ArticlesPage({
   const listArticles = result.items.slice(1);
 
   return (
-    <main id="top">
+    <div id="top" className="articles-page-wrapper">
       {/* Hero Section matching guide.html */}
       <section className="guide-page-hero">
         <div className="wrap">
@@ -139,6 +139,6 @@ export default async function ArticlesPage({
           )}
         </div>
       </section>
-    </main>
+    </div>
   );
 }

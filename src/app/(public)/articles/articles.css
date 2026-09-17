@@ -1,34 +1,77 @@
 /* Guide / Articles Page Styles matching guide.html */
 
+.guide-page-hero,
+.guide-page-body {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 .guide-page-hero {
   background: var(--warm);
-  padding: clamp(58px, 7vw, 96px) 0;
+  padding: clamp(40px, 6vw, 96px) 0;
+}
+
+.crumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray);
+  margin-bottom: 14px;
+}
+
+.crumb a {
+  color: var(--gray);
+  transition: color .2s ease;
+  text-decoration: none;
+}
+
+.crumb a:hover {
+  color: var(--ink);
+}
+
+.crumb span {
+  color: var(--ink2);
+}
+
+.kicker {
+  font-family: var(--num);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .24em;
+  color: var(--gray);
+  text-transform: uppercase;
+  margin: 0 0 10px;
 }
 
 .guide-page-hero h1 {
-  margin: 16px 0 0;
-  font-size: clamp(32px, 4.2vw, 60px);
+  margin: 12px 0 0;
+  font-size: clamp(26px, 4.2vw, 60px);
   line-height: 1.28;
   font-weight: 900;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .guide-page-hero p {
-  margin: 20px 0 0;
+  margin: 16px 0 0;
   max-width: 38em;
-  font-size: clamp(14.5px, 1.1vw, 17px);
-  line-height: 1.9;
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.85;
   color: #696962;
   font-weight: 500;
 }
 
 .guide-page-body {
   background: #fff;
-  padding: clamp(58px, 7vw, 96px) 0;
+  padding: clamp(40px, 6vw, 96px) 0;
 }
 
 /* Category Filters */
 .articles-filter-section {
-  margin-bottom: clamp(32px, 4vw, 48px);
+  margin-bottom: clamp(24px, 4vw, 48px);
 }
 
 .chip-row {
@@ -49,6 +92,7 @@
   background: #fff;
   transition: background .2s ease, border-color .2s ease, color .2s ease;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .filter-chip:hover {
@@ -65,13 +109,13 @@
 /* Guide Index Layout */
 .guide-index {
   display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(320px, .88fr);
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
   gap: clamp(22px, 4vw, 54px);
   align-items: start;
 }
 
 .guide-index-feature .guide-visual {
-  min-height: clamp(280px, 34vw, 460px);
+  min-height: clamp(220px, 30vw, 460px);
   max-height: 500px;
   aspect-ratio: 16 / 9;
 }
@@ -89,6 +133,8 @@
   border-radius: 4px;
   overflow: hidden;
   transition: border-color .2s ease, box-shadow .2s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .guide-card:hover {
@@ -118,7 +164,8 @@
 }
 
 .guide-card-body {
-  padding: clamp(20px, 2.5vw, 34px);
+  padding: clamp(16px, 2.5vw, 34px);
+  min-width: 0;
 }
 
 .guide-meta {
@@ -139,9 +186,11 @@
 
 .guide-card h3 {
   margin: 12px 0 0;
-  font-size: clamp(17px, 1.7vw, 26px);
+  font-size: clamp(16px, 1.7vw, 26px);
   line-height: 1.55;
   font-weight: 900;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .guide-card h3 a {
@@ -165,7 +214,7 @@
 /* Compact Card */
 .guide-card.compact {
   display: grid;
-  grid-template-columns: 168px 1fr;
+  grid-template-columns: 168px minmax(0, 1fr);
   min-height: 168px;
 }
 
@@ -179,7 +228,7 @@
 
 /* Theme Row */
 .theme-row {
-  margin-top: clamp(56px, 7vw, 92px);
+  margin-top: clamp(48px, 7vw, 92px);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--line);
@@ -188,6 +237,7 @@
 
 .theme-row div {
   padding: 22px 20px;
+  box-sizing: border-box;
 }
 
 .theme-row div + div {
@@ -217,7 +267,8 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: clamp(42px, 5vw, 64px);
+  margin-top: clamp(36px, 5vw, 64px);
+  flex-wrap: wrap;
 }
 
 .pagination-button {
@@ -251,25 +302,52 @@
 /* Responsive Overrides */
 @media (max-width: 900px) {
   .guide-index {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
   }
 
   .guide-card.compact {
-    grid-template-columns: 132px 1fr;
+    grid-template-columns: 140px minmax(0, 1fr);
   }
 
   .theme-row {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .theme-row div:nth-child(3) {
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .theme-row div:nth-child(4) {
+    border-top: 1px solid var(--line);
+  }
 }
 
 @media (max-width: 620px) {
+  .chip-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .chip-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .guide-index-feature .guide-visual {
+    min-height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
   .guide-card.compact {
     grid-template-columns: 1fr;
   }
 
   .guide-card.compact .guide-visual {
     min-height: 180px;
+    aspect-ratio: 16 / 9;
   }
 
   .theme-row {

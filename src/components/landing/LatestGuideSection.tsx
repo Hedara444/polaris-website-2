@@ -22,7 +22,11 @@ export function LatestGuideSection({ latestArticles }: { latestArticles: Article
               latestArticles.slice(0, 3).map((a) => (
                 <Link key={a.id} className="news-row" href={`/articles/${a.slug}`}>
                   <time dateTime={a.publishedAt ?? a.updatedAt}>{new Date(a.publishedAt ?? a.updatedAt).toISOString().split("T")[0].replace(/-/g, ".")}</time>
-                  <span className="news-category">{a.categoryName ?? "お知らせ"}</span>
+                  <span className="news-category">
+                    {a.categories && a.categories.length > 0
+                      ? a.categories.map((category) => category.name).join(" / ")
+                      : (a.categoryName ?? "お知らせ")}
+                  </span>
                   <h3>{a.title}</h3>
                   <span className="news-arrow" aria-hidden="true">
                     →

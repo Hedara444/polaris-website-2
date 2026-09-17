@@ -46,6 +46,8 @@ export function ContactClient() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<StatusState | null>(null);
+  // Sync guard: state alone can't stop a second submit landing in the same tick.
+  const submittingRef = useRef(false);
 
   const statusRef = useRef<HTMLDivElement>(null);
   const inquiryTypeRef = useRef<HTMLSelectElement>(null);
@@ -172,10 +174,14 @@ export function ContactClient() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (submittingRef.current) {
+      return;
+    }
     setStatus(null);
 
     if (!validateForm()) return;
 
+    submittingRef.current = true;
     setIsSubmitting(true);
 
     try {
@@ -187,6 +193,7 @@ export function ContactClient() {
 
       const data = await res.json();
       setIsSubmitting(false);
+      submittingRef.current = false;
 
       if (res.ok && data?.ok) {
         setFields({
@@ -214,6 +221,7 @@ export function ContactClient() {
       }
     } catch {
       setIsSubmitting(false);
+      submittingRef.current = false;
       setStatus({
         type: "error",
         kicker: "ERROR",

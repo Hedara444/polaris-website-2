@@ -1,23 +1,29 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
 import { AsyncButton } from "@/components/ui/AsyncButton";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
-import type { FaqCategoryEditorInput, FaqCategoryItem } from "@/lib/types";
 
-function toEditorState(category?: FaqCategoryItem | null): FaqCategoryEditorInput {
+import type { ArticleCategoryEditorInput, ArticleListItem, CategoryItem } from "@/lib/types";
+
+function toEditorState(category?: CategoryItem | null): ArticleCategoryEditorInput {
   return {
     name: category?.name ?? "",
-    keywords: category?.keywords ?? "",
-    sortOrder: category?.sortOrder ?? 0,
   };
 }
 
-export function FaqCategoryEditor({ category }: { category?: FaqCategoryItem | null }) {
+export function ArticleCategoryEditor({
+  category,
+  linkedArticles = [],
+}: {
+  category?: CategoryItem | null;
+  linkedArticles?: ArticleListItem[];
+}) {
   const router = useRouter();
-  const [form, setForm] = useState<FaqCategoryEditorInput>(toEditorState(category));
+  const [form, setForm] = useState<ArticleCategoryEditorInput>(toEditorState(category));
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -32,16 +38,26 @@ export function FaqCategoryEditor({ category }: { category?: FaqCategoryItem | n
     setSaving(true);
     setError("");
 
+    if (!form.name.trim()) {
+      setSaving(false);
+      busyRef.current = false;
+      setError("Category name is required.");
+      return;
+    }
+
     try {
-      const response = await fetch(category ? `/api/admin/faq-categories/${category.id}` : "/api/admin/faq-deprecated-categories", {
-        method: category ? "PUT" : "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const response = await fetch(
+        category ? `/api/admin/article-categories/${category.id}` : "/api/admin/article-categories",
+        {
+          method: category ? "PUT" : "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        },
+      );
 
       if (!response.ok) {
         const body = (await response.json()) as { error?: string };
-        setError(body.error ?? "Unable to save FAQ Category.");
+        setError(body.error ?? "Unable to save category.");
         return;
       }
 
@@ -50,7 +66,7 @@ export function FaqCategoryEditor({ category }: { category?: FaqCategoryItem | n
 
       for (let attempt = 0; attempt < 10; attempt += 1) {
         try {
-          const probe = await fetch(`/api/admin/faq-categories/${savedId}`, { cache: "no-store" });
+          const probe = await fetch(`/api/admin/article-categories/${savedId}`, { cache: "no-store" });
           if (probe.ok) {
             break;
           }
@@ -58,7 +74,7 @@ export function FaqCategoryEditor({ category }: { category?: FaqCategoryItem | n
         await new Promise((resolve) => setTimeout(resolve, 200));
       }
       window.location.assign(
-        new URL(`/admin/faq-categories/${savedId}`, window.location.origin).toString(),
+        new URL(`/admin/article-categories/${savedId}`, window.location.origin).toString(),
       );
     } finally {
       setSaving(false);
@@ -75,13 +91,15 @@ export function FaqCategoryEditor({ category }: { category?: FaqCategoryItem | n
     setError("");
 
     try {
-      const response = await fetch(`/api/admin/faq-categories/${category.id}`, { method: "DELETE" });
+      const response = await fetch(`/api/admin/article-categories/${category.id}`, {
+        method: "DELETE",
+      });
       if (!response.ok) {
-        setError("Unable to delete FAQ Category.");
+        setError("Unable to delete category.");
         return;
       }
 
-      router.push("/admin/faq-categories");
+      router.push("/admin/article-categories");
       router.refresh();
     } finally {
       setDeleting(false);
@@ -98,31 +116,33 @@ export function FaqCategoryEditor({ category }: { category?: FaqCategoryItem | n
           <input
             value={form.name}
             onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))}
+            placeholder="e.g. Product updates"
           />
         </label>
 
-        <label className="field">
-          <span>Keywords (SEO)</span>
-          <input
-            value={form.keywords}
-            onChange={(event) => setForm((current) => ({ ...current, keywords: event.target.value }))}
-            placeholder="comma, separated, keywords"
-          />
-        </label>
-
-        <label className="field">
-          <span>Sort order</span>
-          <input
-            type="number"
-            value={form.sortOrder}
-            onChange={(event) =>
-              setForm((current) => ({
-                ...current,
-                sortOrder: Number(event.target.value) || 0,
-              }))
-            }
-          />
-        </label>
+        {category ? (
+          <div className="field">
+            <span>Linked articles ({linkedArticles.length})</span>
+            {linkedArticles.length > 0 ? (
+              <div className="admin-table">
+                {linkedArticles.map((item) => (
+                  <Link
+                    className="admin-table-row"
+                    href={`/admin/articles/${item.id}`}
+                    key={item.id}
+                    style={{ gridTemplateColumns: "1fr" }}
+                  >
+                    <span>{item.title}</span>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <p className="editor-preview-meta">
+                <span>No articles use this category yet.</span>
+              </p>
+            )}
+          </div>
+        ) : null}
 
         {error ? <p className="form-error">{error}</p> : null}
 
@@ -152,7 +172,11 @@ export function FaqCategoryEditor({ category }: { category?: FaqCategoryItem | n
         </div>
         <ConfirmDialog
           confirmLabel="Delete"
-          message="Delete this FAQ category? Associated FAQs will be uncategorized."
+          message={
+            linkedArticles.length > 0
+              ? `Delete "${category?.name ?? "this category"}"? ${linkedArticles.length} article(s) will lose this category link (articles keep their other categories).`
+              : `Delete "${category?.name ?? "this category"}"? This cannot be undone.`
+          }
           onCancel={() => {
             if (!deleting) {
               setConfirmOpen(false);
@@ -161,7 +185,7 @@ export function FaqCategoryEditor({ category }: { category?: FaqCategoryItem | n
           onConfirm={handleConfirmDelete}
           open={confirmOpen}
           pending={deleting}
-          title="Delete FAQ category"
+          title="Delete category"
         />
       </div>
     </div>

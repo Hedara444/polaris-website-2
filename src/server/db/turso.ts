@@ -247,6 +247,15 @@ async function seedDatabase(c: Client) {
         articleId = Number((idRow.rows[0] as any)?.id ?? 0);
       }
 
+      if (categoryId) {
+        try {
+          await c.execute({
+            sql: "INSERT OR IGNORE INTO article_category (article_id, category_id) VALUES (?, ?)",
+            args: [articleId, categoryId],
+          });
+        } catch {}
+      }
+
       for (const keyword of article.keywords) {
         await c.execute({
           sql: "INSERT INTO article_keywords (article_id, keyword) VALUES (?, ?)",

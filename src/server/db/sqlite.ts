@@ -151,6 +151,13 @@ async function seedDatabase(db: Database) {
 
       const articleId = Number(db.exec("SELECT last_insert_rowid()")[0].values[0][0]);
 
+      try {
+        db.run(
+          "INSERT OR IGNORE INTO article_category (article_id, category_id) VALUES ($articleId, $categoryId)",
+          { $articleId: articleId, $categoryId: categoryId },
+        );
+      } catch {}
+
       for (const keyword of article.keywords) {
         db.run(
           "INSERT INTO article_keywords (article_id, keyword) VALUES ($articleId, $keyword)",

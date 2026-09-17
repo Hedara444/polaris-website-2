@@ -9,6 +9,7 @@ export interface ArticleListItem {
   coverImageUrl: string | null;
   categoryId: number | null;
   categoryName: string | null;
+  categories: CategoryItem[];
   direction: DirectionMode;
   publishedAt: string | null;
   updatedAt: string;
@@ -24,7 +25,9 @@ export interface ArticleEditorInput {
   title: string;
   description: string;
   coverImageUrl: string;
-  categoryName: string;
+  /** @deprecated Use categoryNames instead. Kept for backward-compatible payloads. */
+  categoryName?: string;
+  categoryNames?: string[];
   bodyHtml: string;
   keywords: string[];
   direction: DirectionMode;
@@ -91,6 +94,14 @@ export interface CategoryItem {
   id: number;
   name: string;
   slug: string;
+}
+
+export interface ArticleCategoryWithCount extends CategoryItem {
+  articleCount: number;
+}
+
+export interface ArticleCategoryEditorInput {
+  name: string;
 }
 
 export interface PaginationResult<T> {

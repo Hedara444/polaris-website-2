@@ -20,6 +20,7 @@ export function AdminShell({
         <nav className="admin-nav">
           <Link href="/admin">Dashboard</Link>
           <Link href="/admin/articles">Articles</Link>
+          <Link href="/admin/article-categories">Article Categories</Link>
           <Link href="/admin/faq">FAQ</Link>
           <Link href="/admin/faq-categories">FAQ Categories</Link>
           <Link href="/">Public site</Link>

@@ -30,7 +30,11 @@ export default async function AdminArticlesPage() {
         {articles.map((article) => (
           <Link className="admin-table-row" href={`/admin/articles/${article.id}`} key={article.id}>
             <span>{article.title}</span>
-            <span>{article.categoryName ?? "General"}</span>
+            <span>
+              {article.categories && article.categories.length > 0
+                ? article.categories.map((category) => category.name).join(", ")
+                : (article.categoryName ?? "General")}
+            </span>
             <span>{formatDate(article.updatedAt)}</span>
             <span>{article.publishedAt ? "Published" : "Draft"}</span>
           </Link>

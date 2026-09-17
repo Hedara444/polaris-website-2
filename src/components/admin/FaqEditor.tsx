@@ -1,8 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
+import { AsyncButton } from "@/components/ui/AsyncButton";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import type { FaqEditorInput, FaqItem, FaqCategoryItem } from "@/lib/types";
 import { parseKeywords } from "@/lib/utils";
 
@@ -22,58 +24,77 @@ export function FaqEditor({ faq, categories = [] }: { faq?: FaqItem | null, cate
   const [form, setForm] = useState<FaqEditorInput>(toEditorState(faq));
   const [keywordsInput, setKeywordsInput] = useState((faq?.keywords ?? []).join(", "));
   const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const [error, setError] = useState("");
+  const busyRef = useRef(false);
   const parsedKeywords = parseKeywords(keywordsInput);
 
   async function saveFaq() {
+    if (busyRef.current) {
+      return;
+    }
+    busyRef.current = true;
     setSaving(true);
     setError("");
 
-    const response = await fetch(faq ? `/api/admin/faq/${faq.id}` : "/api/admin/faq-deprecated", {
-      method: faq ? "PATCH" : "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...form,
-        keywords: parseKeywords(keywordsInput),
-      }),
-    });
+    try {
+      const response = await fetch(faq ? `/api/admin/faq/${faq.id}` : "/api/admin/faq-deprecated", {
+        method: faq ? "PATCH" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          keywords: parseKeywords(keywordsInput),
+        }),
+      });
 
-    setSaving(false);
+      if (!response.ok) {
+        const body = (await response.json()) as { error?: string };
+        setError(body.error ?? "Unable to save FAQ.");
+        return;
+      }
 
-    if (!response.ok) {
-      const body = (await response.json()) as { error?: string };
-      setError(body.error ?? "Unable to save FAQ.");
-      return;
+      const saved = (await response.json()) as { faq: FaqItem };
+      for (let attempt = 0; attempt < 10; attempt += 1) {
+        try {
+          const probe = await fetch(`/api/admin/faq/${saved.faq.id}`, { cache: "no-store" });
+          if (probe.ok) {
+            break;
+          }
+        } catch {}
+        await new Promise((resolve) => setTimeout(resolve, 200));
+      }
+      window.location.assign(
+        new URL(`/admin/faq/${saved.faq.id}`, window.location.origin).toString(),
+      );
+    } finally {
+      setSaving(false);
+      busyRef.current = false;
     }
-
-    const saved = (await response.json()) as { faq: FaqItem };
-    for (let attempt = 0; attempt < 10; attempt += 1) {
-      try {
-        const probe = await fetch(`/api/admin/faq/${saved.faq.id}`, { cache: "no-store" });
-        if (probe.ok) {
-          break;
-        }
-      } catch {}
-      await new Promise((resolve) => setTimeout(resolve, 200));
-    }
-    window.location.assign(
-      new URL(`/admin/faq/${saved.faq.id}`, window.location.origin).toString(),
-    );
   }
 
-  async function deleteFaq() {
-    if (!faq || !window.confirm("Delete this FAQ item?")) {
+  async function handleConfirmDelete() {
+    if (!faq || busyRef.current) {
       return;
     }
+    busyRef.current = true;
+    setDeleting(true);
+    setError("");
 
-    const response = await fetch(`/api/admin/faq/${faq.id}`, { method: "DELETE" });
-    if (!response.ok) {
-      setError("Unable to delete FAQ.");
-      return;
+    try {
+      const response = await fetch(`/api/admin/faq/${faq.id}`, { method: "DELETE" });
+      if (!response.ok) {
+        setError("Unable to delete FAQ.");
+        return;
+      }
+
+      router.push("/admin/faq");
+      router.refresh();
+    } finally {
+      setDeleting(false);
+      busyRef.current = false;
+      setConfirmOpen(false);
     }
-
-    router.push("/admin/faq");
-    router.refresh();
   }
 
   return (
@@ -158,15 +179,42 @@ export function FaqEditor({ faq, categories = [] }: { faq?: FaqItem | null, cate
         {error ? <p className="form-error">{error}</p> : null}
 
         <div className="form-actions">
-          <button className="button button-primary" disabled={saving} onClick={saveFaq} type="button">
-            {saving ? "Saving..." : "Save FAQ"}
-          </button>
+          <AsyncButton
+            className="button button-primary"
+            disabled={deleting}
+            onClick={saveFaq}
+            pending={saving}
+            pendingLabel="Saving..."
+            type="button"
+          >
+            Save FAQ
+          </AsyncButton>
           {faq ? (
-            <button className="button button-danger" onClick={deleteFaq} type="button">
+            <AsyncButton
+              className="button button-danger"
+              disabled={saving}
+              onClick={() => setConfirmOpen(true)}
+              pending={deleting}
+              pendingLabel="Deleting..."
+              type="button"
+            >
               Delete
-            </button>
+            </AsyncButton>
           ) : null}
         </div>
+        <ConfirmDialog
+          confirmLabel="Delete"
+          message="Delete this FAQ item? This cannot be undone."
+          onCancel={() => {
+            if (!deleting) {
+              setConfirmOpen(false);
+            }
+          }}
+          onConfirm={handleConfirmDelete}
+          open={confirmOpen}
+          pending={deleting}
+          title="Delete FAQ"
+        />
 
         <div className="editor-preview-meta">
           <strong>Admin preview</strong>

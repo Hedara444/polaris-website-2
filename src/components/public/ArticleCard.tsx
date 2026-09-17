@@ -36,7 +36,11 @@ export function ArticleCard({ article, variant = "feature" }: ArticleCardProps) 
       </Link>
       <div className="guide-card-body">
         <div className="guide-meta">
-          <span>{article.categoryName || "盗難対策"}</span>
+          <span>
+            {article.categories && article.categories.length > 0
+              ? article.categories.map((category) => category.name).join(" / ")
+              : (article.categoryName || "盗難対策")}
+          </span>
           {dateText && <time dateTime={String(article.publishedAt || article.updatedAt)}>{dateText}</time>}
         </div>
         <h3>
