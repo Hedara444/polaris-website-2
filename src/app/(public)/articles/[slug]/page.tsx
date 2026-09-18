@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import { defaultKeywords } from "@/lib/site-config";
 import { buildContentMetadata } from "@/lib/seo";
-import { formatDate, resolveDirection } from "@/lib/utils";
+import { ARTICLE_KEYWORDS_PUBLIC_MAX, formatDate, resolveDirection } from "@/lib/utils";
 import { getArticleBySlug } from "@/server/content-service";
 import "../articles.css";
 
@@ -74,7 +74,7 @@ export default async function ArticleDetailsPage({
           <h1>{article.title}</h1>
           <p className="article-description">{article.description}</p>
           <div className="keyword-row">
-            {article.keywords.map((keyword) => (
+            {article.keywords.slice(0, ARTICLE_KEYWORDS_PUBLIC_MAX).map((keyword) => (
               <span className="keyword-chip" key={keyword}>
                 {keyword}
               </span>

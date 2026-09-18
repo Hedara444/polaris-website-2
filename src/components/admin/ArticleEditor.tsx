@@ -7,7 +7,13 @@ import { RichTextEditor } from "@/components/admin/RichTextEditor";
 import { AsyncButton } from "@/components/ui/AsyncButton";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import type { ArticleDetails, ArticleEditorInput, CategoryItem } from "@/lib/types";
-import { parseKeywords, slugify } from "@/lib/utils";
+import {
+  ARTICLE_KEYWORDS_MAX,
+  ARTICLE_KEYWORDS_PUBLIC_MAX,
+  normalizeKeywords,
+  parseKeywords,
+  slugify,
+} from "@/lib/utils";
 
 function toEditorState(article?: ArticleDetails | null): ArticleEditorInput {
   const categoryNames =
@@ -48,7 +54,204 @@ export function ArticleEditor({
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [form, setForm] = useState<ArticleEditorInput>(toEditorState(article));
   const [keywordsInput, setKeywordsInput] = useState((article?.keywords ?? []).join(", "));
+  const [newKeywordInput, setNewKeywordInput] = useState("");
   const [newCategoryInput, setNewCategoryInput] = useState("");
+  const [keywordNotice, setKeywordNotice] = useState("");
+
+  const keywordList = useMemo(
+    () => normalizeKeywords(keywordsInput, ARTICLE_KEYWORDS_MAX),
+    [keywordsInput],
+  );
+  const rawKeywordCount = useMemo(() => parseKeywords(keywordsInput).length, [keywordsInput]);
+  const keywordsAtMax = keywordList.length >= ARTICLE_KEYWORDS_MAX;
+  const keywordsOverflowing = rawKeywordCount > keywordList.length;
+
+  function setKeywordsFromList(next: string[]) {
+    setKeywordsInput(next.join(", "));
+  }
+
+  function addKeywordsFromField() {
+    const incoming = parseKeywords(newKeywordInput);
+    if (incoming.length === 0) {
+      return;
+    }
+    const existing = new Set(keywordList.map((keyword) => keyword.toLowerCase()));
+    const fresh = incoming.filter((keyword) => {
+      const key = keyword.toLowerCase();
+      if (existing.has(key)) {
+        return false;
+      }
+      existing.add(key);
+      return true;
+    });
+    if (fresh.length === 0) {
+      setKeywordNotice("That keyword already exists.");
+      return;
+    }
+    if (keywordList.length >= ARTICLE_KEYWORDS_MAX) {
+      setKeywordNotice(`Keyword limit reached (${ARTICLE_KEYWORDS_MAX}).`);
+      return;
+    }
+    const room = ARTICLE_KEYWORDS_MAX - keywordList.length;
+    const accepted = fresh.slice(0, room);
+    setKeywordsFromList([...keywordList, ...accepted]);
+    setKeywordNotice(
+      accepted.length < fresh.length
+        ? `Only the first ${ARTICLE_KEYWORDS_MAX} keywords are kept.`
+        : "",
+    );
+    setNewKeywordInput("");
+  }
+
+  function removeKeyword(keyword: string) {
+    setKeywordsFromList(keywordList.filter((item) => item !== keyword));
+  }
+
+  // Drag-and-drop reorder. While dragging we only shuffle a lightweight
+  // preview array (no string re-processing); the baseline keywords string
+  // is rebuilt once, on release.
+  interface DragChip {
+    key: number;
+    value: string;
+  }
+  const [dropPreview, setDropPreview] = useState<DragChip[] | null>(null);
+  const [draggedKey, setDraggedKey] = useState<number | null>(null);
+  const draggedKeyRef = useRef<number | null>(null);
+  const draggingKeywords = dropPreview !== null;
+  const visibleKeywords = useMemo<DragChip[]>(
+    () =>
+      dropPreview ?? keywordList.map((value, key) => ({ key, value })),
+    [dropPreview, keywordList],
+  );
+
+  function handleKeywordDragStart(key: number) {
+    return (event: React.DragEvent) => {
+      clearKeywordMagnet();
+      draggedKeyRef.current = key;
+      setDraggedKey(key);
+      setDropPreview(keywordList.map((value, index) => ({ key: index, value })));
+      event.dataTransfer.effectAllowed = "move";
+      try {
+        event.dataTransfer.setData("text/plain", String(key));
+      } catch {}
+    };
+  }
+
+  function handleKeywordDragOver(key: number) {
+    return (event: React.DragEvent) => {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "move";
+      const draggedKey = draggedKeyRef.current;
+      if (draggedKey === null || draggedKey === key) {
+        return;
+      }
+      setDropPreview((prev) => {
+        if (!prev) {
+          return prev;
+        }
+        const from = prev.findIndex((chip) => chip.key === draggedKey);
+        const to = prev.findIndex((chip) => chip.key === key);
+        if (from === -1 || to === -1 || from === to) {
+          return prev;
+        }
+        const next = [...prev];
+        const [moved] = next.splice(from, 1);
+        next.splice(to, 0, moved);
+        return next;
+      });
+    };
+  }
+
+  function handleKeywordDrop(event: React.DragEvent) {
+    event.preventDefault();
+    if (dropPreview) {
+      setKeywordsFromList(dropPreview.map((chip) => chip.value));
+    }
+    draggedKeyRef.current = null;
+    setDraggedKey(null);
+    setDropPreview(null);
+  }
+
+  function handleKeywordDragEnd() {
+    draggedKeyRef.current = null;
+    setDraggedKey(null);
+    setDropPreview(null);
+  }
+
+  // Magnetic hover: chips feel attracted to the cursor. We mutate chip
+  // styles directly inside one rAF per frame (no React re-renders), with
+  // strength falling off by cursor-to-chip distance.
+  const kwRowRef = useRef<HTMLDivElement | null>(null);
+  const kwMouseRef = useRef({ x: 0, y: 0 });
+  const kwRafRef = useRef<number | null>(null);
+  const KW_PULL_RADIUS = 150;
+  const KW_PULL_MAX_PX = 6;
+
+  function clearKeywordMagnet() {
+    if (kwRafRef.current !== null) {
+      cancelAnimationFrame(kwRafRef.current);
+      kwRafRef.current = null;
+    }
+    const row = kwRowRef.current;
+    if (!row) {
+      return;
+    }
+    for (const child of Array.from(row.children)) {
+      if (child instanceof HTMLElement) {
+        child.style.boxShadow = "";
+        child.style.transform = "";
+      }
+    }
+  }
+
+  function applyKeywordMagnet() {
+    kwRafRef.current = null;
+    const row = kwRowRef.current;
+    if (!row) {
+      return;
+    }
+    const { x, y } = kwMouseRef.current;
+    for (const child of Array.from(row.children)) {
+      if (!(child instanceof HTMLElement)) {
+        continue;
+      }
+      const rect = child.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const distance = Math.hypot(x - cx, y - cy);
+      const strength = Math.max(0, 1 - distance / KW_PULL_RADIUS);
+      if (strength <= 0) {
+        child.style.boxShadow = "";
+        child.style.transform = "";
+        continue;
+      }
+      const eased = strength * strength;
+      const ring = (1 + eased * 2.5).toFixed(2);
+      const pullX = (((x - cx) / KW_PULL_RADIUS) * KW_PULL_MAX_PX * eased).toFixed(2);
+      const pullY = (((y - cy) / KW_PULL_RADIUS) * KW_PULL_MAX_PX * eased).toFixed(2);
+      child.style.boxShadow = `0 0 0 ${ring}px var(--ink)`;
+      child.style.transform = `translate(${pullX}px, ${pullY}px)`;
+    }
+  }
+
+  function handleKeywordRowMouseMove(event: React.MouseEvent) {
+    if (draggingKeywords) {
+      return;
+    }
+    kwMouseRef.current = { x: event.clientX, y: event.clientY };
+    if (kwRafRef.current !== null) {
+      return;
+    }
+    kwRafRef.current = requestAnimationFrame(applyKeywordMagnet);
+  }
+
+  useEffect(() => {
+    return () => {
+      if (kwRafRef.current !== null) {
+        cancelAnimationFrame(kwRafRef.current);
+      }
+    };
+  }, []);
   // Tracks chips playing their vanish animation before moving lists.
   const [leavingChips, setLeavingChips] = useState<Record<string, "available" | "selected">>({});
   const leavingTimers = useRef<Array<ReturnType<typeof setTimeout>>>([]);
@@ -187,7 +390,7 @@ export function ArticleEditor({
       ...form,
       categoryName: categoryNames[0],
       categoryNames,
-      keywords: parseKeywords(keywordsInput),
+      keywords: keywordList,
     };
 
     try {
@@ -450,14 +653,114 @@ export function ArticleEditor({
           </label>
         </div>
 
-        <label className="field">
-          <span>Keywords</span>
+        <div className="field">
+          <div className="kw-heading">
+            <span>Keywords</span>
+            <span
+              className={`kw-counter${keywordsAtMax ? " is-full" : ""}`}
+              role="status"
+              aria-label={`${keywordList.length} of ${ARTICLE_KEYWORDS_MAX} keywords used`}
+              title={`${keywordList.length} of ${ARTICLE_KEYWORDS_MAX} keywords used`}
+            >
+              {keywordList.length}/{ARTICLE_KEYWORDS_MAX}
+            </span>
+          </div>
+          <p className="cat-picker-hint">
+            If you already have your set of keywords prepared, paste them here separated with
+            commas. Drag a chip to reorder — the text above updates on release.
+          </p>
           <input
             placeholder="gps devices, line tracking, vehicle security"
             value={keywordsInput}
             onChange={(event) => setKeywordsInput(event.target.value)}
+            onBlur={() => setKeywordsFromList(keywordList)}
           />
-        </label>
+          {keywordsOverflowing ? (
+            <p className="kw-note" role="status">
+              Only the first {ARTICLE_KEYWORDS_MAX} unique keywords are kept — extras and
+              duplicates are ignored on save.
+            </p>
+          ) : null}
+          <div className="category-add-row">
+            <input
+              placeholder={
+                keywordsAtMax
+                  ? `Keyword limit reached (${ARTICLE_KEYWORDS_MAX})`
+                  : "Add a keyword, then press Enter"
+              }
+              value={newKeywordInput}
+              disabled={keywordsAtMax}
+              onChange={(event) => {
+                setNewKeywordInput(event.target.value);
+                setKeywordNotice("");
+              }}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  addKeywordsFromField();
+                }
+              }}
+            />
+            <button
+              className="button button-dark"
+              disabled={keywordsAtMax}
+              type="button"
+              onClick={addKeywordsFromField}
+            >
+              Add
+            </button>
+          </div>
+          {keywordNotice ? (
+            <p className="kw-note" role="status">
+              {keywordNotice}
+            </p>
+          ) : null}
+          {visibleKeywords.length > 0 ? (
+            <div
+              className={`kw-chip-row${draggingKeywords ? " is-dragging" : ""}`}
+              role="group"
+              aria-label="Article keywords"
+              ref={kwRowRef}
+              onMouseMove={handleKeywordRowMouseMove}
+              onMouseLeave={clearKeywordMagnet}
+              onDragOver={(event) => {
+                event.preventDefault();
+                event.dataTransfer.dropEffect = "move";
+              }}
+              onDrop={handleKeywordDrop}
+            >
+              {visibleKeywords.map((chip) => (
+                <span
+                  className={`kw-chip${draggedKey === chip.key && draggingKeywords ? " is-dragging" : ""}`}
+                  key={chip.key}
+                  draggable
+                  title="Drag to reorder"
+                  onDragStart={handleKeywordDragStart(chip.key)}
+                  onDragOver={handleKeywordDragOver(chip.key)}
+                  onDrop={handleKeywordDrop}
+                  onDragEnd={handleKeywordDragEnd}
+                >
+                  <span className="kw-chip__text">{chip.value}</span>
+                  <span className="kw-chip__actions">
+                    <button
+                      aria-label={`Remove ${chip.value}`}
+                      disabled={draggingKeywords}
+                      onClick={() => removeKeyword(chip.value)}
+                      title="Remove"
+                      type="button"
+                    >
+                      ×
+                    </button>
+                  </span>
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="editor-preview-meta">
+              <span>No keywords yet — paste a list above or add them one by one.</span>
+            </p>
+          )}
+        </div>
 
         <div className="slug-preview">Slug: /articles/{slugPreview || "new-article"}</div>
 
@@ -552,7 +855,7 @@ export function ArticleEditor({
               {form.description || "Article description preview will appear here."}
             </p>
             <div className="keyword-row">
-              {parseKeywords(keywordsInput).map((keyword) => (
+              {keywordList.slice(0, ARTICLE_KEYWORDS_PUBLIC_MAX).map((keyword) => (
                 <span className="keyword-chip" key={keyword}>
                   {keyword}
                 </span>

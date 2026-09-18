@@ -11,7 +11,7 @@ import type {
   FaqCategoryItem,
   PaginationResult,
 } from "@/lib/types";
-import { parseKeywords, slugify } from "@/lib/utils";
+import { normalizeKeywords, parseKeywords, slugify } from "@/lib/utils";
 import { nowIso, queryFirst, queryRows, runInTransaction } from "@/server/db";
 
 interface CountRow {
@@ -539,7 +539,8 @@ export async function upsertArticle(id: number | null, input: ArticleEditorInput
   const primaryCategoryId = categoryIds[0] ?? null;
   const slug = slugify(input.title);
   const publishedAt = input.status === "published" ? nowIso() : null;
-  const keywords = parseKeywords(input.keywords);
+  // Defense in depth: the admin UI already dedupes/caps, but never trust the payload.
+  const keywords = normalizeKeywords(input.keywords);
 
   const articleId = await runInTransaction(async (db) => {
     if (id) {

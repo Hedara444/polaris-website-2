@@ -2137,6 +2137,135 @@ button:has(> .btn-spinner) {
   font-weight: 700;
 }
 
+/* ---- keyword manager chips (ArticleEditor) ---- */
+.kw-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.field .kw-counter {
+  display: inline-grid;
+  place-items: center;
+  min-width: 52px;
+  height: 28px;
+  padding-inline: 8px;
+  border: 1.5px solid var(--ink);
+  border-radius: 100px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.field .kw-counter.is-full {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.kw-note {
+  margin: 0;
+  color: var(--ink3);
+  font-size: 0.76rem;
+  line-height: 1.6;
+}
+
+.kw-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.kw-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: var(--white);
+  padding: 6px 6px 6px 12px;
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  animation: cat-chip-in 200ms var(--ease);
+  transition:
+    transform 180ms ease-out,
+    box-shadow 180ms ease-out;
+  will-change: transform;
+}
+
+.kw-chip__text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.kw-chip__actions {
+  display: inline-flex;
+  flex: none;
+  gap: 4px;
+}
+
+.kw-chip__actions button {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.kw-chip__actions button:hover:not(:disabled) {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+
+.kw-chip__actions button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.kw-chip__actions button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.kw-chip[draggable="true"] {
+  cursor: grab;
+}
+
+.kw-chip-row.is-dragging,
+.kw-chip-row.is-dragging .kw-chip {
+  cursor: grabbing;
+}
+
+.kw-chip.is-dragging {
+  opacity: 0.4;
+}
+
 .pagination-row {
   flex-wrap: wrap;
   justify-content: center;
@@ -3125,10 +3254,49 @@ button:has(> .btn-spinner) {
 
 .admin-shell {
   display: grid;
-  grid-template-columns: 280px 1fr;
+  grid-template-columns: 280px minmax(0, 1fr);
+  align-items: start;
+}
+
+/* General admin overflow containment: grid children default to
+   min-width auto, which lets one wide table/editor stretch the whole
+   dashboard past the viewport. These resets keep oversized content
+   inside its own region on every admin page. */
+.admin-main,
+.admin-sidebar,
+.admin-page-intro,
+.editor-panel,
+.editor-page-grid,
+.admin-table,
+.admin-stats,
+.admin-stat-card {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.admin-main {
+  overflow-x: clip;
+}
+
+.admin-table {
+  overflow-x: auto;
+}
+
+.admin-table-row > * {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.editor-shell,
+.editor-shell .ck.ck-editor {
+  max-width: 100%;
 }
 
 .admin-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  overflow-y: auto;
   align-content: start;
   gap: 32px;
   border-right: 1px solid var(--line);
@@ -3227,7 +3395,7 @@ button:has(> .btn-spinner) {
 }
 
 .editor-page-grid {
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: 360px minmax(0, 1fr);
   gap: 20px;
 }
 
@@ -3303,7 +3471,7 @@ button:has(> .btn-spinner) {
   }
 
   .admin-shell {
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 220px minmax(0, 1fr);
   }
 }
 
@@ -3350,7 +3518,7 @@ button:has(> .btn-spinner) {
   .editor-page-grid,
   .card-grid,
   .admin-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .feature-row.reverse .feature-image,
@@ -3364,6 +3532,9 @@ button:has(> .btn-spinner) {
   }
 
   .admin-sidebar {
+    position: static;
+    height: auto;
+    overflow-y: visible;
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
