@@ -7,6 +7,9 @@
   --warm2: #F8F6F1;
   --ink: #171716;
   --ink2: #4E4E4A;
+  --ink-soft: #4e4e4a;
+  --muted: #77776f;
+  --smoke: #f4f4f2;
   --mist: #f1f1f1;
   --white: #ffffff;
   --blue: rgb(93 106 244);
@@ -854,7 +857,6 @@ body {
   margin: 0;
   background: var(--white);
   color: var(--ink);
-  /*font-family: var(--font-body);*/
   -webkit-font-smoothing: antialiased;
 }
 
@@ -1314,56 +1316,6 @@ button:has(> .btn-spinner) {
   margin-top: 34px;
 }
 
-.hero {
-  position: relative;
-  min-height: 800px;
-  height: 100svh;
-  overflow: hidden;
-  background: var(--ink);
-  color: var(--white);
-}
-
-.hero-media,
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-}
-
-.hero-media img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transform: scale(1.035);
-  transition:
-    opacity 1s ease,
-    transform 7s ease;
-}
-
-.hero-media img.is-active {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.hero-overlay {
-  background:
-    linear-gradient(90deg, rgb(4 10 20 / 86%) 0%, rgb(4 10 20 / 45%) 57%, rgb(4 10 20 / 16%) 100%),
-    linear-gradient(0deg, rgb(5 12 25 / 54%) 0%, transparent 42%);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: var(--header-height);
-}
-
-.hero h1,
 .section-heading h2,
 .product-heading h2 {
   font-family: var(--font-jp);
@@ -1373,113 +1325,11 @@ button:has(> .btn-spinner) {
   line-height: 1.12;
 }
 
-.hero h1 em {
-  color: var(--blue-bright);
-  font-style: normal;
-}
-
-.hero-copy {
-  margin-top: 34px;
-  font-family: var(--font-jp);
-  font-size: clamp(0.95rem, 1.25vw, 1.12rem);
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  line-height: 1.9;
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 46px;
-}
-
-.hero-rail {
-  position: absolute;
-  z-index: 3;
-  right: 34px;
-  bottom: 36px;
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-
-.hero-rail p {
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  writing-mode: vertical-rl;
-}
-
-.hero-dots {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.hero-dots button {
-  width: 34px;
-  height: 12px;
-  border: 0;
-  padding: 5px 0;
-  background: transparent;
-  cursor: pointer;
-}
-
-.hero-dots button span {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background: rgb(255 255 255 / 34%);
-  transform-origin: left;
-  transition: background 180ms ease;
-}
-
-.hero-dots button.is-active span {
-  background: var(--blue-bright);
-}
-
-.metric-band,
-.quick-links,
-.card-grid,
 .chip-row,
 .keyword-row,
 .admin-stats,
 .admin-shortcuts {
   display: grid;
-}
-
-.metric-band {
-  grid-template-columns: repeat(4, 1fr);
-  border-bottom: 1px solid var(--line);
-  background: var(--white);
-}
-
-.metric {
-  display: flex;
-  min-height: 132px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-right: 1px solid var(--line);
-  text-align: center;
-}
-
-.metric:last-child {
-  border-right: 0;
-}
-
-.metric strong {
-  font-size: clamp(1.35rem, 2vw, 2rem);
-  letter-spacing: -0.04em;
-}
-
-.metric span {
-  margin-top: 8px;
-  color: var(--muted);
-  font-family: var(--font-jp), serif;
-  font-size: 0.72rem;
-  font-weight: 500;
 }
 
 .quick-links {
@@ -1556,26 +1406,6 @@ button:has(> .btn-spinner) {
   font-size: 1.25rem;
 }
 
-.problem-section,
-.product-section {
-  overflow: hidden;
-  color: var(--white);
-}
-
-.problem-section {
-  padding-block: 130px;
-  background: radial-gradient(circle at 12% 10%, rgb(77 141 255 / 21%), transparent 32%), var(--navy);
-}
-
-.product-section {
-  background: radial-gradient(circle at 90% 5%, rgb(77 141 255 / 18%), transparent 30%), var(--ink);
-}
-
-.problem-grid,
-.split-heading,
-.about-panel,
-.product-hero,
-.specs-panel,
 .article-layout,
 .editor-page-grid {
   display: grid;
@@ -3485,38 +3315,8 @@ button:has(> .btn-spinner) {
     padding-block: 92px;
   }
 
-  .hero {
-    min-height: 720px;
-  }
-
-  .hero-content {
-    justify-content: flex-end;
-    padding-bottom: 110px;
-  }
-
-  .hero-rail p {
-    display: none;
-  }
-
-  .metric-band {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .quick-links {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .problem-grid,
-  .split-heading,
-  .about-panel,
-  .feature-row,
-  .feature-row.reverse,
-  .product-hero,
-  .specs-panel,
-  .footer-top,
   .admin-shell,
   .editor-page-grid,
-  .card-grid,
   .admin-stats {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -3543,32 +3343,6 @@ button:has(> .btn-spinner) {
 @media (max-width: 560px) {
   .section {
     padding-block: 76px;
-  }
-
-  .hero {
-    min-height: 700px;
-  }
-
-  .hero h1 {
-    font-size: clamp(2.8rem, 13vw, 4.4rem);
-  }
-
-  .hero-actions {
-    width: 100%;
-  }
-
-  .hero-actions .button {
-    flex: 1;
-    min-width: 145px;
-  }
-
-  .quick-links {
-    grid-template-columns: 1fr;
-  }
-
-  .quick-card,
-  .quick-card:last-child {
-    border-right: 1px solid var(--line);
   }
 
   .faq-item summary {

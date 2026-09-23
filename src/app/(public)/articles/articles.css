@@ -127,6 +127,7 @@
 
 /* Guide Cards */
 .guide-card {
+  position: relative;
   display: block;
   background: #fff;
   border: 1px solid #E3E0D8;
@@ -149,6 +150,16 @@
   background: #d8d6cf;
   min-height: 180px;
   max-height: 500px;
+}
+
+/* Neutralize the landing guide.css default-photo layer (.guide-visual::before
+   with --i-hero). Next.js keeps that stylesheet global after client-side
+   navigation, and as a positioned layer it paints above the real <img>
+   (which only wins back on hover once its zoom transform applies).
+   The component already falls back to /images/hero-bike.webp when an
+   article has no photo, so the default still shows exactly then. */
+.guide-card .guide-visual::before {
+  content: none;
 }
 
 .guide-visual img {
@@ -201,6 +212,20 @@
 
 .guide-card h3 a:hover {
   color: var(--gray);
+}
+
+/* Whole-card tap target: the title link stretches over the card so there
+   is always an obvious place to tap, especially on small/medium screens. */
+.guide-card h3 .guide-title-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.guide-card h3 .guide-title-link:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
 }
 
 .guide-card p {

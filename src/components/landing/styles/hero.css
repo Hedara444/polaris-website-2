@@ -320,3 +320,137 @@
     padding-top: 84px
   }
 }
+
+/* iPhone SE and other narrow phones: stack CTAs full-width so both stay
+   visible without wrapping into awkward half rows below the fold. */
+@media (max-width: 560px) {
+  .hero-btns {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-btns .btn {
+    width: 100%;
+    white-space: normal;
+    height: auto;
+    min-height: 54px;
+    padding-block: 14px;
+    text-align: center;
+  }
+}
+
+/* Short viewports (iPhone SE is 375x667): compress the hero vertically so
+   both CTA buttons land inside the first viewport instead of slipping
+   below the fold. No element is hidden — spacing just tightens. */
+@media (max-width: 375px) {
+  .hero {
+    min-height: clamp(480px, 70vh, 600px);
+  }
+  
+  .hero-media {
+    height: clamp(240px, 60vw, 320px);
+  }
+
+  .notif {
+    bottom: -30px;
+  }
+
+  .hero-copy {
+    padding-top: 64px;
+  }
+
+  .hero h1 {
+    font-size: clamp(27px, 8vw, 32px);
+  }
+
+  .hero p.sub {
+    margin-top: 16px;
+    font-size: 14.5px;
+    line-height: 1.8;
+  }
+
+  .hero-btns {
+    margin-top: 22px;
+  }
+}
+
+/* iPhone SE tier (375px): buttons render too large here while every other
+   phone size looks right — scale them down 10% and add breathing room
+   below the stack. Full-width rows carry zero horizontal-overflow risk.
+   Belt and suspenders: padding (never collapses, never ignored) reserves
+   the gap, and the buttons paint above any overlapping layer. */
+@media (max-width: 375px) {
+  /* NOTE: longhands only — the padding shorthand here would reset
+     padding-top (84px/64px compensation for the overlapping notif card)
+     and that is exactly what pushed content under the next section. */
+  .hero-copy {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  .hero-media {
+    height: clamp(200px, 56vw, 260px);
+  }
+
+  .notif {
+    left: 12px;
+    right: 12px;
+    bottom: -12px;
+    padding: 12px 14px;
+  }
+
+  .notif-hd {
+    margin-bottom: 8px;
+  }
+
+  .notif .avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+  }
+
+  .notif .avatar svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .notif h3 {
+    font-size: 15px;
+  }
+
+  .notif p {
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 4px;
+  }
+
+  .notif-ac {
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+
+  .pill-line {
+    font-size: 11.5px;
+    padding: 7px 11px;
+  }
+
+  .notif-ac .more {
+    font-size: 11.5px;
+  }
+
+  .hero-btns {
+    position: relative;
+    z-index: 6;
+    margin-bottom: 16px;
+    gap: 10px;
+  }
+
+  .hero-btns .btn {
+    min-height: 48px;
+    padding-block: 12px;
+    font-size: 14.5px;
+  }
+}

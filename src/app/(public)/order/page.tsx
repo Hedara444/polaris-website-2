@@ -92,19 +92,17 @@ export default function OrderPage() {
             </h2>
             <p className="lead">購入手続きのあと、ユーザー登録フォームをご案内します。フォームから必要情報をご登録ください。</p>
           </div>
-          <div className="flow4 rv in" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 0, marginTop: 36 }}>
+          <div className="flow4 rv in">
             {[
               { k: "01", b: "購入手続き", s: "お届け先・お支払い情報を入力して、購入手続きを完了します。" },
               { k: "02", b: "ユーザー登録", s: "購入後、ユーザー登録フォームをご案内します。商品到着までに必要事項をご登録ください。" },
               { k: "03", b: "POLARISSが到着", s: "端末がお手元に届きます。" },
               { k: "04", b: "愛車にセット", s: "端末を設置し、LINEから利用を開始します。" },
             ].map((f) => (
-              <div key={f.k} className="fnode" style={{ borderTop: "1px solid var(--line)", padding: "18px 16px 0 0" }}>
-                <span className="k" style={{ fontFamily: "var(--num)", fontWeight: 800, color: "var(--ghost)", fontSize: 22 }}>
-                  {f.k}
-                </span>
-                <b style={{ display: "block", marginTop: 8, fontWeight: 700 }}>{f.b}</b>
-                <small style={{ display: "block", marginTop: 6, color: "#777", lineHeight: 1.7 }}>{f.s}</small>
+              <div key={f.k} className="fnode">
+                <span className="k">{f.k}</span>
+                <b>{f.b}</b>
+                <small>{f.s}</small>
               </div>
             ))}
           </div>

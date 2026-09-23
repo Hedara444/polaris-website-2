@@ -16,7 +16,11 @@ export function MutualSection() {
               一人で見守るだけじゃない。
             </h2>
             <p className="lead">
-              万が一愛車が盗まれたとき、POLARISSユーザー同士で発見につながる情報を共有できる仕組みがあります。盗難車両が別のPOLARISSユーザーの周辺へ近づくと、そのユーザーへ通知。一人のGPSだけではなく、POLARISSユーザー同士でも愛車を見守ります。
+              万が一愛車が盗まれたとき、POLARISSユーザー同士で発見につながる情報を共有できる仕組みがあります。
+              <span className="m-lead-more">
+                盗難車両が別のPOLARISSユーザーの周辺へ近づくと、そのユーザーへ通知。
+              </span>
+              一人のGPSだけではなく、POLARISSユーザー同士でも愛車を見守ります。
             </p>
           </div>
 
