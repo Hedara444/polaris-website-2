@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
+import { CoverCropper } from "@/components/admin/CoverCropper/CoverCropper";
 import { AsyncButton } from "@/components/ui/AsyncButton";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import type { ArticleDetails, ArticleEditorInput, CategoryItem } from "@/lib/types";
@@ -317,6 +318,7 @@ export function ArticleEditor({
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [error, setError] = useState("");
   const [uploadError, setUploadError] = useState("");
+  const [cropFile, setCropFile] = useState<File | null>(null);
   // Sync guard: state updates don't commit before a second click can land.
   const busyRef = useRef(false);
 
@@ -358,7 +360,14 @@ export function ArticleEditor({
       return;
     }
 
-    await uploadCoverImage(file);
+    if (file.type && !file.type.startsWith("image/")) {
+      setUploadError("Please choose an image file.");
+      return;
+    }
+
+    // Covers are always cropped to the 16/9 billboard before upload.
+    setUploadError("");
+    setCropFile(file);
   }
 
   async function saveArticle() {
@@ -506,7 +515,7 @@ export function ArticleEditor({
             ) : (
               <span className="upload-dropzone-copy">
                 <strong>Drag and drop a cover image</strong>
-                <span>Required. JPG, JPEG, or WEBP only.</span>
+                <span>Required. JPG, JPEG, or WEBP only. You will crop it to 16:9 next.</span>
               </span>
             )}
             <span className="upload-dropzone-meta">
@@ -515,6 +524,16 @@ export function ArticleEditor({
           </button>
           {form.coverImageUrl ? <div className="asset-path">Stored path: {form.coverImageUrl}</div> : null}
           {uploadError ? <p className="form-error">{uploadError}</p> : null}
+          {cropFile ? (
+            <CoverCropper
+              file={cropFile}
+              onCancel={() => setCropFile(null)}
+              onConfirm={(cropped) => {
+                setCropFile(null);
+                void uploadCoverImage(cropped);
+              }}
+            />
+          ) : null}
         </label>
 
         <div className="field">

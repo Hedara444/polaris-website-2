@@ -1,0 +1,119 @@
+/* Cover photo cropper (16/9 billboard) — co-located with the component.
+   Migrated out of globals.css as part of the gradual migration to
+   per-component styles. Shared dialog chrome (confirm-overlay,
+   confirm-card, confirm-kicker/title/message/actions) and shared
+   controls (button, btn-spinner, kw-note, form-error) still live in
+   globals.css until their own owners migrate. */
+
+.confirm-card--wide {
+  width: min(760px, 100%);
+  /* Keep the whole dialog — including Cancel / Use this crop — reachable:
+     the card never grows past the viewport and scrolls internally. */
+  max-height: calc(100vh - 40px);
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.crop-stage {
+  position: relative;
+  width: fit-content;
+  max-width: 100%;
+  margin: 14px auto 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    repeating-conic-gradient(rgb(0 0 0 / 4%) 0% 25%, transparent 0% 50%) 0 0 / 16px 16px,
+    var(--smoke);
+  overflow: hidden;
+}
+
+.crop-image {
+  display: block;
+  max-width: 100%;
+  max-height: 46vh;
+  max-height: 38dvh;
+  user-select: none;
+}
+
+.crop-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: min(100%, 320px);
+  min-height: 200px;
+  background: rgb(255 255 255 / 75%);
+  color: var(--ink2);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.crop-box {
+  position: absolute;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 9999px rgb(23 23 22 / 55%),
+    0 4px 18px rgb(0 0 0 / 35%);
+  cursor: move;
+  touch-action: none;
+}
+
+.crop-box:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.crop-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.crop-controls span {
+  flex: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.crop-controls input[type="range"] {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--ink);
+}
+
+.crop-preview-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.crop-preview-row span {
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.crop-preview-canvas {
+  width: min(100%, 240px);
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #d8d6cf;
+}
+
+@media (max-width: 560px) {
+  .confirm-card--wide {
+    padding: 20px;
+  }
+
+  .crop-stage {
+    margin-top: 10px;
+  }
+}
