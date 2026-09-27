@@ -6,8 +6,9 @@ import { AboutMapSection } from "@/components/about/AboutMapSection";
 import { AboutAnimations } from "@/components/about/AboutAnimations";
 
 export const metadata = buildMetadata({
-  title: "POLARISS | POLARISSとは",
-  description: "POLARISSが、この形になった理由。盗難対策を「盗まれた後」から考える、という発想から生まれたGPS盗難対策サービスです。",
+  title: "POLARISSとは｜GPS・相互監視・気象リスク通知で愛車を守る",
+  description:
+    "POLARISSの仕組みと主な機能をご紹介します。GPS位置情報、相互監視、気象リスク通知を活用し、大切なバイクや車両を見守ります。",
   path: "/about",
 });
 
@@ -24,7 +25,10 @@ export default function AboutPage() {
         <div className="ehero-grid wrap">
           <div>
             <p className="kicker">ABOUT POLARISS</p>
-            <h1>POLARISSが、<br />この形になった理由。</h1>
+            <h1>POLARISSとは</h1>
+            <p style={{ fontSize: "clamp(20px,2.6vw,36px)", fontWeight: 900, lineHeight: 1.3, marginTop: "12px", color: "#131312" }}>
+              POLARISSが、<br />この形になった理由。
+            </p>
           </div>
           <div>
             <div className="ehero-dev">

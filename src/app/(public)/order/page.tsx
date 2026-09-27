@@ -1,31 +1,42 @@
+import Link from "next/link";
 import { siteConfig, defaultKeywords } from "@/lib/site-config";
 import { buildMetadata } from "@/lib/seo";
+import { getProductJsonLd } from "@/lib/json-ld";
 import "./order.css";
 
 export const metadata = buildMetadata({
-  title: "POLARISS | ご注文 (Purchase)",
+  title: "POLARISSを購入する｜GPSで愛車を見守る",
   description:
-    "POLARISS ご注文内容 – 初回19,800円（税込・送料無料）、2回目以降月額2,178円。LINEとGPSで愛車を見守るIoTセキュリティ。",
+    "POLARISSのGPSユニットを購入して、大切なバイクや車両の見守りを始めましょう。購入前に料金、利用開始の流れ、主な機能をご確認いただけます。",
   path: "/order",
   keywords: ["POLARISS 購入", "GPS セキュリティ 注文", "車 盗難対策 購入", ...defaultKeywords.compare],
 });
 
 export default function OrderPage() {
+  const productJsonLd = getProductJsonLd();
+
   return (
     <main id="top">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <div id="heroEnd" aria-hidden="true" />
 
       {/* PURCHASE SUMMARY */}
       <section className="sec osum" id="summary" style={{ padding: "clamp(72px,9vw,112px) 0", background: "#fff" }}>
         <div className="wrap">
+          <div className="crumb" style={{ marginBottom: 16 }}>
+            <Link href="/" style={{ fontSize: 13, fontWeight: 700, color: "var(--gray)" }}>ホーム</Link>／<span style={{ fontSize: 13, fontWeight: 700, color: "#4E4E4A" }}>POLARISSを購入する</span>
+          </div>
           <div className="sec-hd rv in">
             <p className="kicker" style={{ fontSize: 13, fontWeight: 700, color: "var(--gray)", letterSpacing: ".13em", margin: 0 }}>
-              PURCHASE SUMMARY
+              ORDER & PURCHASE
             </p>
-            <h2 className="h2" style={{ marginTop: 16 }}>
-              ご注文内容。
-            </h2>
-            <p className="lead">お申し込みは、この一点のみ。数量やカラーの選択はありません。</p>
+            <h1 style={{ fontSize: "clamp(30px,4.2vw,54px)", fontWeight: 900, marginTop: 12, lineHeight: 1.25 }}>
+              POLARISSを購入する
+            </h1>
+            <p className="lead" style={{ marginTop: 12 }}>お申し込みは、この一点のみ。数量やカラーの選択はありません。</p>
           </div>
 
           <div className="osum-wrap rv in">
@@ -60,18 +71,35 @@ export default function OrderPage() {
 
             <div className="osum-side">
               <span className="k" style={{ fontSize: 12, fontWeight: 700, color: "var(--gray)", letterSpacing: ".1em" }}>
-                CHECKOUT
+                PURCHASE SUMMARY
               </span>
-              <b style={{ display: "block", marginTop: 12, fontSize: 19, fontWeight: 900 }}>お支払いは、購入手続きの画面で。</b>
-              <p style={{ marginTop: 12, color: "#57574F", lineHeight: 1.8, fontWeight: 500 }}>
-                お届け先やお支払い方法は、次の画面でご入力いただきます。
-              </p>
-              <a href={siteConfig.buyNowUrl} target="_blank" rel="noopener noreferrer" className="btn btn-fill" style={{ marginTop: 22 }}>
+              <b style={{ display: "block", marginTop: 12, fontSize: 19, fontWeight: 900 }}>ご購入前の確認事項</b>
+              
+              <div style={{ marginTop: 14, padding: "14px 16px", background: "var(--warm)", borderRadius: 12, fontSize: 13, lineHeight: 1.75, color: "#3A3A35" }}>
+                <p style={{ margin: "0 0 6px 0", fontWeight: 700 }}>■ 初回に含まれるもの：</p>
+                <p style={{ margin: "0 0 10px 0", paddingLeft: 8 }}>19,800円（税込）- GPSユニット本体、初月通信費、送料無料</p>
+
+                <p style={{ margin: "0 0 6px 0", fontWeight: 700 }}>■ 2回目以降の月額費用：</p>
+                <p style={{ margin: "0 0 10px 0", paddingLeft: 8 }}>月額2,178円（税込）</p>
+
+                <p style={{ margin: "0 0 6px 0", fontWeight: 700 }}>■ 購入後の流れ：</p>
+                <p style={{ margin: 0, paddingLeft: 8 }}>配送・受取 ➔ Web初期設定 ➔ 愛車に設置・見守り開始</p>
+              </div>
+
+              <a href={siteConfig.buyNowUrl} target="_blank" rel="noopener noreferrer" className="btn btn-fill" style={{ marginTop: 20 }}>
                 購入手続きへ
               </a>
-              <a href="/compare" className="link" style={{ display: "block", marginTop: 16, fontSize: 14, fontWeight: 700, borderBottom: "2px solid var(--gray)", width: "fit-content", paddingBottom: 3 }}>
-                料金について詳しく →
-              </a>
+              <div style={{ display: "flex", gap: 16, marginTop: 16, flexWrap: "wrap", fontSize: 13, fontWeight: 700 }}>
+                <Link href="/price" style={{ borderBottom: "2px solid var(--gray)", paddingBottom: 2 }}>
+                  料金詳細を見る →
+                </Link>
+                <Link href="/howto" style={{ borderBottom: "2px solid var(--gray)", paddingBottom: 2 }}>
+                  使い方を見る →
+                </Link>
+                <Link href="/faq" style={{ borderBottom: "2px solid var(--gray)", paddingBottom: 2 }}>
+                  FAQを見る →
+                </Link>
+              </div>
             </div>
           </div>
           <p className="osum-note" style={{ marginTop: 24, fontSize: 12, color: "#807F79" }}>

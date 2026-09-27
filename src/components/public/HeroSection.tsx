@@ -40,11 +40,11 @@ export function HeroSection() {
         </div>
         <h1>
           <span>
-            <i className="w1">愛車が</i>
-            <i className="w2">動いた。</i>
+            <i className="w1">GPSで、</i>
+            <i className="w2">大切な愛車を</i>
           </span>
           <span>
-            <i className="w3">その瞬間に気づける。</i>
+            <i className="w3">見守る。</i>
           </span>
         </h1>
         <p className="sub">

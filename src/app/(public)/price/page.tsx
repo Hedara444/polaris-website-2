@@ -1,49 +1,59 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
+import { getProductJsonLd } from "@/lib/json-ld";
 import "@/components/landing/styles/price-page.css";
 import "./price.css";
 import { PriceInteractions } from "./PriceInteractions";
 
 export const metadata = buildMetadata({
-  title: "POLARISS | 料金",
+  title: "POLARISS料金プラン｜GPSユニットと月額通信費",
   description:
-    "料金はシンプルに。初回19,800円（税込・配送料無料）、その後は月額2,178円（税込）。POLARISS GPSユニット、通信サービス、基本サービスの利用が含まれます。",
+    "POLARISSの料金をご案内します。初回19,800円（税込・GPSユニット、初月通信費、送料無料）、2回目以降は月額2,178円（税込）です。",
   path: "/price",
 });
 
 export default function PricePage() {
+  const productJsonLd = getProductJsonLd();
+
   return (
     <main id="top">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <PriceInteractions />
 
       {/* 01 HERO — phero */}
       <section className="phero">
         <div className="wrap">
           <div className="crumb">
-            <Link href="/">ホーム</Link>／<span>料金</span>
+            <Link href="/">ホーム</Link>／<span>料金プラン</span>
           </div>
         </div>
         <div className="phero-in wrap">
           <p className="kicker">PRICE</p>
-          <h1>
+          <h1>料金プラン</h1>
+          <p style={{ fontSize: "clamp(20px,2.6vw,36px)", fontWeight: 900, lineHeight: 1.3, marginTop: "12px", color: "#131312" }}>
             料金は、
             <br />
             シンプルに。
-          </h1>
+          </p>
           <p className="sub">プランの選択はありません。最初に本体、そのあとは通信費だけです。</p>
 
           <div className="bignums">
             <div className="bn">
               <span className="k">FIRST PAYMENT</span>
-              <span className="jp">最初に</span>
+              <span className="jp">初回お支払い</span>
               <div className="fig">
                 <span className="n">19,800</span>
                 <span className="y">円</span>
               </div>
               <p className="note">
-                税込 ／ 配送料無料
+                税込 ／ 送料無料
                 <br />
-                GPSユニット本体のお支払いです。
+                <b>【含まれるもの】</b>
+                <br />
+                GPSユニット本体＋初月通信費＋送料
               </p>
             </div>
             <div className="bn-div" aria-hidden="true"></div>

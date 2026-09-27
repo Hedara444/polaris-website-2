@@ -243,7 +243,10 @@ export function ContactClient() {
             <Link href="/">ホーム</Link>／<span>お問い合わせ</span>
           </div>
           <p className="kicker">CONTACT</p>
-          <h1>POLARISSについてのお問い合わせ</h1>
+          <h1>お問い合わせ</h1>
+          <p style={{ fontSize: "1.2rem", fontWeight: 700, marginTop: 8, color: "#4E4E4A" }}>
+            POLARISSについてのお問い合わせ
+          </p>
           <p>
             購入前のご相談、取り付けやご利用方法についてなど、POLARISSに関するお問い合わせを受け付けています。
           </p>
