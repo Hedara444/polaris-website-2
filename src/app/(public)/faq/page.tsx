@@ -3,6 +3,7 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import { staticFaqCategories, staticFaqGroups, staticFaqHeaderKeywords } from "@/app/(public)/faq-deprecated/static-faq-data";
 import { StaticFaqInteractions } from "./StaticFaqInteractions";
+import { getFaqPageJsonLd } from "@/lib/json-ld";
 import "@/app/(public)/faq-deprecated/faq.css";
 
 export const metadata = buildMetadata({
@@ -15,13 +16,22 @@ export const metadata = buildMetadata({
 
 const totalFaqs = staticFaqGroups.reduce((acc, g) => acc + g.items.length, 0);
 
-/**
- * Static FAQ variation — exact static copy of `polariss-site_all-pages/faq-deprecated.html`.
- * All content is server-rendered from `../faq-deprecated/static-faq-deprecated-data.ts`; no DB.
- */
+const faqList = staticFaqGroups.flatMap((group) =>
+  group.items.map((item) => ({
+    question: item.question,
+    answer: item.lead + (item.more ? " " + item.more : ""),
+  }))
+);
+
 export default function StaticFaqPage() {
+  const faqJsonLd = getFaqPageJsonLd(faqList);
+
   return (
     <main id="top">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <StaticFaqInteractions />
 
       <section className="qhero">

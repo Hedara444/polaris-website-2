@@ -3,8 +3,9 @@ import { ContactClient } from "./ContactClient";
 import "./contact.css";
 
 export const metadata = buildMetadata({
-  title: "POLARISS | お問い合わせ",
-  description: "POLARISSに関するお問い合わせ（購入前のご相談、取り付け、ご利用方法など）を受け付けています。",
+  title: "お問い合わせ｜POLARISS",
+  description:
+    "POLARISSに関するお問い合わせ、導入のご相談、法人利用のご相談はこちらからご連絡ください。",
   path: "/contact",
 });
 

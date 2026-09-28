@@ -5,8 +5,9 @@ import "@/components/landing/styles/howto.css";
 import { HowtoInteractions } from "@/components/howto/HowtoInteractions";
 
 export const metadata = buildMetadata({
-  title: "POLARISS | 使い方",
-  description: "使い方 — 購入から設定、愛車へのセット、ふだんの確認、そして万が一の通知まで。時間の流れに沿ってご紹介します。",
+  title: "POLARISSの使い方｜GPSユニットの利用開始から見守りまで",
+  description:
+    "POLARISSの購入後の流れ、GPSユニットの利用開始方法、位置情報の確認方法をご案内します。初めての方にも分かりやすく説明します。",
   path: "/howto",
 });
 
@@ -19,16 +20,17 @@ export default function HowtoPage() {
       <section className="jhero">
         <div className="wrap">
           <div className="crumb">
-            <Link href="/">ホーム</Link>／<span>使い方</span>
+            <Link href="/">ホーム</Link>／<span>の使い方</span>
           </div>
         </div>
         <div className="jhero-in wrap">
           <p className="kicker">HOW TO USE</p>
-          <h1>
+          <h1>POLARISSの使い方</h1>
+          <p style={{ fontSize: "clamp(20px,2.6vw,36px)", fontWeight: 900, lineHeight: 1.3, marginTop: "12px", color: "#131312" }}>
             はじめるのも、
             <br />
             使うのも、シンプルに。
-          </h1>
+          </p>
           <p className="sub">購入から設定、愛車へのセット、ふだんの確認、そして万が一の通知まで。時間の流れに沿ってご紹介します。</p>
           <div className="jhero-btns">
             <a href="#overview" className="btn btn-fill">

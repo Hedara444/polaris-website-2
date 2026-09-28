@@ -1,9 +1,9 @@
 export const siteConfig = {
-  name: "POLARISS Next",
+  name: "POLARISS",
   shortName: "POLARISS",
   description:
-    "A premium POLARISS website with landing, articles, FAQ, and an admin content console.",
-  siteUrl: process.env.SITE_BASE_URL ?? "http://localhost:3000",
+    "POLARISSは、GPS位置情報と相互監視で大切なバイクや車両を見守るサービスです。盗難対策に加え、気象リスク通知で愛車の危険にも備えます。",
+  siteUrl: process.env.SITE_BASE_URL ?? "https://www.polariss.jp",
   buyNowUrl:
     process.env.NEXT_PUBLIC_BUY_NOW_URL ??
     "https://polariss-store.myshopify.com/",
@@ -13,8 +13,9 @@ export const siteConfig = {
   originalSiteUrl:
     process.env.NEXT_PUBLIC_ORIGINAL_SITE_URL ??
     "https://thingsline.co.jp/index",
-  ckEditorKey:process.env.NEXT_PUBLIC_CK_EDITOR_LICENCE_KEY ?? 'GPL',
+  ckEditorKey: process.env.NEXT_PUBLIC_CK_EDITOR_LICENCE_KEY ?? "GPL",
   gtmId: process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-W8PC23CG",
+  clarityProjectId: process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID ?? "",
 } as const;
 
 export const defaultKeywords = {

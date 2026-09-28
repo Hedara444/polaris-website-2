@@ -1,8 +1,15 @@
 footer{background:#1B1B19;color:#B9B9B1;padding:clamp(52px,6vw,70px) 0 108px}
 .ft-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid #333330}
 .ft-brand{max-width:330px}
+.ft-brand .logo {display:flex;align-items:center}
+.ft-brand .logo .wordmark,
+footer .wordmark {fill:#ffffff !important;color:#ffffff !important;width:140px;height:auto}
 .ft-brand .logo b{color:#fff}
 .ft-brand p{margin:16px 0 0;font-size:14px;line-height:1.9;color:#93938C;font-weight:500}
+.ft-sns{display:flex;align-items:center;gap:12px;margin-top:20px}
+.sns-link{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.08);color:#ffffff;transition:background .25s ease,transform .25s ease}
+.sns-link:hover{background:rgba(255,255,255,.22);color:#ffffff;transform:translateY(-2px)}
+.sns-link svg{fill:#ffffff;width:20px;height:20px}
 .ft-cols{display:flex;gap:clamp(32px,5vw,64px);flex-wrap:wrap}
 .ft-col{display:flex;flex-direction:column;gap:12px;font-size:14px}
 .ft-col b{color:#fff;font-weight:700;margin-bottom:2px}
