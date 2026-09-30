@@ -1,0 +1,39 @@
+/* Admin login styles — co-located with LoginForm.
+   The login page (/admin/login) renders ONLY LoginForm inside .auth-page,
+   without mounting AdminShell, so auth-page/auth-card must live here rather
+   than in AdminShell.css. Shared primitives (.field, .form-error, .button)
+   stay in globals.css: editors reuse them under AdminShell. */
+
+.auth-page {
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+  padding: 48px 16px;
+  background: linear-gradient(180deg, #eff2f6 0%, #ffffff 38%);
+}
+
+.auth-card {
+  display: grid;
+  gap: 18px;
+  width: min(480px, 100%);
+  border: 1px solid var(--line);
+  background: var(--white);
+  padding: 36px;
+}
+
+.auth-card h1 {
+  font-family: var(--font-jp);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.auth-card p {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 560px) {
+  .auth-card {
+    padding: 20px;
+  }
+}

@@ -1,0 +1,33 @@
+/* Article card (guide-card) small-screen behavior — co-located with
+   ArticleCard. Base card styles live contextually in articles.css (real
+   article photos) and landing guide.css; only the compact responsive
+   tweaks below are component-owned. Breakpoints preserved exactly. */
+
+/* Side-by-side thumb fix: the 16/9 ratio combined with min-height:100%
+   transferred the stretched row height into width (166px tall became a
+   ~295px wide thumb), overflowing the grid track — and the positioned
+   .guide-visual paints above static body text, burying the title.
+   In side-by-side rows the thumb fills its cell instead (image keeps
+   covering via object-fit). The stacked ≤620px layout keeps its ratio. */
+@media (min-width: 621px) {
+  article.guide-card.compact .guide-visual {
+    min-width: 0;
+    aspect-ratio: auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .guide-card.compact {
+    grid-template-columns: 132px 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .guide-card.compact {
+    grid-template-columns: 1fr;
+  }
+
+  .guide-card.compact .guide-visual {
+    min-height: 180px;
+  }
+}

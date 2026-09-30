@@ -1,0 +1,404 @@
+/* Article editor styles — co-located with ArticleEditor.
+   Every selector here is used only by ArticleEditor, with one documented
+   exception: .kw-note is also rendered by CoverCropper, which only ever
+   mounts INSIDE ArticleEditor (cover upload flow), so this file is always
+   loaded when the cropper is open. Shared admin chrome (editor-panel,
+   editor-page-grid, editor-preview-meta, admin-table, form-actions) lives
+   in AdminShell.css; shared primitives (.field, .form-error, .button)
+   stay in globals.css. */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- cover upload dropzone ---- */
+.upload-dropzone {
+  display: grid;
+  gap: 14px;
+  justify-items: start;
+  border: 1px dashed #8eb4f3;
+  background: linear-gradient(180deg, #f7fbff 0%, #eef5ff 100%);
+  padding: 16px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.upload-dropzone.is-busy {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.upload-dropzone.has-image {
+  justify-items: stretch;
+}
+
+.upload-dropzone-copy {
+  display: grid;
+  gap: 6px;
+}
+
+.upload-dropzone-copy strong {
+  font-size: 0.88rem;
+}
+
+.upload-dropzone-copy span,
+.upload-dropzone-meta,
+.asset-path {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+.upload-dropzone-meta {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.upload-preview {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: center;
+}
+
+.asset-path {
+  padding: 12px 14px;
+  border: 1px dashed var(--line);
+  background: #fafcff;
+  word-break: break-all;
+}
+
+.slug-preview {
+  color: var(--muted);
+  font-size: 0.82rem;
+  padding: 12px 14px;
+  border: 1px dashed var(--line);
+  background: #fafcff;
+}
+
+/* ---- admin article category chip picker ---- */
+.cat-picker-hint {
+  margin: 6px 0 0;
+  color: var(--ink3);
+  font-size: 0.76rem;
+  line-height: 1.6;
+}
+
+.cat-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.cat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  border-radius: 100px;
+  padding: 8px 8px 8px 14px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  cursor: pointer;
+  animation: cat-chip-in 200ms var(--ease);
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease,
+    transform 120ms ease;
+}
+
+.cat-chip__text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.cat-chip__icon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* Unselected: black outline, black text, blends with the white page. */
+.cat-chip--available {
+  border: 1.5px solid var(--ink);
+  background: var(--white);
+  color: var(--ink);
+}
+
+.cat-chip--available .cat-chip__icon {
+  border: 1.5px solid var(--ink);
+}
+
+.cat-chip--available:hover {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.cat-chip--available:hover .cat-chip__icon {
+  border-color: var(--white);
+}
+
+/* Selected: inverted colors. */
+.cat-chip--selected {
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+  color: var(--white);
+}
+
+.cat-chip--selected .cat-chip__icon {
+  border: 1.5px solid var(--white);
+}
+
+.cat-chip--selected:hover {
+  transform: translateY(-1px);
+  opacity: 0.88;
+}
+
+.cat-chip:active {
+  transform: scale(0.96);
+}
+
+.cat-chip:disabled {
+  cursor: default;
+}
+
+.cat-chip:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.cat-chip.is-leaving {
+  animation: cat-chip-out 160ms var(--ease) forwards;
+  pointer-events: none;
+}
+
+@keyframes cat-chip-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes cat-chip-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+.cat-selected-zone {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+  border-top: 1px dashed var(--line);
+  padding-top: 12px;
+}
+
+.cat-chip-row--selected {
+  margin-top: 0;
+}
+
+.cat-selected-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink2);
+}
+
+.cat-empty {
+  margin: 0;
+  color: var(--danger);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* `body .field span` (globals.css) matches these inner spans directly, and
+   a direct match always beats the color/size inherited from the chip
+   button — selected chips kept the muted field-label gray instead of
+   turning white. Restore inheritance (title keeps its explicit style). */
+.field .cat-chip__text,
+.field .cat-chip__icon,
+.field .kw-chip__text {
+  color: inherit;
+  font-size: inherit;
+}
+
+.field .cat-selected-title {
+  color: var(--ink2);
+  font-size: 0.72rem;
+}
+
+/* ---- keyword manager chips ---- */
+.kw-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.field .kw-counter {
+  display: inline-grid;
+  place-items: center;
+  min-width: 52px;
+  height: 28px;
+  padding-inline: 8px;
+  border: 1.5px solid var(--ink);
+  border-radius: 100px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.field .kw-counter.is-full {
+  background: var(--ink);
+  color: var(--white);
+}
+
+.kw-note {
+  margin: 0;
+  color: var(--ink3);
+  font-size: 0.76rem;
+  line-height: 1.6;
+}
+
+.kw-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.kw-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: var(--white);
+  padding: 6px 6px 6px 12px;
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  animation: cat-chip-in 200ms var(--ease);
+  transition:
+    transform 180ms ease-out,
+    box-shadow 180ms ease-out;
+  will-change: transform;
+}
+
+.kw-chip__text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: normal;
+}
+
+.kw-chip__actions {
+  display: inline-flex;
+  flex: none;
+  gap: 4px;
+}
+
+.kw-chip__actions button {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.kw-chip__actions button:hover:not(:disabled) {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--white);
+}
+
+.kw-chip__actions button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.kw-chip__actions button:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.kw-chip[draggable="true"] {
+  cursor: grab;
+}
+
+.kw-chip-row.is-dragging,
+.kw-chip-row.is-dragging .kw-chip {
+  cursor: grabbing;
+}
+
+.kw-chip.is-dragging {
+  opacity: 0.4;
+}
+
+/* ---- admin live preview (reuses public article classes for fidelity) ---- */
+.admin-article-preview {
+  display: grid;
+  gap: 22px;
+  margin-top: 8px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: #fcfdff;
+}
+
+.admin-article-preview .article-body {
+  max-width: none;
+}

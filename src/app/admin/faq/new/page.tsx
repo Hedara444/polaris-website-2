@@ -1,5 +1,5 @@
-import { AdminShell } from "@/components/admin/AdminShell";
-import { FaqEditor } from "@/components/admin/FaqEditor";
+import { AdminShell } from "@/components/admin/AdminShell/AdminShell";
+import { FaqEditor } from "@/components/admin/FaqEditor/FaqEditor";
 import { requireAdminPageAccess } from "@/server/auth";
 import { getFaqCategories } from "@/server/content-service";
 

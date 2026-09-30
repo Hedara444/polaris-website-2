@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { AdminShell } from "@/components/admin/AdminShell";
+import { AdminShell } from "@/components/admin/AdminShell/AdminShell";
 import { formatDate } from "@/lib/utils";
 import { requireAdminPageAccess } from "@/server/auth";
 import { getAdminFaqs, getFaqCategories } from "@/server/content-service";

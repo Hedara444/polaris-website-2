@@ -1,0 +1,72 @@
+/* Steps flow (order timeline) — co-located with StepsFlow.
+   Used only by the steps page via <StepsFlow>. Page-level steps styles
+   (steps-hero, steps-features, steps-cta, ...) stay in globals.css. */
+
+.steps-flow {
+  max-width: 760px;
+  margin: 56px auto 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps-flow-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 26px;
+  padding-bottom: 44px;
+}
+
+.steps-flow-item:last-child {
+  padding-bottom: 0;
+}
+
+.steps-flow-item::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 37px;
+  width: 1px;
+  content: "";
+  background: var(--line);
+}
+
+.steps-flow-item:last-child::before {
+  display: none;
+}
+
+.steps-flow-node {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 76px;
+  height: 76px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--blue);
+  color: var(--white);
+  font-family: var(--font-jp);
+  font-size: 1.3rem;
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgb(31 100 216 / 32%);
+}
+
+.steps-flow-body {
+  padding-top: 14px;
+}
+
+.steps-flow-body h3 {
+  color: var(--ink);
+  font-family: var(--font-jp);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.steps-flow-body p {
+  margin-top: 14px;
+  color: var(--ink-soft);
+  font-family: var(--font-jp);
+  font-size: 0.85rem;
+  line-height: 2;
+}

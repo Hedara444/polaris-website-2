@@ -1,4 +1,4 @@
-import { HomePage } from "@/components/public/HomePage";
+import { HomePage } from "@/components/public/HomePage/HomePage";
 import { defaultKeywords } from "@/lib/site-config";
 import { buildMetadata } from "@/lib/seo";
 import { getLatestArticles, getPublishedFaqs } from "@/server/content-service";

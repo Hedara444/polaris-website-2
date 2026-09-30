@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
-import { AdminShell } from "@/components/admin/AdminShell";
-import { ArticleCategoryEditor } from "@/components/admin/ArticleCategoryEditor";
+import { AdminShell } from "@/components/admin/AdminShell/AdminShell";
+import { ArticleCategoryEditor } from "@/components/admin/ArticleCategoryEditor/ArticleCategoryEditor";
 import { requireAdminPageAccess } from "@/server/auth";
 import { getArticleCategoryById, getArticlesByArticleCategoryId } from "@/server/content-service";
 

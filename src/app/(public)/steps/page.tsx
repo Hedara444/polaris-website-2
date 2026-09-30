@@ -1,4 +1,4 @@
-import { StepsFlow } from "@/components/public/StepsFlow";
+import { StepsFlow } from "@/components/public/StepsFlow/StepsFlow";
 import {
   stepsFeatures,
   stepsFlow,

@@ -1,5 +1,5 @@
-import { AdminShell } from "@/components/admin/AdminShell";
-import { ArticleCategoryEditor } from "@/components/admin/ArticleCategoryEditor";
+import { AdminShell } from "@/components/admin/AdminShell/AdminShell";
+import { ArticleCategoryEditor } from "@/components/admin/ArticleCategoryEditor/ArticleCategoryEditor";
 import { requireAdminPageAccess } from "@/server/auth";
 
 export default async function NewArticleCategoryPage() {

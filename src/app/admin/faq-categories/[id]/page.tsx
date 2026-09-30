@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 
-import { AdminShell } from "@/components/admin/AdminShell";
-import { FaqCategoryEditor } from "@/components/admin/FaqCategoryEditor";
+import { AdminShell } from "@/components/admin/AdminShell/AdminShell";
+import { FaqCategoryEditor } from "@/components/admin/FaqCategoryEditor/FaqCategoryEditor";
 import { requireAdminPageAccess } from "@/server/auth";
 import { getFaqCategoryById } from "@/server/content-service";
 

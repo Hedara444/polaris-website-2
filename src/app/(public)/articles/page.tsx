@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { ArticleCard } from "@/components/public/ArticleCard";
+import { ArticleCard } from "@/components/public/ArticleCard/ArticleCard";
 import { buildMetadata } from "@/lib/seo";
 import { defaultKeywords } from "@/lib/site-config";
 import { getCategoryList, listPublishedArticles } from "@/server/content-service";

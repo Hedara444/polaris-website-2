@@ -1,5 +1,5 @@
-import { AdminShell } from "@/components/admin/AdminShell";
-import { ArticleEditor } from "@/components/admin/ArticleEditor";
+import { AdminShell } from "@/components/admin/AdminShell/AdminShell";
+import { ArticleEditor } from "@/components/admin/ArticleEditor/ArticleEditor";
 import { requireAdminPageAccess } from "@/server/auth";
 import { getCategoryList } from "@/server/content-service";
 

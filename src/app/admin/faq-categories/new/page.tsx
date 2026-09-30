@@ -1,5 +1,5 @@
-import { AdminShell } from "@/components/admin/AdminShell";
-import { FaqCategoryEditor } from "@/components/admin/FaqCategoryEditor";
+import { AdminShell } from "@/components/admin/AdminShell/AdminShell";
+import { FaqCategoryEditor } from "@/components/admin/FaqCategoryEditor/FaqCategoryEditor";
 import { requireAdminPageAccess } from "@/server/auth";
 
 export default async function NewFaqCategoryPage() {

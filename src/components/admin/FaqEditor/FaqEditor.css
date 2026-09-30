@@ -1,0 +1,22 @@
+/* FAQ editor styles — co-located with FaqEditor.
+   Only the admin preview chrome lives here; the preview itself reuses the
+   public .faq-item/.faq-plus/.faq-answer/.keyword-row/.keyword-chip
+   classes (globals.css) so the preview matches the public FAQ exactly. */
+
+.admin-faq-preview {
+  display: grid;
+  gap: 22px;
+  margin-top: 8px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  background: #fcfdff;
+}
+
+.faq-summary-preview {
+  display: grid;
+  min-height: 106px;
+  grid-template-columns: 80px 1fr 34px;
+  align-items: center;
+  gap: 22px;
+  padding-inline: 12px;
+}

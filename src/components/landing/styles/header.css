@@ -31,3 +31,9 @@
   .hdr-cta .btn{padding:0 18px}
 }
 @media(max-width:520px){ .hdr-cta .btn{height:40px;font-size:13px;padding:0 15px} }
+/* Migrated from globals.css: narrow-desktop compression for the header row. */
+@media(min-width:1181px) and (max-width:1400px){
+  .hdr-in{gap:14px}
+  .nav{gap:11px;font-size:12px}
+  .hdr-cta .btn{padding-left:16px;padding-right:16px}
+}

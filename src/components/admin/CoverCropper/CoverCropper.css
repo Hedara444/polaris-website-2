@@ -2,8 +2,10 @@
    Migrated out of globals.css as part of the gradual migration to
    per-component styles. Shared dialog chrome (confirm-overlay,
    confirm-card, confirm-kicker/title/message/actions) and shared
-   controls (button, btn-spinner, kw-note, form-error) still live in
-   globals.css until their own owners migrate. */
+   controls (button, btn-spinner, form-error) still live in
+   globals.css until their own owners migrate. .kw-note lives in
+   ArticleEditor.css, which is always loaded: this dialog only ever
+   mounts inside ArticleEditor. */
 
 .confirm-card--wide {
   width: min(760px, 100%);

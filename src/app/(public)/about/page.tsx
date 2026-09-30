@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import "@/components/landing/styles/about.css";
@@ -20,7 +20,7 @@ export default function AboutPage() {
       {/* ==================== 01 HERO ==================== */}
       <section className="ehero">
         <div className="wrap">
-          <div className="crumb"><a href="/">ホーム</a>／<span>POLARISSとは</span></div>
+          <div className="crumb"><Link href="/">ホーム</Link>／<span>POLARISSとは</span></div>
         </div>
         <div className="ehero-grid wrap">
           <div>

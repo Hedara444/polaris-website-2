@@ -1,0 +1,283 @@
+/* Admin shared styles — co-located with AdminShell.
+   AdminShell mounts on every /admin page EXCEPT /admin/login (which renders
+   only LoginForm), so rules here must stay admin-only AND login-independent.
+   Component-exclusive rules live with their owners: ArticleEditor,
+   FaqEditor, RichTextEditor, LoginForm, CoverCropper.
+   Truly shared primitives (.field, .form-error, .button, .confirm-*,
+   .btn-spinner, .eyebrow) stay in globals.css: the login page and the
+   public site use them without mounting AdminShell. */
+
+.admin-shell {
+  display: grid;
+  min-height: 100dvh;
+  grid-template-columns: 280px minmax(0, 1fr);
+  align-items: start;
+  background: linear-gradient(180deg, #eff2f6 0%, #ffffff 38%);
+}
+
+/* General admin overflow containment: grid children default to
+   min-width auto, which lets one wide table/editor stretch the whole
+   dashboard past the viewport. These resets keep oversized content
+   inside its own region on every admin page. */
+.admin-main,
+.admin-sidebar,
+.admin-page-intro,
+.editor-panel,
+.editor-page-grid,
+.admin-table,
+.admin-stats,
+.admin-stat-card {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.admin-sidebar {
+  display: grid;
+  position: sticky;
+  top: 0;
+  height: 100dvh;
+  overflow-y: auto;
+  align-content: start;
+  gap: 32px;
+  border-right: 1px solid var(--line);
+  padding: 28px;
+  background: #f7f8fa;
+}
+
+.admin-brand {
+  font-family: var(--font-jp);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.admin-nav {
+  display: grid;
+  gap: 12px;
+}
+
+.admin-nav a {
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  transition: background 180ms ease;
+}
+
+.admin-nav a:hover {
+  border-color: var(--line);
+  background: var(--white);
+}
+
+.admin-logout {
+  justify-content: center;
+}
+
+.admin-main {
+  display: grid;
+  align-content: start;
+  gap: 28px;
+  padding: 36px;
+  overflow-x: clip;
+}
+
+.admin-page-intro {
+  max-width: 860px;
+}
+
+.admin-page-intro h1 {
+  margin-top: 18px;
+  font-family: var(--font-jp);
+  font-size: clamp(2.5rem, 5vw, 4.4rem);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 1.1;
+}
+
+.admin-page-intro p:last-child {
+  margin-top: 22px;
+  color: var(--ink-soft);
+  font-family: var(--font-jp);
+  font-size: 0.92rem;
+  line-height: 1.95;
+}
+
+.admin-stats,
+.admin-shortcuts {
+  display: grid;
+}
+
+.admin-stats {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.admin-stat-card {
+  border: 1px solid var(--line);
+  background: var(--white);
+  padding: 24px;
+}
+
+.admin-stat-card span {
+  color: var(--muted);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.admin-stat-card strong {
+  display: block;
+  margin-top: 12px;
+  font-size: 2.4rem;
+  letter-spacing: -0.05em;
+}
+
+.admin-shortcuts {
+  grid-template-columns: repeat(2, max-content);
+  gap: 12px;
+}
+
+.table-actions,
+.form-actions {
+  display: flex;
+}
+
+.form-actions {
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.admin-table {
+  display: grid;
+  border: 1px solid var(--line);
+  overflow-x: auto;
+}
+
+.admin-table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--white);
+}
+
+.admin-table-row > * {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.admin-table-row:last-child {
+  border-bottom: 0;
+}
+
+.admin-table-row:not(.admin-table-head):hover {
+  background: var(--smoke);
+}
+
+.admin-table-head {
+  background: #f2f4f7;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.editor-page-grid {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 20px;
+}
+
+.editor-page-grid.single-column {
+  grid-template-columns: minmax(0, 720px);
+}
+
+.editor-panel {
+  display: grid;
+  border: 1px solid var(--line);
+  background: var(--white);
+  gap: 18px;
+  align-content: start;
+  padding: 24px;
+}
+
+.editor-heading {
+  display: grid;
+}
+
+.editor-heading p {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.editor-heading h2 {
+  margin: 26px 0 12px;
+  font-family: var(--font-jp);
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
+.editor-preview-meta {
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  background: #f8fafc;
+}
+
+.editor-preview-meta strong {
+  font-size: 0.88rem;
+}
+
+.editor-preview-meta span {
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 1120px) {
+  .admin-stats,
+  .editor-page-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-shell {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 860px) {
+  .admin-shell,
+  .editor-page-grid,
+  .admin-stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .admin-sidebar {
+    position: static;
+    height: auto;
+    overflow-y: visible;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 560px) {
+  .admin-main {
+    padding: 24px 16px 48px;
+  }
+
+  .editor-panel {
+    padding: 20px;
+  }
+
+  .field-grid {
+    grid-template-columns: 1fr;
+  }
+}

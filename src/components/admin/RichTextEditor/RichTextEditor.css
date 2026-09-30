@@ -1,0 +1,31 @@
+/* Rich text editor shell — co-located with RichTextEditor.
+   Used only by the admin editors (ArticleEditor mounts it); the CKEditor
+   instance itself is lazy-loaded via CkEditor. */
+
+.editor-shell,
+.editor-shell .ck.ck-editor {
+  max-width: 100%;
+}
+
+.editor-shell {
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.editor-shell .ck.ck-editor {
+  border: 0;
+}
+
+.editor-shell .ck.ck-editor__top .ck.ck-toolbar {
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: #f8fafc;
+}
+
+.editor-shell .ck.ck-editor__main .ck.ck-editor__editable {
+  min-height: 320px;
+  border: 0;
+  box-shadow: none;
+  padding: 18px;
+}
