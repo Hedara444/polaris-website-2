@@ -15,7 +15,6 @@ import {
   RemoveFormat,
   Underline,
 } from "ckeditor5";
-import {siteConfig} from "@/lib/site-config";
 import type { DirectionMode } from "@/lib/types";
 
 import "ckeditor5/ckeditor5.css";
@@ -35,7 +34,7 @@ export function CkEditor({
       editor={ClassicEditor}
       data={value}
       config={{
-        licenseKey:siteConfig.ckEditorKey,
+        licenseKey:"GPL",
         placeholder: "Start writing here.",
         toolbar: [
           "heading",
@@ -70,6 +69,21 @@ export function CkEditor({
           RemoveFormat,
           Underline,
         ],
+        // External links open in a new tab with opener protection. The
+        // decorator bakes this into newly saved HTML; previously saved
+        // content is covered at render time by withExternalLinkTargets.
+        link: {
+          decorators: {
+            openExternalInNewTab: {
+              mode: "automatic",
+              callback: (url: string | null) => /^(https?:)?\/\//.test(url ?? ""),
+              attributes: {
+                target: "_blank",
+                rel: "noopener noreferrer",
+              },
+            },
+          },
+        },
       }}
       onChange={(_, editor) => {
         onChange(editor.getData());

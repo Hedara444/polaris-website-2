@@ -15,6 +15,7 @@ import {
   normalizeKeywords,
   parseKeywords,
   slugify,
+  withExternalLinkTargets,
 } from "@/lib/utils";
 
 function toEditorState(article?: ArticleDetails | null): ArticleEditorInput {
@@ -884,7 +885,7 @@ export function ArticleEditor({
           </div>
           <article
             className="article-body"
-            dangerouslySetInnerHTML={{ __html: form.bodyHtml }}
+            dangerouslySetInnerHTML={{ __html: withExternalLinkTargets(form.bodyHtml) }}
           />
         </div>
       </div>

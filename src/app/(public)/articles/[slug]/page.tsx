@@ -2,7 +2,12 @@ import { notFound } from "next/navigation";
 
 import { defaultKeywords } from "@/lib/site-config";
 import { buildContentMetadata } from "@/lib/seo";
-import { ARTICLE_KEYWORDS_PUBLIC_MAX, formatDate, resolveDirection } from "@/lib/utils";
+import {
+  ARTICLE_KEYWORDS_PUBLIC_MAX,
+  formatDate,
+  resolveDirection,
+  withExternalLinkTargets,
+} from "@/lib/utils";
 import { getArticleBySlug } from "@/server/content-service";
 import "../articles.css";
 
@@ -84,7 +89,7 @@ export default async function ArticleDetailsPage({
         <article
           className="article-body"
           dir={resolveDirection(article.direction)}
-          dangerouslySetInnerHTML={{ __html: article.bodyHtml }}
+          dangerouslySetInnerHTML={{ __html: withExternalLinkTargets(article.bodyHtml) }}
         />
       </div>
     </section>

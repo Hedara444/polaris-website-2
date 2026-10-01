@@ -29,3 +29,12 @@
   box-shadow: none;
   padding: 18px;
 }
+
+/* WYSIWYG fidelity: links read the same blue inside the editor as they do
+   in .article-body on the public page and in the admin preview. */
+.editor-shell .ck.ck-content a {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

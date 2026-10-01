@@ -86,3 +86,32 @@ export function formatDate(input: string | null) {
 export function escapeLike(input: string) {
   return input.replace(/[%_]/g, (match) => `\\${match}`);
 }
+
+// External links in article bodies always open in a new tab with opener
+// protection. Applied at render time (public page + admin preview) so it
+// covers old and new content uniformly, including links the editor saved
+// before the CKEditor decorator below existed. Tags that already carry a
+// target, and non-web hrefs (#anchors, relative, mailto:, tel:), are left
+// untouched.
+export function withExternalLinkTargets(html: string): string {
+  return html.replace(/<a\b([^<>]*)>/gi, (tag, attrs: string) => {
+    const href = attrs.match(/\bhref\s*=\s*(['"])(.*?)\1/i)?.[2] ?? "";
+    if (!/^(https?:)?\/\//i.test(href)) {
+      return tag;
+    }
+    if (/\btarget\s*=/i.test(attrs)) {
+      return tag;
+    }
+    const rel = attrs.match(/\brel\s*=\s*(['"])(.*?)\1/i);
+    if (rel) {
+      const tokens = rel[2].split(/\s+/).filter(Boolean);
+      for (const token of ["noopener", "noreferrer"]) {
+        if (!tokens.includes(token)) {
+          tokens.push(token);
+        }
+      }
+      return `<a${attrs.replace(rel[0], `rel="${tokens.join(" ")}"`)} target="_blank">`;
+    }
+    return `<a${attrs} target="_blank" rel="noopener noreferrer">`;
+  });
+}

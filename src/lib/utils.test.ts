@@ -7,6 +7,7 @@ import {
   normalizeKeywords,
   parseKeywords,
   slugify,
+  withExternalLinkTargets,
 } from "@/lib/utils";
 
 describe("slugify", () => {
@@ -63,5 +64,39 @@ describe("normalizeKeywords", () => {
 describe("formatDate", () => {
   it("returns Draft for missing dates", () => {
     expect(formatDate(null)).toBe("Draft");
+  });
+});
+
+describe("withExternalLinkTargets", () => {
+  it("opens http(s) links in a new tab with opener protection", () => {
+    expect(withExternalLinkTargets('<p><a href="https://example.com">x</a></p>')).toBe(
+      '<p><a href="https://example.com" target="_blank" rel="noopener noreferrer">x</a></p>',
+    );
+  });
+
+  it("handles protocol-relative urls", () => {
+    expect(withExternalLinkTargets("<a href='//example.com'>x</a>")).toBe(
+      '<a href=\'//example.com\' target="_blank" rel="noopener noreferrer">x</a>',
+    );
+  });
+
+  it("leaves anchors, relative links, mailto and tel untouched", () => {
+    const html =
+      '<a href="#top">a</a><a href="/articles/x">b</a><a href="mailto:a@b.c">c</a><a href="tel:123">d</a>';
+    expect(withExternalLinkTargets(html)).toBe(html);
+  });
+
+  it("keeps an existing target and only tops up a partial rel", () => {
+    expect(withExternalLinkTargets('<a href="https://e.com" target="_self">x</a>')).toBe(
+      '<a href="https://e.com" target="_self">x</a>',
+    );
+    expect(withExternalLinkTargets('<a rel="nofollow" href="https://e.com">x</a>')).toBe(
+      '<a rel="nofollow noopener noreferrer" href="https://e.com" target="_blank">x</a>',
+    );
+  });
+
+  it("matches uppercase tags and leaves bare anchors alone", () => {
+    expect(withExternalLinkTargets('<A HREF="https://e.com">x</A>')).toContain('target="_blank"');
+    expect(withExternalLinkTargets("<a>plain</a>")).toBe("<a>plain</a>");
   });
 });

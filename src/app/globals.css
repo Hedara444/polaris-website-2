@@ -1708,6 +1708,22 @@ button:has(> .btn-spinner) {
   padding-left: 22px;
 }
 
+/* Body links (external references) read blue + underlined so they never
+   blend into the article text. Applies to the public article page and the
+   admin preview alike — both render into .article-body. */
+.article-body a {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
+
+.article-body a:hover {
+  color: #1857c0;
+}
+
 .product-hero {
   grid-template-columns: 1fr 0.65fr;
   align-items: center;
