@@ -645,7 +645,7 @@ body [class*="disc"] {
    stays viewable on wide screens instead of spanning edge to edge. */
 .article-hero:has(img) {
   width: 100%;
-  max-width: 960px;
+  max-width: 1000px;
   margin-inline: auto;
 }
 
@@ -680,7 +680,7 @@ body [class*="disc"] {
 
 .article-body {
   background: #fff;
-  padding: clamp(54px, 7vw, 96px) 0
+  padding: 0;
 }
 
 .article-grid {
@@ -891,7 +891,7 @@ dd {
 }
 
 .page-shell {
-  padding-top: calc(var(--header-height) + 72px);
+  padding-top: calc(var(--header-height) + 0px);
   min-height: 100dvh;
   background: linear-gradient(180deg, var(--smoke) 0%, var(--white) 26%);
 }
@@ -1680,6 +1680,9 @@ button:has(> .btn-spinner) {
 
 .article-layout {
   gap: 38px;
+  width: 100%;
+  max-width: 1000px;
+  margin-inline: auto;
 }
 
 .article-hero img {
@@ -1689,10 +1692,12 @@ button:has(> .btn-spinner) {
 .article-copy {
   display: grid;
   gap: 20px;
+  width: 100%;
 }
 
 .article-body {
-  max-width: 900px;
+  width: 100%;
+  max-width: 100%;
   font-size: 0.96rem;
 }
 
