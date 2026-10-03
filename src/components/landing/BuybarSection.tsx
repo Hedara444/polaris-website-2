@@ -2,8 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-import Link from "next/link";
-//import { siteConfig } from "@/lib/site-config";
+import { siteConfig } from "@/lib/site-config";
 import "./styles/buybar.css";
 
 export function BuybarSection() {
@@ -66,9 +65,9 @@ export function BuybarSection() {
             <span className="d-lg">（税込）／ アプリ不要・LINEだけ</span>
           </small>
         </div>
-        <Link href="/order" className="btn btn-white">
+        <a href={siteConfig.buyNowUrl} className="btn btn-white">
           購入
-        </Link>
+        </a>
       </div>
     </div>
   );
