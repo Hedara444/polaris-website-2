@@ -6,7 +6,7 @@ export const siteConfig = {
   siteUrl: process.env.SITE_BASE_URL ?? "https://www.polariss.jp",
   buyNowUrl:
     process.env.NEXT_PUBLIC_BUY_NOW_URL ??
-    "https://polariss-store.myshopify.com/",
+    "https://polariss-store.myshopify.com/?utm_campaign=dd8937&utm_source=shareable_link",
   partnerUrl:
     process.env.NEXT_PUBLIC_PARTNER_URL ??
     "https://polariss-store.myshopify.com/products/%E6%AF%8E%E6%9C%88%E9%80%9A%E4%BF%A1%E8%B2%BB",

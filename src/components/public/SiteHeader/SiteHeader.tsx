@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { siteConfig } from "@/lib/site-config";
 import "../../landing/styles/header.css";
 
 // Japanese labels matching new UI, mapped to existing + new stub routes
@@ -89,9 +90,9 @@ export function SiteHeader() {
           </nav>
 
           <div className="hdr-cta">
-            <Link href="/order" className="btn btn-fill">
+            <a href={siteConfig.buyNowUrl} className="btn btn-fill">
               購入
-            </Link>
+            </a>
             <button
               className={`burger ${menuOpen ? "open" : ""}`}
               type="button"
@@ -111,9 +112,9 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <Link href="/order" onClick={closeMenu}>
+          <a href={siteConfig.buyNowUrl} onClick={closeMenu}>
             購入
-          </Link>
+          </a>
         </div>
       </header>
     </>
