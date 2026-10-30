@@ -1,3 +1,4 @@
+import { siteConfig } from "@/lib/site-config";
 import Link from "next/link";
 import "./styles/price.css";
 
@@ -42,9 +43,9 @@ export function PriceSection() {
           </div>
         </div>
         <div className="price-btns rv">
-          <Link href="/order" className="btn btn-fill">
+          <a href={siteConfig.buyNowUrl} className="btn btn-fill">
             購入
-          </Link>
+          </a>
           <Link href="/price" className="btn btn-line">
             料金の詳細を見る
           </Link>

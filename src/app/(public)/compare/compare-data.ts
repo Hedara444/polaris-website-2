@@ -48,7 +48,7 @@ export const TABLE_ROWS: TableRow[] = [
   },
   {
     axis: "位置確認の方法",
-    vals: ["LINEから地図を開く", "専用アプリ（移動履歴あり）", "専用アプリ", "専用アプリ・Web"],
+    vals: ["LINEから地図を開く", "専用アプリ（移動履歴あり）", "専用アプリ", "専用アプリ・ウェブサイト"],
     dims: [false, false, false, false],
   },
   {
@@ -88,7 +88,7 @@ export type Scenario = {
 export const SCENARIOS: Scenario[] = [
   {
     a: "1",
-    k: "CASE 01",
+    k: "用途 01",
     title: "子どもの居場所を見守りたい",
     recommend: "見守りGPS",
     desc: "本人が持ち歩くことを前提に作られています。登下校や、離れて暮らすご家族の見守りに向いています。",
@@ -96,7 +96,7 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     a: "2",
-    k: "CASE 02",
+    k: "用途 02",
     title: "財布やバッグを探したい",
     recommend: "紛失防止タグ",
     desc: "近くでさがすための道具です。小さく電池も長持ちで、鍵や財布に付けておく使い方に。",
@@ -104,7 +104,7 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     a: "3",
-    k: "CASE 03",
+    k: "用途 03",
     title: "警備会社のサービスを利用したい",
     recommend: "警備会社のGPS",
     desc: "通報やかけつけの体制まで含めて備えたい場合に。車・バイク向けのメニューもあります。",
@@ -112,7 +112,7 @@ export const SCENARIOS: Scenario[] = [
   },
   {
     a: "4",
-    k: "CASE 04",
+    k: "用途 04",
     title: "クルマ・バイクの異変に気づき、その後の位置も確認したい",
     recommend: "POLARISS",
     desc: "クルマ・バイクを前提に設計され、通知は専用アプリではなくLINEに届きます。かけつけは含みません。",

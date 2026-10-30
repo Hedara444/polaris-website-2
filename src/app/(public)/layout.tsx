@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import { SiteFooter } from "@/components/public/SiteFooter/SiteFooter";
 import { SiteHeader } from "../../components/public/SiteHeader/SiteHeader";
+import { ChatWidget } from "@/components/chat/ChatWidget";
 
 export default function PublicLayout({
   children,
@@ -13,6 +14,7 @@ export default function PublicLayout({
       <SiteHeader />
       <main>{children}</main>
       <SiteFooter />
+      <ChatWidget />
     </>
   );
 }

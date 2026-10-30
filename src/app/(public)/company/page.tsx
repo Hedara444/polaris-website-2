@@ -16,7 +16,7 @@ export default function CompanyPage() {
           <div className="crumb">
             <Link href="/">ホーム</Link>／<span>運営会社</span>
           </div>
-          <p className="kicker">COMPANY</p>
+          <p className="kicker">運営会社</p>
           <h1>運営会社</h1>
           <p>POLARISSを運営する株式会社OWL-TYの会社情報です。</p>
         </div>

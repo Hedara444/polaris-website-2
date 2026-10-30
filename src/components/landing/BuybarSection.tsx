@@ -65,7 +65,11 @@ export function BuybarSection() {
             <span className="d-lg">（税込）／ アプリ不要・LINEだけ</span>
           </small>
         </div>
-        <a href={siteConfig.buyNowUrl} className="btn btn-white">
+        <a
+          href={siteConfig.buyNowUrl}
+          className="btn btn-white"
+          data-purchase-cta="pricing"
+        >
           購入
         </a>
       </div>

@@ -4,7 +4,7 @@ import "@/app/(public)/terms/terms.css";
 
 export const metadata = buildMetadata({
   title: "特定商取引法に基づく表記 ｜ POLARISS",
-  description: "POLARISS official Storeの販売条件および事業者情報です。",
+  description: "POLARISS公式ストアの販売条件および事業者情報です。",
   path: "/commerce",
 });
 
@@ -16,9 +16,9 @@ export default function CommercePage() {
           <div className="crumb">
             <Link href="/">ホーム</Link>／<span>特定商取引法に基づく表記</span>
           </div>
-          <p className="kicker">LEGAL</p>
+          <p className="kicker">規約・方針</p>
           <h1>特定商取引法に基づく表記</h1>
-          <p>POLARISS official Storeの販売条件および事業者情報です。</p>
+          <p>POLARISS公式ストアの販売条件および事業者情報です。</p>
         </div>
       </section>
       <section className="legal-body">
@@ -111,7 +111,7 @@ export default function CommercePage() {
               </div>
               <div>
                 <dt>サービス名</dt>
-                <dd>POLARISS official Store</dd>
+                <dd>POLARISS公式ストア</dd>
               </div>
               <div>
                 <dt>電話番号</dt>

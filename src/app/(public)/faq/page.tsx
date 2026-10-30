@@ -1,3 +1,4 @@
+import { siteConfig } from "@/lib/site-config";
 import Link from "next/link";
 
 import { buildMetadata } from "@/lib/seo";
@@ -41,7 +42,7 @@ export default function StaticFaqPage() {
           </div>
         </div>
         <div className="qhero-in wrap">
-          <p className="kicker">FAQ</p>
+          <p className="kicker">よくあるご質問</p>
           <h1>よくあるご質問。</h1>
           <p>購入前から、ご利用中の疑問まで。</p>
           <div className="qsearch">
@@ -69,7 +70,7 @@ export default function StaticFaqPage() {
       <section className="qbody">
         <div className="wrap qgrid">
           <aside className="qnav" id="qnav">
-            <span className="k">CATEGORY</span>
+            <span className="k">質問の分類</span>
             {staticFaqCategories.map((cat) => {
               const count = staticFaqGroups.find((g) => g.slug === cat.slug)?.items.length ?? 0;
               return (
@@ -137,7 +138,7 @@ export default function StaticFaqPage() {
       <section className="qhelp" id="help">
         <div className="wrap qhelp-grid">
           <div>
-            <p className="kicker rv">STILL LOOKING?</p>
+            <p className="kicker rv">お探しの答えが見つからないときは</p>
             <h2 className="rv">解決しない場合は。</h2>
             <p className="rv">
               操作や設定については、使い方ページに手順を掲載しています。さらに確認したいことがある場合は、お問い合わせページからご連絡ください。
@@ -183,9 +184,9 @@ export default function StaticFaqPage() {
             <p className="rec rv">初回 19,800円（税込・送料無料）／ 月額 2,178円（税込）</p>
           </div>
           <div className="qfin-btns rv">
-            <Link href="/order" className="btn btn-fill">
+            <a href={siteConfig.buyNowUrl} className="btn btn-fill">
               購入
-            </Link>
+            </a>
             <Link href="/howto" className="btn btn-line">
               使い方を見る
             </Link>

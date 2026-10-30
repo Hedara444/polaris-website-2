@@ -16,7 +16,7 @@ export default function PrivacyPage() {
           <div className="crumb">
             <Link href="/">ホーム</Link>／<span>個人情報保護方針</span>
           </div>
-          <p className="kicker">LEGAL</p>
+          <p className="kicker">規約・方針</p>
           <h1>個人情報保護方針</h1>
           <p>株式会社OWL-TYにおける個人情報の取り扱いについて定めています。</p>
         </div>

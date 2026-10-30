@@ -89,7 +89,7 @@ export default function FaqClient({
           </div>
         </div>
         <div className="qhero-in wrap">
-          <p className="kicker">FAQ</p>
+          <p className="kicker">よくあるご質問</p>
           <h1>よくあるご質問。</h1>
           <p>購入前から、ご利用中の疑問まで。</p>
           <div className="qsearch">
@@ -122,7 +122,7 @@ export default function FaqClient({
       <section className="qbody">
     <div className="wrap qgrid">
       <aside className="qnav" id="qnav">
-        <span className="k">CATEGORY</span>
+        <span className="k">質問の分類</span>
         {groupedFaqs.map((cat, idx) => {
           const groupId = `g${idx + 1}`;
           return (

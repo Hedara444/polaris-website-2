@@ -1,3 +1,4 @@
+import { siteConfig } from "@/lib/site-config";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import { getProductJsonLd } from "@/lib/json-ld";
@@ -31,7 +32,7 @@ export default function PricePage() {
           </div>
         </div>
         <div className="phero-in wrap">
-          <p className="kicker">PRICE</p>
+          <p className="kicker">料金</p>
           <h1>料金プラン</h1>
           <p style={{ fontSize: "clamp(20px,2.6vw,36px)", fontWeight: 900, lineHeight: 1.3, marginTop: "12px", color: "#131312" }}>
             料金は、
@@ -42,7 +43,7 @@ export default function PricePage() {
 
           <div className="bignums">
             <div className="bn">
-              <span className="k">FIRST PAYMENT</span>
+              <span className="k">初回のお支払い</span>
               <span className="jp">初回お支払い</span>
               <div className="fig">
                 <span className="n">19,800</span>
@@ -58,7 +59,7 @@ export default function PricePage() {
             </div>
             <div className="bn-div" aria-hidden="true"></div>
             <div className="bn">
-              <span className="k">FROM SECOND PAYMENT</span>
+              <span className="k">2回目以降のお支払い</span>
               <span className="jp">その後は</span>
               <div className="fig">
                 <span className="n">2,178</span>
@@ -80,9 +81,9 @@ export default function PricePage() {
           </p>
 
           <div className="phero-btns">
-            <Link href="/order" className="btn btn-fill">
+            <a href={siteConfig.buyNowUrl} className="btn btn-fill">
               購入
-            </Link>
+            </a>
             <a href="#included" className="btn btn-line">
               料金に含まれるものを見る
             </a>
@@ -94,7 +95,7 @@ export default function PricePage() {
       <section className="sec inc" id="included">
         <div className="wrap">
           <p className="kicker rv" style={{ color: "var(--gray)" }}>
-            WHAT&apos;S INCLUDED
+            料金に含まれるもの
           </p>
           <h2 className="rv">料金に含まれるもの。</h2>
           <p className="lead rv">この料金でご利用いただける範囲です。</p>
@@ -106,7 +107,7 @@ export default function PricePage() {
                 <b>POLARISS GPSユニット</b>
                 <small>初回のお支払いに含まれます。</small>
               </div>
-              <span className="tag">FIRST</span>
+              <span className="tag">初回</span>
             </div>
             <div>
               <span className="n">02</span>
@@ -114,7 +115,7 @@ export default function PricePage() {
                 <b>通信サービス</b>
                 <small>位置情報や通知を届けるための通信。</small>
               </div>
-              <span className="tag">MONTHLY</span>
+              <span className="tag">月額</span>
             </div>
             <div>
               <span className="n">03</span>
@@ -122,7 +123,7 @@ export default function PricePage() {
                 <b>基本サービスの利用</b>
                 <small>移動の検知、LINEへの通知、地図での位置確認。</small>
               </div>
-              <span className="tag">MONTHLY</span>
+              <span className="tag">月額</span>
             </div>
             <div>
               <span className="n">04</span>
@@ -130,7 +131,7 @@ export default function PricePage() {
                 <b>配送</b>
                 <small>全国どこでも配送料は無料です。</small>
               </div>
-              <span className="tag">FREE</span>
+              <span className="tag">無料</span>
             </div>
           </div>
           <p className="inc-note">※上記以外の付属品・保証・取り付け作業の取り扱いは、公開時に確認のうえ掲載します。</p>
@@ -141,7 +142,7 @@ export default function PricePage() {
       <section className="sec pfaq" id="faq">
         <div className="wrap">
           <div className="sec-hd rv">
-            <p className="kicker">PRICE FAQ</p>
+            <p className="kicker">料金についてのよくあるご質問</p>
             <h2 className="h2" style={{ marginTop: 16 }}>
               料金について、
               <br />
@@ -218,7 +219,7 @@ export default function PricePage() {
         <div className="wrap">
           <div className="pcta-grid">
             <div>
-              <p className="kicker rv">START</p>
+              <p className="kicker rv">ご利用をはじめる</p>
               <h2 className="rv">
                 この料金で、
                 <br />
@@ -237,9 +238,9 @@ export default function PricePage() {
                 </div>
               </div>
               <div className="pcta-btns rv">
-                <Link href="/order" className="btn btn-fill">
+                <a href={siteConfig.buyNowUrl} className="btn btn-fill">
                   購入
-                </Link>
+                </a>
                 <Link href="/howto" className="btn btn-line">
                   使い方を見る
                 </Link>

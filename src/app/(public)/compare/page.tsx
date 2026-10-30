@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Fragment } from "react";
 
-import { defaultKeywords } from "@/lib/site-config";
+import { defaultKeywords, siteConfig } from "@/lib/site-config";
 import { buildMetadata } from "@/lib/seo";
 
 import { TABLE_ROWS } from "./compare-data";
@@ -27,7 +27,7 @@ export default function ComparePage() {
           </div>
         </div>
         <div className="chero-in wrap">
-          <p className="kicker">COMPARE</p>
+          <p className="kicker">他の製品との比較</p>
           <h1>
             GPSなら、
             <br />
@@ -40,22 +40,22 @@ export default function ComparePage() {
       <nav className="catrow">
         <div className="catrow-in wrap">
           <div className="me">
-            <span className="k">VEHICLE</span>
+            <span className="k">車両向け</span>
             <b>POLARISS</b>
             <small>クルマ・バイクの異変検知と位置確認</small>
           </div>
           <div>
-            <span className="k">PEOPLE</span>
+            <span className="k">人の見守り</span>
             <b>見守りGPS</b>
             <small>子ども・シニアの見守り</small>
           </div>
           <div>
-            <span className="k">BELONGINGS</span>
+            <span className="k">持ち物向け</span>
             <b>紛失防止タグ</b>
             <small>身の回りの持ち物さがし</small>
           </div>
           <div>
-            <span className="k">SERVICE</span>
+            <span className="k">サービス案内</span>
             <b>警備会社のGPS</b>
             <small>位置情報＋通報・かけつけ</small>
           </div>
@@ -65,7 +65,7 @@ export default function ComparePage() {
       {/* 02 FIRST QUESTION */}
       <section className="sec q1" id="q1">
         <div className="wrap">
-          <p className="kicker rv in">FIRST QUESTION</p>
+          <p className="kicker rv in">選ぶ前に考えたいこと</p>
           <h2 className="rv in">
             大切なのは、
             <br />
@@ -79,7 +79,7 @@ export default function ComparePage() {
       <section className="sec pmapsec" id="pmap">
         <div className="wrap">
           <div className="sec-hd rv in">
-            <p className="kicker">PURPOSE MAP</p>
+            <p className="kicker">目的に合わせた選び方</p>
             <h2 className="h2" style={{ marginTop: 16 }}>
               まず、目的が違う。
             </h2>
@@ -87,25 +87,25 @@ export default function ComparePage() {
           </div>
           <div className="pmap rv in">
             <div className="pzone">
-              <span className="k">PEOPLE</span>
+              <span className="k">人の見守り</span>
               <b>人を見守る</b>
               <p>カバンに入れて持ち歩き、人の移動を日常的に見守る領域。</p>
               <span className="who">見守りGPS</span>
             </div>
             <div className="pzone">
-              <span className="k">BELONGINGS</span>
+              <span className="k">持ち物向け</span>
               <b>持ち物を探す</b>
               <p>財布や鍵など、身の回りの物を近くでさがす領域。</p>
               <span className="who">紛失防止タグ</span>
             </div>
             <div className="pzone">
-              <span className="k">SECURITY SERVICE</span>
+              <span className="k">警備サービス</span>
               <b>警備のサービスを利用する</b>
               <p>通報やかけつけまで、対応を含むサービスとして利用する領域。</p>
               <span className="who">警備会社のGPS</span>
             </div>
             <div className="pzone me">
-              <span className="k">VEHICLE / AFTER-THEFT</span>
+              <span className="k">車両の盗難対策</span>
               <b>クルマ・バイクの異変に気づき、その後の位置を確認する</b>
               <p>停めていた車両が動かされたことを知り、いまどこにあるかを確かめる領域。</p>
               <span className="who">POLARISS</span>
@@ -119,7 +119,7 @@ export default function ComparePage() {
       <section className="sec tbl" id="table">
         <div className="wrap">
           <div className="sec-hd rv in">
-            <p className="kicker">COMPARISON</p>
+            <p className="kicker">機能の比較</p>
             <h2 className="h2" style={{ marginTop: 16 }}>
               機能と仕組みで見ると。
             </h2>
@@ -131,19 +131,19 @@ export default function ComparePage() {
             <div className="ctable">
               <div className="ch" />
               <div className="ch cp top">
-                <span className="k">VEHICLE</span>
+                <span className="k">車両向け</span>
                 <b>POLARISS</b>
               </div>
               <div className="ch">
-                <span className="k">PEOPLE</span>
+                <span className="k">人の見守り</span>
                 <b>見守りGPS</b>
               </div>
               <div className="ch">
-                <span className="k">BELONGINGS</span>
+                <span className="k">持ち物向け</span>
                 <b>紛失防止タグ</b>
               </div>
               <div className="ch">
-                <span className="k">SERVICE</span>
+                <span className="k">サービス案内</span>
                 <b>警備会社のGPS</b>
               </div>
 
@@ -169,7 +169,7 @@ export default function ComparePage() {
       <section className="sec scn" id="scenario">
         <div className="wrap">
           <div className="sec-hd rv in">
-            <p className="kicker">SCENARIO</p>
+            <p className="kicker">用途別の選び方</p>
             <h2 className="h2" style={{ marginTop: 16 }}>
               目的から選ぶなら。
             </h2>
@@ -184,7 +184,7 @@ export default function ComparePage() {
       <section className="sec why" id="why">
         <div className="wrap">
           <div className="sec-hd rv in">
-            <p className="kicker">WHY POLARISS</p>
+            <p className="kicker">POLARISSが選ばれる理由</p>
             <h2>
               POLARISSは、クルマ・バイクの
               <br />
@@ -194,12 +194,12 @@ export default function ComparePage() {
           </div>
           <div className="seq rv in">
             <div className="snode">
-              <span className="k">01 VEHICLE</span>
+              <span className="k">01 / 車両向け</span>
               <b>車両に取り付ける</b>
               <small>クルマ・バイクを前提とした設計。</small>
             </div>
             <div className="snode">
-              <span className="k">02 DETECT</span>
+              <span className="k">02 / 移動の検知</span>
               <b>動きを検知する</b>
               <small>停めた車両の移動をとらえます。</small>
             </div>
@@ -209,24 +209,24 @@ export default function ComparePage() {
               <small>新しいアプリは使いません。</small>
             </div>
             <div className="snode">
-              <span className="k">04 LOCATION</span>
+              <span className="k">04 / 位置の確認</span>
               <b>位置を確認する</b>
               <small>地図で現在地と移動をたどれます。</small>
             </div>
             <div className="snode">
-              <span className="k">05 TOGETHER</span>
+              <span className="k">05 / ユーザー同士の見守り</span>
               <b>相互監視につなげる</b>
               <small>必要なときだけ、任意で。</small>
             </div>
           </div>
-          <p className="why-note">通信はLTE Cat.M1。電源は内蔵バッテリーと車両給電に対応。相互監視の受付・開始はON / OFFを選択できます。</p>
+          <p className="why-note">通信はLTE Cat.M1。電源は内蔵バッテリーと車両給電に対応。相互監視の受付・開始は有効・無効を選択できます。</p>
         </div>
       </section>
 
       {/* 09 NEXT ACTION */}
       <section className="next" id="next">
         <div className="wrap">
-          <p className="kicker rv in">NEXT</p>
+          <p className="kicker rv in">次に知りたいこと</p>
           <h2 className="rv in">
             比べたあとに、
             <br />
@@ -259,9 +259,9 @@ export default function ComparePage() {
             </Link>
           </div>
           <div className="next-btns rv in">
-            <Link href="/order" className="btn btn-fill">
+            <a href={siteConfig.buyNowUrl} className="btn btn-fill">
               購入
-            </Link>
+            </a>
             <span className="next-fine">初回 19,800円（税込・送料無料）／ 月額 2,178円（税込）</span>
           </div>
         </div>

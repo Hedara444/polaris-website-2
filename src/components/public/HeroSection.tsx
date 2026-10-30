@@ -28,7 +28,7 @@ export function HeroSection() {
               </svg>
               LINEで確認
             </span>
-            <span className="more">MAPを開く →</span>
+            <span className="more">地図を開く →</span>
           </div>
         </article>
       </div>
