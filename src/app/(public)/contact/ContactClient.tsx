@@ -207,14 +207,14 @@ export function ContactClient() {
         setErrors({});
         setStatus({
           type: "success",
-          kicker: "COMPLETE",
+          kicker: "送信完了",
           title: "お問い合わせを受け付けました。",
           copy: "お問い合わせありがとうございます。",
         });
       } else {
         setStatus({
           type: "error",
-          kicker: "ERROR",
+          kicker: "送信エラー",
           title: "送信できませんでした。",
           copy: data?.message || "時間をおいて再度お試しください。",
         });
@@ -224,7 +224,7 @@ export function ContactClient() {
       submittingRef.current = false;
       setStatus({
         type: "error",
-        kicker: "ERROR",
+        kicker: "送信エラー",
         title: "送信できませんでした。",
         copy: "現在フォームから送信できません。時間をおいて再度お試しください。",
       });
@@ -242,7 +242,7 @@ export function ContactClient() {
           <div className="crumb">
             <Link href="/">ホーム</Link>／<span>お問い合わせ</span>
           </div>
-          <p className="kicker">CONTACT</p>
+          <p className="kicker">お問い合わせ</p>
           <h1>お問い合わせ</h1>
           <p style={{ fontSize: "1.2rem", fontWeight: 700, marginTop: 8, color: "#4E4E4A" }}>
             POLARISSについてのお問い合わせ
@@ -471,7 +471,7 @@ export function ContactClient() {
 
             {/* Sidebar */}
             <aside className="contact-aside" aria-labelledby="before-contact-title">
-              <p className="aside-label">QUICK LINKS</p>
+              <p className="aside-label">関連するご案内</p>
               <h2 id="before-contact-title">お問い合わせ前に</h2>
               <p>知りたい内容を、すぐに確認できるページをご案内します。</p>
               <nav className="contact-links" aria-label="お問い合わせ前のご案内">
@@ -499,8 +499,8 @@ export function ContactClient() {
               </nav>
               <div className="in-use-note">
                 <b>ご利用中の方</b>
-                <p>通知や位置情報など、ご利用中のよくあるご質問はFAQで確認できます。</p>
-                <Link href="/faq#g7">ご利用中のFAQを見る →</Link>
+                <p>通知や位置情報など、ご利用中のよくあるご質問はよくあるご質問で確認できます。</p>
+                <Link href="/faq#g7">ご利用中のよくあるご質問を見る →</Link>
               </div>
             </aside>
           </div>

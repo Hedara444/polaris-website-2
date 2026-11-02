@@ -11,7 +11,7 @@ const items = [
   },
   {
     q: "アプリは必要？",
-    a: "いいえ。新しいアプリのダウンロードは不要です。操作はいつものLINEから行い、マップや状態などはWeb上で確認できます。",
+    a: "いいえ。新しいアプリのダウンロードは不要です。操作はいつものLINEから行い、マップや状態などはウェブサイト上で確認できます。",
   },
   {
     q: "紛失防止タグとの違いは？",
@@ -62,7 +62,7 @@ export function FaqSection() {
         </div>
         <div className="faq-more rv">
           <Link href="/faq" className="txtlink">
-            FAQをすべて見る →
+            よくあるご質問をすべて見る →
           </Link>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { defaultKeywords } from "@/lib/site-config";
+import { defaultKeywords, siteConfig } from "@/lib/site-config";
 import { buildMetadata } from "@/lib/seo";
 import { getPublishedFaqs, getFaqCategories } from "@/server/content-service";
 import "./faq.css";
@@ -41,26 +41,26 @@ export default async function FaqPage() {
       <section className="qhelp" id="help">
         <div className="wrap qhelp-grid">
           <div>
-            <p className="kicker rv in">STILL LOOKING?</p>
+            <p className="kicker rv in">お探しの答えが見つからないときは</p>
             <h2 className="rv in">解決しない場合は。</h2>
             <p className="rv in">操作や設定については使い方ページにてご案内しております。ご不明な点はお問い合わせページよりご連絡ください。</p>
           </div>
           <div className="qlinks rv in">
             <Link href="/contact">
               <span><b>お問い合わせ</b><small>POLARISSについて個別に相談する。</small></span>
-              <span className="go">Contact →</span>
+              <span className="go">お問い合わせ →</span>
             </Link>
             <Link href="/howto">
               <span><b>使い方を見る</b><small>購入から設定、通知を受けるまでの流れ。</small></span>
-              <span className="go">How to use →</span>
+              <span className="go">使い方 →</span>
             </Link>
             <Link href="/compare">
               <span><b>他のGPSとの違いを見る</b><small>見守りや紛失防止、セキュリティと用途が異なります。</small></span>
-              <span className="go">Compare →</span>
+              <span className="go">比較する →</span>
             </Link>
             <Link href="/price">
               <span><b>費用を確認する</b><small>初期費用や月額料金の内訳。</small></span>
-              <span className="go">Fees →</span>
+              <span className="go">料金 →</span>
             </Link>
           </div>
         </div>
@@ -73,7 +73,7 @@ export default async function FaqPage() {
             <p className="rec rv in">初回 19,800円（税込・送料無料） / 月額 2,178円（税込）</p>
           </div>
           <div className="qfin-btns rv in">
-            <Link href="/order" className="btn btn-fill">購入</Link>
+            <a href={siteConfig.buyNowUrl} className="btn btn-fill">購入</a>
             <Link href="/howto" className="btn btn-line">使い方を見る</Link>
           </div>
         </div>

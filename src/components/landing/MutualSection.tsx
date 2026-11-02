@@ -50,7 +50,7 @@ export function MutualSection() {
 
           <div className="m-opt rv">
             <i />
-            相互監視の受付・開始は、それぞれON / OFFを選択できます。
+            相互監視の受付・開始は、それぞれ有効・無効を選択できます。
           </div>
 
           <div className="m-foot rv">

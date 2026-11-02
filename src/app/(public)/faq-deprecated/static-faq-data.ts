@@ -173,7 +173,7 @@ export const staticFaqs: StaticFaq[] = [
     categorySlug: "g1",
     question: "専用アプリのインストールは必要ですか？",
     lead: "いいえ。POLARISSはLINEを使って通知の受け取りと位置の確認を行います。",
-    more: "ご利用にはLINEアカウントが必要です。ユーザー登録と車両の登録は、Webサイトから行います。",
+    more: "ご利用にはLINEアカウントが必要です。ユーザー登録と車両の登録は、ウェブサイトから行います。",
     keywords: ["専用アプリ不要", "LINE連携", "ユーザー登録", "車両登録"],
   },
   {
@@ -298,7 +298,7 @@ export const staticFaqs: StaticFaq[] = [
     categorySlug: "g4",
     question: "LINEから何ができますか？",
     lead: "通知の受け取り、状態の確認、地図での位置確認、監視エリアの確認ができます。",
-    more: "操作はLINEから行い、マップや状態などの確認はWeb上で行います。ユーザー登録と車両の登録もWebサイトから行います。",
+    more: "操作はLINEから行い、マップや状態などの確認はウェブサイト上で行います。ユーザー登録と車両の登録もウェブサイトから行います。",
     link: { label: "使い方を見る →", href: "/howto" },
     keywords: ["LINE 操作", "地図 位置確認", "監視エリア確認", "状態確認"],
   },
@@ -347,8 +347,8 @@ export const staticFaqs: StaticFaq[] = [
     id: 24,
     categorySlug: "g6",
     question: "相互監視は必ず参加しないといけませんか？",
-    lead: "いいえ。受付と開始は、それぞれON / OFFを選べます。",
-    more: "初期設定では受付がONですが、いつでもOFFに変更できます。",
+    lead: "いいえ。受付と開始は、それぞれ有効・無効を選べます。",
+    more: "初期設定では受付が有効ですが、いつでも無効に変更できます。",
     keywords: ["相互監視 任意参加", "ON OFF 設定", "受付 開始 選択"],
   },
   {

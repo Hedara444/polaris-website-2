@@ -32,28 +32,28 @@ export const quickLinks = [
 export const features = [
   {
     index: "01",
-    eyebrow: "EASY TO USE",
+    eyebrow: "使い方は簡単",
     title: "LINEから簡単操作",
     text: "日々使っているLINEから監視開始、状態確認、位置取得まで素早く操作できます。",
     image: "/images/feature-line.webp",
   },
   {
     index: "02",
-    eyebrow: "NOTIFICATION",
+    eyebrow: "異変をお知らせ",
     title: "シンプルかつスピーディな通知",
     text: "移動検知や状態変化を即座に通知し、盗難や不正移動の早期察知を支えます。",
     image: "/images/feature-notification.webp",
   },
   {
     index: "03",
-    eyebrow: "TRACKING",
+    eyebrow: "位置を確認",
     title: "マップ上でリアルタイム追跡",
     text: "GPS、GLONASS、みちびきに対応した高精度な位置情報へすばやくアクセスできます。",
     image: "/images/feature-tracking.webp",
   },
   {
     index: "04",
-    eyebrow: "EXPAND",
+    eyebrow: "見守りを広げる",
     title: "進化し続けるIoTマルチツール",
     text: "ソフトウェア更新によって継続的に価値を高める設計で、将来の拡張にも備えます。",
     image: "/images/security-system.webp",
@@ -147,7 +147,7 @@ export const stepsFlow = [
   },
   {
     title: "初期設定",
-    text: "ご購入後、POLARISSより設定マニュアルPDFをご登録メールへお送りさせて頂きます。",
+    text: "ご購入後、POLARISSより設定マニュアル（PDFファイル）をご登録メールへお送りさせて頂きます。",
   },
   {
     title: "本体の受け取り",
@@ -163,62 +163,62 @@ export const stepsFlow = [
   },
   {
     title: "解約・サポートと保守",
-    text: "毎月のご利用のサブスクリプションの解約はWEB上で簡単にできますのでご安心ください。また、サービス開始後も、万全のサポート体制を整えています。導入後の運用においてお困りのことがあれば、いつでもご連絡ください。迅速かつ丁寧にサポートさせていただきます。",
+    text: "月額サービスの解約はウェブサイトで簡単にできますのでご安心ください。また、サービス開始後も、万全のサポート体制を整えています。導入後の運用においてお困りのことがあれば、いつでもご連絡ください。迅速かつ丁寧にサポートさせていただきます。",
   },
 ];
 
 export const footerSections = [
   {
-    title: "Explore",
+    title: "サイトのご案内",
     links: [
-      { label: "Home", href: "/" },
-      { label: "Articles", href: "/articles" },
-      { label: "FAQ", href: "/faq-deprecated" },
-      { label: "Compare", href: "/compare" },
-      { label: "Steps", href: "/steps" },
-      { label: "Voices", href: "/voices" },
+      { label: "ホーム", href: "/" },
+      { label: "盗難対策ガイド", href: "/articles" },
+      { label: "よくあるご質問", href: "/faq-deprecated" },
+      { label: "比較する", href: "/compare" },
+      { label: "利用開始までの流れ", href: "/steps" },
+      { label: "利用者の声", href: "/voices" },
     ],
   },
   {
-    title: "Support",
+    title: "サポート",
     links: [
-      { label: "Buy Now", href: siteConfig.buyNowUrl, external: true },
-      { label: "Partner", href: siteConfig.partnerUrl, external: true },
-      { label: "Admin", href: "/admin" },
+      { label: "購入", href: siteConfig.buyNowUrl, external: true },
+      { label: "月額サービス", href: siteConfig.partnerUrl, external: true },
+      { label: "管理画面", href: "/admin" },
     ],
   },
 ];
 
 export const seedArticles = [
   {
-    title: "GPS-devices",
+    title: "GPSとLINEで愛車を見守る仕組み",
     description:
-      "How POLARISS combines LINE and GPS to make vehicle monitoring simpler and faster.",
+      "POLARISSがLINEとGPSを組み合わせて、愛車の見守りを簡単にする仕組みをご紹介します。",
     coverImageUrl: "/images/hero-device.webp",
-    categoryName: "Product",
+    categoryName: "製品について",
     bodyHtml: `
-      <h2>Connected protection without a heavy workflow</h2>
-      <p>POLARISS keeps the experience intentionally simple. Instead of forcing users into a new app, it meets them in LINE and delivers monitoring, location access, and alerts from one familiar place.</p>
-      <p>This first article explains the product foundation, why real-time tracking matters, and how the service reduces the friction between alert and action.</p>
+      <h2>使い慣れたLINEで、簡単に見守る</h2>
+      <p>POLARISSは、操作のわかりやすさを大切にしています。新しいアプリを使わず、使い慣れたLINEから見守りや位置の確認、通知の受け取りを行えます。</p>
+      <p>この記事では、POLARISSの基本的な仕組みと、愛車の位置を確認することの大切さ、通知から状況の確認へ進む流れをご紹介します。</p>
       <ul>
-        <li>Fast alert delivery</li>
-        <li>Readable location context</li>
-        <li>Flexible direction-aware publishing</li>
+        <li>異変をすばやくお知らせ</li>
+        <li>わかりやすい位置情報</li>
+        <li>読みやすい情報の表示</li>
       </ul>
     `,
     keywords: ["GPS devices", "POLARISS", "LINE tracking", "vehicle security"],
     direction: "ltr",
   },
   {
-    title: "line-alert-workflow",
+    title: "LINEの通知から愛車の状況を確認する",
     description:
-      "A closer look at notification speed, visibility, and practical monitoring habits for daily vehicle use.",
+      "通知の速さと見やすさ、日々の愛車の見守りで確認しておきたいことをご紹介します。",
     coverImageUrl: "/images/feature-notification.webp",
-    categoryName: "Alerts",
+    categoryName: "通知について",
     bodyHtml: `
-      <h2>Fast notification matters</h2>
-      <p>Users need a clear first signal when something unusual happens. That first signal should be readable, timely, and actionable.</p>
-      <p>POLARISS focuses on quick delivery and predictable operator flow so the user can move from alert to verification with less confusion.</p>
+      <h2>異変に早く気づくために</h2>
+      <p>愛車に異変が起きたときには、まず何が起きたかを知ることが大切です。通知は、見やすく、状況の確認につながるものである必要があります。</p>
+      <p>POLARISSは、すばやい通知とわかりやすい操作を大切にし、通知を受け取ってから状況を確認するまで、迷わず進めるようにしています。</p>
     `,
     keywords: ["LINE alert", "vehicle monitoring", "notification speed"],
     direction: "ltr",
@@ -248,9 +248,9 @@ export const seedFaqs = [
     sortOrder: 3,
   },
   {
-    question: "記事やFAQは後から更新できますか？",
+    question: "記事やよくあるご質問は後から更新できますか？",
     answer:
-      "はい。管理画面から記事本文、キーワード、FAQの表示順を含めて更新できます。更新後は公開面にも反映されます。",
+      "はい。管理画面から記事本文、キーワード、よくあるご質問の表示順を含めて更新できます。更新後は公開面にも反映されます。",
     keywords: ["admin", "FAQ", "article updates"],
     sortOrder: 4,
   },

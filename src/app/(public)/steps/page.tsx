@@ -21,7 +21,7 @@ export default function StepsPage() {
     <>
       <section className="steps-hero">
         <div className="shell">
-          <p className="eyebrow light">GETTING STARTED</p>
+          <p className="eyebrow light">ご利用開始までの流れ</p>
           <h1>
             ＼こんな悩みは
             <br />
@@ -61,7 +61,7 @@ export default function StepsPage() {
       <section className="steps-features section">
         <div className="shell">
           <div className="section-heading centered-heading">
-            <p className="eyebrow">WHY POLARISS</p>
+            <p className="eyebrow">POLARISSが選ばれる理由</p>
             <h2>
               POLARISSが
               <br />
@@ -80,7 +80,7 @@ export default function StepsPage() {
                   <span>{feature.index}</span>
                 </div>
                 <div className="steps-feature-copy">
-                  <p className="eyebrow">FEATURE {feature.index}</p>
+                  <p className="eyebrow">特長 {feature.index}</p>
                   <h3>{feature.title}</h3>
                   <p>{feature.text}</p>
                   {feature.note ? <p className="steps-feature-note">{feature.note}</p> : null}
@@ -94,7 +94,7 @@ export default function StepsPage() {
       <section className="steps-flow-section section">
         <div className="shell">
           <div className="section-heading centered-heading">
-            <p className="eyebrow">HOW TO START</p>
+            <p className="eyebrow">はじめ方</p>
             <h2>ご利用までの流れ</h2>
             <p className="steps-flow-subtitle">最短翌日からご利用開始(※1)</p>
           </div>

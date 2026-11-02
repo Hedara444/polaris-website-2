@@ -22,7 +22,7 @@ export function StripSection() {
         </Link>
         <div className="sb">
           <b className="sb-title">バッテリー内蔵</b>
-          <small className="sb-desc">車両からの常時給電にも対応する2WAY。万が一の電源断にも備えます。</small>
+          <small className="sb-desc">車両からの常時給電にも対応する2通りの給電方法。万が一の電源断にも備えます。</small>
         </div>
       </div>
     </section>

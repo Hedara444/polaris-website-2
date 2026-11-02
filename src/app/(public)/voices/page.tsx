@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { defaultKeywords } from "@/lib/site-config";
+import { defaultKeywords, siteConfig } from "@/lib/site-config";
 import { buildMetadata } from "@/lib/seo";
 import { VoicesInteractions } from "@/components/voices/VoicesInteractions";
 import "./voices.css";
@@ -14,7 +14,7 @@ export const metadata = buildMetadata({
 
 const voiceCards = [
   {
-    key: "VOICE 01",
+    key: "利用者の声 01",
     name: "Tさん（大型バイク所有）",
     type: "バイク",
     title: "安全性の確保で購入を決意",
@@ -23,7 +23,7 @@ const voiceCards = [
     summary: "盗難対策を複数重ねられることが、購入の後押しに。",
   },
   {
-    key: "VOICE 02",
+    key: "利用者の声 02",
     name: "Yさん（ファミリーカー所有）",
     type: "車・ファミリーユース",
     title: "離れた駐車場でも安心",
@@ -32,7 +32,7 @@ const voiceCards = [
     summary: "離れた駐車場でも、移動の通知と位置確認が安心材料に。",
   },
   {
-    key: "VOICE 03",
+    key: "利用者の声 03",
     name: "Kさん（スポーツカー所有）",
     type: "車",
     title: "使いやすさと明瞭な料金体系が決め手",
@@ -41,7 +41,7 @@ const voiceCards = [
     summary: "通知の早さ、買い切りの端末、保証が継続利用の理由に。",
   },
   {
-    key: "VOICE 04",
+    key: "利用者の声 04",
     name: "Iさん（車、バイク複数所有）",
     type: "車＆バイク",
     title: "複数の車両を管理しています",
@@ -62,7 +62,7 @@ export default function VoicesPage() {
           <div className="crumb">
             <Link href="/">ホーム</Link>／<span>利用者の声</span>
           </div>
-          <p className="kicker">USERS</p>
+          <p className="kicker">利用者の声</p>
           <h1>
             実際に使う人の言葉で、
             <br />
@@ -78,7 +78,7 @@ export default function VoicesPage() {
       <section className="voices" id="voices">
         <div className="wrap">
           <div className="voices-head">
-            <p className="kicker rv">USERS COMMENT</p>
+            <p className="kicker rv">ご利用いただいた方の声</p>
             <h2 className="rv">利用者の声</h2>
           </div>
 
@@ -121,9 +121,9 @@ export default function VoicesPage() {
             停める場所も、乗り方も違います。それでも、動かされたことに気づけるという一点は、多くの利用者にとって大切な備えになります。
           </p>
           <div className="ofin-btns rv">
-            <Link href="/order" className="btn btn-white">
+            <a href={siteConfig.buyNowUrl} className="btn btn-white">
               購入
-            </Link>
+            </a>
             <Link href="/howto" className="btn btn-ghost">
               使い方を見る
             </Link>

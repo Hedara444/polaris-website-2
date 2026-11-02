@@ -19,7 +19,7 @@ export function ScenarioInteractive() {
       <div className="scn-a rv in">
         {SCENARIOS.map((s) => (
           <div key={s.a} className={active === s.a ? "ans on" : "ans"} data-a={s.a}>
-            <span className="k">RECOMMEND</span>
+            <span className="k">おすすめの選択肢</span>
             <b>{s.recommend}</b>
             <p>{s.desc}</p>
             <span className="pill">{s.pill}</span>

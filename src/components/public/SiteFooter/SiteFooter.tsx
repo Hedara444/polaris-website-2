@@ -1,3 +1,4 @@
+import { siteConfig } from "@/lib/site-config";
 import Link from "next/link";
 import "../../landing/styles/footer.css";
 
@@ -40,21 +41,21 @@ export function SiteFooter() {
           </div>
           <div className="ft-cols">
             <div className="ft-col">
-              <b>SERVICE</b>
+              <b>サービス案内</b>
               <Link href="/about">POLARISSとは</Link>
               <Link href="/howto">使い方</Link>
               <Link href="/compare">比較する</Link>
               <Link href="/price">料金プラン</Link>
-              <Link href="/order">POLARISSを購入する</Link>
+              <a href={siteConfig.buyNowUrl}>POLARISSを購入する</a>
             </div>
             <div className="ft-col">
-              <b>CONTENT</b>
+              <b>読みもの・サポート</b>
               <Link href="/voices">利用者の声</Link>
               <Link href="/articles">盗難対策ガイド</Link>
-              <Link href="/faq">FAQ</Link>
+              <Link href="/faq">よくあるご質問</Link>
             </div>
             <div className="ft-col">
-              <b>COMPANY / LEGAL</b>
+              <b>運営会社・規約</b>
               <Link href="/company">運営会社：株式会社OWL-TY</Link>
               <Link href="/contact">お問い合わせ</Link>
               <Link href="/commerce">特定商取引法に基づく表記</Link>

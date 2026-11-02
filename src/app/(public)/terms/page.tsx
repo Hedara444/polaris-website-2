@@ -16,7 +16,7 @@ export default function TermsPage() {
           <div className="crumb">
             <Link href="/">ホーム</Link>／<span>利用規約</span>
           </div>
-          <p className="kicker">LEGAL</p>
+          <p className="kicker">規約・方針</p>
           <h1>利用規約</h1>
           <p>POLARISSサービスをご利用いただく際の規約です。</p>
         </div>

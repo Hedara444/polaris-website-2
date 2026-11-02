@@ -31,7 +31,7 @@ export default function OrderPage() {
           </div>
           <div className="sec-hd rv in">
             <p className="kicker" style={{ fontSize: 13, fontWeight: 700, color: "var(--gray)", letterSpacing: ".13em", margin: 0 }}>
-              ORDER & PURCHASE
+              ご購入について
             </p>
             <h1 style={{ fontSize: "clamp(30px,4.2vw,54px)", fontWeight: 900, marginTop: 12, lineHeight: 1.25 }}>
               POLARISSを購入する
@@ -71,7 +71,7 @@ export default function OrderPage() {
 
             <div className="osum-side">
               <span className="k" style={{ fontSize: 12, fontWeight: 700, color: "var(--gray)", letterSpacing: ".1em" }}>
-                PURCHASE SUMMARY
+                ご購入内容
               </span>
               <b style={{ display: "block", marginTop: 12, fontSize: 19, fontWeight: 900 }}>ご購入前の確認事項</b>
               
@@ -83,7 +83,7 @@ export default function OrderPage() {
                 <p style={{ margin: "0 0 10px 0", paddingLeft: 8 }}>月額2,178円（税込）</p>
 
                 <p style={{ margin: "0 0 6px 0", fontWeight: 700 }}>■ 購入後の流れ：</p>
-                <p style={{ margin: 0, paddingLeft: 8 }}>配送・受取 ➔ Web初期設定 ➔ 愛車に設置・見守り開始</p>
+                <p style={{ margin: 0, paddingLeft: 8 }}>配送・受取 ➔ ウェブサイトで初期設定 ➔ 愛車に設置・見守り開始</p>
               </div>
 
               <a href={siteConfig.buyNowUrl} target="_blank" rel="noopener noreferrer" className="btn btn-fill" style={{ marginTop: 20 }}>
@@ -97,7 +97,7 @@ export default function OrderPage() {
                   使い方を見る →
                 </Link>
                 <Link href="/faq" style={{ borderBottom: "2px solid var(--gray)", paddingBottom: 2 }}>
-                  FAQを見る →
+                  よくあるご質問を見る →
                 </Link>
               </div>
             </div>
@@ -113,7 +113,7 @@ export default function OrderPage() {
         <div className="wrap">
           <div className="sec-hd rv in">
             <p className="kicker" style={{ fontSize: 13, fontWeight: 700, color: "var(--gray)", letterSpacing: ".13em", margin: 0 }}>
-              AFTER PURCHASE
+              ご購入後の流れ
             </p>
             <h2 className="h2" style={{ marginTop: 16 }}>
               購入後の流れ。
@@ -142,7 +142,7 @@ export default function OrderPage() {
         <div className="wrap">
           <div className="sec-hd rv in">
             <p className="kicker" style={{ fontSize: 13, fontWeight: 700, color: "var(--gray)", letterSpacing: ".13em", margin: 0 }}>
-              BEFORE YOU BUY
+              ご購入前の確認事項
             </p>
             <h2 className="h2" style={{ marginTop: 16 }}>
               ご購入前に、
@@ -155,7 +155,7 @@ export default function OrderPage() {
           <div className="chk-list rv in">
             {[
               { b: "クルマ・バイク向けのサービスです", s: "クルマ・バイクのために設計されています。人の見守りや持ち物さがしを目的とした製品ではありません。" },
-              { b: "通知と位置確認は、LINEから", s: "専用アプリは不要ですが、LINEアカウントが必要です。ユーザー登録と車両の登録はWebから行います。" },
+              { b: "通知と位置確認は、LINEから", s: "専用アプリは不要ですが、LINEアカウントが必要です。ユーザー登録と車両の登録はウェブサイトから行います。" },
               { b: "位置情報と通信は、環境の影響を受けます", s: "屋内や地下では衛星の電波が届きにくく、携帯回線が届かない場所では送信や更新に時間がかかることがあります。" },
               { b: "盗難の防止・発見・回収を保証するものではありません", s: "動かされたことに気づき、位置を確認するための備えです。緊急時の警察等へのご連絡は、お客さまご自身で行っていただきます。" },
               { b: "取り付け方は、二通りから選べます", s: "車両から給電する方法と、内蔵バッテリーで使う方法があります。後者は定期的な充電が必要です。" },

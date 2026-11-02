@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { siteConfig } from "@/lib/site-config";
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import "@/components/landing/styles/howto.css";
@@ -24,7 +25,7 @@ export default function HowtoPage() {
           </div>
         </div>
         <div className="jhero-in wrap">
-          <p className="kicker">HOW TO USE</p>
+          <p className="kicker">使い方</p>
           <h1>POLARISSの使い方</h1>
           <p style={{ fontSize: "clamp(20px,2.6vw,36px)", fontWeight: 900, lineHeight: 1.3, marginTop: "12px", color: "#131312" }}>
             はじめるのも、
@@ -46,17 +47,17 @@ export default function HowtoPage() {
       <nav className="prail">
         <div className="prail-in wrap">
           <a href="#p1">
-            <span className="n">PHASE 01</span>
+            <span className="n">段階 01</span>
             <b>はじめる</b>
             <small>購入して、設定して、愛車に取り付けるまで。</small>
           </a>
           <a href="#p2">
-            <span className="n">PHASE 02</span>
+            <span className="n">段階 02</span>
             <b>ふだん</b>
             <small>ほとんど何もしない時間が、いちばん長い。</small>
           </a>
           <a href="#p3">
-            <span className="n">PHASE 03</span>
+            <span className="n">段階 03</span>
             <b>もしものとき</b>
             <small>通知が届いてから、あなたがすること。</small>
           </a>
@@ -67,7 +68,7 @@ export default function HowtoPage() {
       <section className="sec ov" id="overview">
         <div className="wrap">
           <div className="sec-hd rv">
-            <p className="kicker">OVERVIEW</p>
+            <p className="kicker">全体の流れ</p>
             <h2 className="h2" style={{ marginTop: 16 }}>
               使いはじめるまでの、五つの区切り。
             </h2>
@@ -75,27 +76,27 @@ export default function HowtoPage() {
           </div>
           <div className="route5 rv">
             <div className="rnode">
-              <span className="k">01 BUY</span>
+              <span className="k">01 / 購入</span>
               <b>購入</b>
-              <small>GPS本体と通信のサブスクリプション。</small>
+              <small>GPS本体と通信の月額サービス。</small>
             </div>
             <div className="rnode">
-              <span className="k">02 SET UP</span>
-              <b>Webで登録</b>
+              <span className="k">02 / 初期設定</span>
+              <b>ウェブサイトで登録</b>
               <small>ユーザー名・車両名・愛車の写真を登録。</small>
             </div>
             <div className="rnode">
-              <span className="k">03 SET</span>
+              <span className="k">03 / 取り付け</span>
               <b>愛車にセットする</b>
               <small>取り付ける、または車両に入れて使います。</small>
             </div>
             <div className="rnode now">
-              <span className="k">04 READY</span>
+              <span className="k">04 / 見守り開始</span>
               <b>見守り開始</b>
               <small>ここから先は、ふだん通りに。</small>
             </div>
             <div className="rnode">
-              <span className="k">05 NOTICE</span>
+              <span className="k">05 / お知らせ</span>
               <b>異変があればLINEへ</b>
               <small>移動を検知するとお知らせが届きます。</small>
             </div>
@@ -107,7 +108,7 @@ export default function HowtoPage() {
       <section className="phase-hd" id="p1">
         <div className="wrap rv">
           <span className="tag">
-            PHASE 01<u>はじめる</u>
+            段階 01<u>はじめる</u>
           </span>
           <h2>まずは、使いはじめるまで。</h2>
           <p>やることは三つだけ。ここを越えれば、あとはふだん通りで大丈夫です。</p>
@@ -120,7 +121,7 @@ export default function HowtoPage() {
             <div className="scene-txt rv">
               <span className="stepno">01</span>
               <h3>POLARISSを購入する</h3>
-              <p>GPS本体と、通信のサブスクリプション。<br />届くのは手のひらに収まる端末ひとつです。</p>
+              <p>GPS本体と、通信の月額サービス。<br />届くのは手のひらに収まる端末ひとつです。</p>
               <p className="fine">初回に本体費用、そのあとは通信費のみ。</p>
               <div className="go">
                 <Link href="/price" className="txtlink">
@@ -140,7 +141,7 @@ export default function HowtoPage() {
           <div className="scene-grid flip">
             <div className="scene-txt rv">
               <span className="stepno">02</span>
-              <h3>Webでアカウントと車両を登録</h3>
+              <h3>ウェブサイトでアカウントと車両を登録</h3>
               <p>ユーザー名と車両名を入力し、愛車の写真をアップロード。専用アプリのインストールは必要ありません。</p>
               <p className="fine">登録後の通知と位置確認は、LINEから受け取れます。</p>
             </div>
@@ -154,11 +155,11 @@ export default function HowtoPage() {
                 </div>
                 <div className="br-body">
                   <div className="br-steps">
-                    <span>01 ACCOUNT</span>
+                    <span>01 / 利用者の登録</span>
                     <u></u>
-                    <span className="on">02 VEHICLE</span>
+                    <span className="on">02 / 車両の登録</span>
                     <u></u>
-                    <span>03 DONE</span>
+                    <span>03 / 登録完了</span>
                   </div>
                   <h4>愛車を登録する</h4>
                   <div className="br-field">
@@ -214,7 +215,7 @@ export default function HowtoPage() {
         <div className="bgfill" role="img" aria-label="いつも通りの愛車"></div>
         <div className="scrim"></div>
         <div className="quiet-in">
-          <span className="tag kicker rv">PHASE 02 ／ ふだん</span>
+          <span className="tag kicker rv">段階 02 ／ ふだん</span>
           <h2 className="rv">
             ふだんは、
             <br />
@@ -245,7 +246,7 @@ export default function HowtoPage() {
       <section className="sec act" id="p3">
         <div className="wrap">
           <div className="sec-hd rv">
-            <span className="tag kicker">PHASE 03 ／ もしものとき</span>
+            <span className="tag kicker">段階 03 ／ もしものとき</span>
             <h2 className="h2" style={{ marginTop: 16 }}>
               通知が届いてから、
               <br />
@@ -257,32 +258,32 @@ export default function HowtoPage() {
           <div className="act-flow">
             <div className="act-steps">
               <div className="act-step rv">
-                <div className="k">01 NOTICE</div>
+                <div className="k">01 / お知らせ</div>
                 <h3>LINEの通知に気づく</h3>
                 <p>移動を検知すると、いつものトークにお知らせが届きます。</p>
               </div>
               <div className="act-step rv">
-                <div className="k">02 CHECK</div>
+                <div className="k">02 / 状況の確認</div>
                 <h3>心当たりがあるか確かめる</h3>
                 <p>家族が動かした、ということもあります。通知の時刻と場所を見て、状況を確かめます。</p>
               </div>
               <div className="act-step rv">
-                <div className="k">03 LOCATE</div>
+                <div className="k">03 / 位置の確認</div>
                 <h3>地図で位置を確認する</h3>
                 <p>通知からそのまま地図へ。現在地と移動をたどれます。</p>
               </div>
               <div className="act-step rv safe">
-                <div className="k">04 SAFETY</div>
+                <div className="k">04 / 安全の確保</div>
                 <h3>ご自身では追いかけない</h3>
                 <p>車両や相手に近づくことはお控えください。安全が最優先です。</p>
               </div>
               <div className="act-step rv">
-                <div className="k">05 REPORT</div>
+                <div className="k">05 / 警察への情報提供</div>
                 <h3>警察等へ連絡し、情報を伝える</h3>
                 <p>警察等へご連絡ください。確認した位置や移動の情報が、そのまま伝える材料になります。</p>
               </div>
               <div className="act-step rv">
-                <div className="k">06 TOGETHER</div>
+                <div className="k">06 / ユーザー同士の見守り</div>
                 <h3>必要に応じて相互監視を開始する</h3>
                 <p>開始するかどうかは、オーナーご自身で選べます。</p>
                 <div className="go" style={{ marginTop: 14 }}>
@@ -304,7 +305,7 @@ export default function HowtoPage() {
                     </div>
                     <div className="monitor-control-ui">
                       <span>
-                        <b>MY BIKE</b>
+                        <b>愛車</b>
                         <small>自己監視を実行中</small>
                       </span>
                       <span className="toggle-ui">
@@ -336,7 +337,7 @@ export default function HowtoPage() {
                         <b>
                           <i></i>エリア外への移動を検知
                         </b>
-                        <small>MY BIKE ／ たった今</small>
+                        <small>愛車 ／ たった今</small>
                       </div>
                     </div>
                   </div>
@@ -356,7 +357,7 @@ export default function HowtoPage() {
       <section className="sec install" id="install">
         <div className="wrap">
           <div className="sec-hd rv">
-            <p className="kicker">INSTALLATION</p>
+            <p className="kicker">取り付け方法</p>
             <h2 className="h2" style={{ marginTop: 16 }}>
               クルマにも。
               <br />
@@ -370,7 +371,7 @@ export default function HowtoPage() {
               <div className="ph">
                 <div className="bgfill" role="img" aria-label="クルマへの取り付けイメージ"></div>
               </div>
-              <span className="k">FOR CARS</span>
+              <span className="k">クルマへの取り付け</span>
               <b>クルマ</b>
               <p>車内に取り付けるほか、収納スペースに入れておく使い方も。</p>
             </div>
@@ -378,7 +379,7 @@ export default function HowtoPage() {
               <div className="ph">
                 <div className="bgfill" role="img" aria-label="バイクへの取り付けイメージ"></div>
               </div>
-              <span className="k">FOR MOTORCYCLES</span>
+              <span className="k">バイクへの取り付け</span>
               <b>バイク</b>
               <p>シート下やトップケース、車載バッグに入れておく使い方もよく選ばれます。</p>
             </div>
@@ -386,13 +387,13 @@ export default function HowtoPage() {
 
           <div className="pwr rv">
             <div>
-              <span className="k">01 WIRED</span>
+              <span className="k">01 / 車両から給電</span>
               <b>車両から給電して使う</b>
               <p>車両の電源とつないで使う方法。ふだんの充電を意識する必要がありません。</p>
               <span className="tagline">取り付けあり ／ 充電の手間なし</span>
             </div>
             <div>
-              <span className="k">02 STANDALONE</span>
+              <span className="k">02 / 本体の電池で使用</span>
               <b>内蔵バッテリーだけで使う</b>
               <p>入れておくだけで使う方法。配線は不要で、電源は4週間程度もちます。</p>
               <span className="tagline">取り付けなし ／ 約4週間が目安</span>
@@ -402,7 +403,7 @@ export default function HowtoPage() {
           <dl className="inst-facts rv">
             <div>
               <dt>電源</dt>
-              <dd>内蔵バッテリー（1,500mAh）／ スタンドアローン時は約4週間が目安 ／ 車両からの給電にも対応</dd>
+              <dd>内蔵バッテリー（1,500mAh）／ 本体の電池だけで使う場合は約4週間が目安 ／ 車両からの給電にも対応</dd>
             </div>
             <div>
               <dt>充電</dt>
@@ -425,34 +426,34 @@ export default function HowtoPage() {
       <section className="sec lswitch" id="line">
         <div className="wrap">
           <div className="sec-hd rv">
-            <p className="kicker">ON LINE</p>
+            <p className="kicker">LINEでの操作</p>
             <h2 className="h2" style={{ marginTop: 16 }}>
               操作も、確認も。
               <br />
               いつものLINEから。
             </h2>
-            <p className="lead">登録はWebから。そのあとの確認と通知は、LINEで。項目を選ぶと、そのときの画面が表示されます。</p>
+            <p className="lead">登録はウェブサイトから。そのあとの確認と通知は、LINEで。項目を選ぶと、そのときの画面が表示されます。</p>
           </div>
 
           <div className="lsw" id="lsw">
             <div className="sw-nav">
               <button className="on" data-s="1">
-                <span className="k">01 STATUS</span>
+                <span className="k">01 / 状態の確認</span>
                 <b>状態を見る</b>
                 <p>LINEのトークから、車両の状態と位置情報カードを確認できます。</p>
               </button>
               <button data-s="2">
-                <span className="k">02 LOCATION</span>
+                <span className="k">02 / 位置の確認</span>
                 <b>位置を確認する</b>
                 <p>地図を開いて、車両の現在地と状態を確認できます。</p>
               </button>
               <button data-s="3">
-                <span className="k">03 SELF MONITORING</span>
+                <span className="k">03 / 自己監視</span>
                 <b>自己監視を設定する</b>
-                <p>駐車位置を基準に自己監視をONにし、監視エリアを確認します。</p>
+                <p>駐車位置を基準に自己監視を有効にし、監視エリアを確認します。</p>
               </button>
               <button data-s="4">
-                <span className="k">04 NOTICE</span>
+                <span className="k">04 / お知らせ</span>
                 <b>通知を受け取る</b>
                 <p>自己監視中にエリアを出ると、LINEへ通知が届きます。</p>
               </button>
@@ -462,7 +463,7 @@ export default function HowtoPage() {
               <div className="phone">
                 <div className="screen">
                   <div className="sc on" data-s="1">
-                    <div className="app-ui line-ui" role="img" aria-label="LINEトークに届いたMY BIKEの位置情報カードのイラスト">
+                    <div className="app-ui line-ui" role="img" aria-label="LINEトークに届いた愛車の位置情報カードのイラスト">
                       <div className="app-top dark">
                         <span className="back">‹</span>
                         <b>POLARISS</b>
@@ -477,7 +478,7 @@ export default function HowtoPage() {
                               <span className="map-pin-ui"></span>
                             </div>
                             <div className="place-copy-ui">
-                              <b>MY BIKE</b>
+                              <b>愛車</b>
                               <small>
                                 2026/08/25 14:32
                                 <br />
@@ -486,7 +487,7 @@ export default function HowtoPage() {
                             </div>
                             <div className="location-link-ui">
                               <span>
-                                <i></i>Location
+                                <i></i>現在地
                               </span>
                               <span>›</span>
                             </div>
@@ -497,7 +498,7 @@ export default function HowtoPage() {
                   </div>
 
                   <div className="sc" data-s="2">
-                    <div className="app-ui map-ui" role="img" aria-label="MY BIKEの現在地を確認する地図のイラスト">
+                    <div className="app-ui map-ui" role="img" aria-label="愛車の現在地を確認する地図のイラスト">
                       <div className="app-top">
                         <span className="back">×</span>
                         <b>位置情報</b>
@@ -520,7 +521,7 @@ export default function HowtoPage() {
                         <span className="map-pin-ui"></span>
                       </div>
                       <div className="detail-ui">
-                        <b>MY BIKE</b>
+                        <b>愛車</b>
                         <small>
                           2026/08/25 14:32
                           <br />
@@ -531,7 +532,7 @@ export default function HowtoPage() {
                   </div>
 
                   <div className="sc" data-s="3">
-                    <div className="app-ui monitor-ui" role="img" aria-label="MY BIKEの自己監視エリアを表示する地図のイラスト">
+                    <div className="app-ui monitor-ui" role="img" aria-label="愛車の自己監視エリアを表示する地図のイラスト">
                       <div className="app-top">
                         <span className="back">‹</span>
                         <b>自己監視</b>
@@ -539,7 +540,7 @@ export default function HowtoPage() {
                       </div>
                       <div className="monitor-control-ui">
                         <span>
-                          <b>MY BIKE</b>
+                          <b>愛車</b>
                           <small>駐車位置を基準に監視</small>
                         </span>
                         <span className="toggle-ui">
@@ -554,7 +555,7 @@ export default function HowtoPage() {
                         <span className="monitor-center-ui"></span>
                         <div className="monitor-status-ui">
                           <b>
-                            <i></i>自己監視 ON
+                            <i></i>自己監視 有効
                           </b>
                           <small>監視エリア ／ 半径100m</small>
                         </div>
@@ -575,7 +576,7 @@ export default function HowtoPage() {
                           <div className="chat-avatar-ui">P</div>
                           <div className="line-message-ui">
                             <b>移動を検知しました</b>
-                            <small>自己監視中のMY BIKEが監視エリアの外へ移動しました。</small>
+                            <small>自己監視中の愛車が監視エリアの外へ移動しました。</small>
                             <span className="cta">位置を確認する</span>
                           </div>
                         </div>
@@ -595,7 +596,7 @@ export default function HowtoPage() {
       <section className="sec before" id="before">
         <div className="wrap">
           <div className="sec-hd rv">
-            <p className="kicker">BEFORE YOU START</p>
+            <p className="kicker">ご利用前の確認事項</p>
             <h2 className="h2" style={{ marginTop: 16 }}>
               使う前に、
               <br />
@@ -642,7 +643,7 @@ export default function HowtoPage() {
               <span className="n">06</span>
               <div>
                 <b>相互監視は任意の機能です</b>
-                <p>受付・開始はそれぞれON / OFFを選べます。初期設定は受付ONで、いつでも変更できます。</p>
+                <p>受付・開始はそれぞれ有効・無効を選べます。初期設定は受付が有効で、いつでも変更できます。</p>
               </div>
             </div>
           </div>
@@ -652,7 +653,7 @@ export default function HowtoPage() {
       {/* ==================== 09 NEXT ACTION ==================== */}
       <section className="next" id="next">
         <div className="wrap">
-          <p className="kicker rv">NEXT</p>
+          <p className="kicker rv">次に知りたいこと</p>
           <h2 className="rv">
             使い方は、ここまで。
             <br />
@@ -685,9 +686,9 @@ export default function HowtoPage() {
             </Link>
           </div>
           <div className="next-btns rv">
-            <Link href="/order" className="btn btn-fill">
+            <a href={siteConfig.buyNowUrl} className="btn btn-fill">
               購入
-            </Link>
+            </a>
             <span className="next-fine">初回 19,800円（税込・送料無料）／ 月額 2,178円（税込）</span>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { siteConfig } from "@/lib/site-config";
 import "./styles/final.css";
 
 export function FinalSection() {
@@ -14,9 +14,9 @@ export function FinalSection() {
         </h2>
         <p className="rv">万が一のとき、「いま、どこにあるか分かる」という備えを、愛車に。</p>
         <div className="final-btns rv">
-          <Link href="/order" className="btn btn-white">
+          <a href={siteConfig.buyNowUrl} className="btn btn-white">
             購入
-          </Link>
+          </a>
           <a href="#price" className="btn btn-ghost">
             料金を確認する
           </a>

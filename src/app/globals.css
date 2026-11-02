@@ -2282,3 +2282,5 @@ button:has(> .btn-spinner) {
     transition-duration: 0.01ms !important;
   }
 }
+/* Public captions use the same Japanese typeface as the surrounding copy. */
+.kicker,.eyebrow{font-family:var(--jp);letter-spacing:.06em;line-height:1.7}

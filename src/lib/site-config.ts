@@ -5,7 +5,6 @@ export const siteConfig = {
     "POLARISSは、GPS位置情報と相互監視で大切なバイクや車両を見守るサービスです。盗難対策に加え、気象リスク通知で愛車の危険にも備えます。",
   siteUrl: process.env.SITE_BASE_URL ?? "https://www.polariss.jp",
   buyNowUrl:
-    process.env.NEXT_PUBLIC_BUY_NOW_URL ??
     "https://polariss-store.myshopify.com/?utm_campaign=dd8937&utm_source=shareable_link",
   partnerUrl:
     process.env.NEXT_PUBLIC_PARTNER_URL ??

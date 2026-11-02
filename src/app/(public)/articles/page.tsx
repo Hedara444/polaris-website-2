@@ -102,19 +102,19 @@ export default async function ArticlesPage({
           {/* Theme Row Footer */}
           <div className="theme-row">
             <div>
-              <span>THEME 01</span>
+              <span>テーマ 01</span>
               <b>バイク盗難</b>
             </div>
             <div>
-              <span>THEME 02</span>
+              <span>テーマ 02</span>
               <b>クルマ盗難</b>
             </div>
             <div>
-              <span>THEME 03</span>
+              <span>テーマ 03</span>
               <b>GPSの選び方</b>
             </div>
             <div>
-              <span>THEME 04</span>
+              <span>テーマ 04</span>
               <b>もしもの対応</b>
             </div>
           </div>
