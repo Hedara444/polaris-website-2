@@ -5,40 +5,64 @@
   bottom: 24px;
   right: 24px;
   z-index: 85;
-  width: 58px;
-  height: 58px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s var(--ease, ease), filter 0.25s ease, background-color 0.2s ease, box-shadow 0.25s ease;
+}
+
+/* Closed state: character logo image */
+.polariss-chat-launcher.is-closed {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.polariss-chat-launcher-img {
+  width: 180px;
+  height: auto;
+  max-width: calc(100vw - 48px);
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.22));
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+}
+
+.polariss-chat-launcher.is-closed:hover .polariss-chat-launcher-img {
+  transform: translateY(-4px) scale(1.03);
+  filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.28));
+}
+
+.polariss-chat-launcher.is-closed:active .polariss-chat-launcher-img {
+  transform: translateY(0) scale(0.97);
+}
+
+/* Open state: circular X button */
+.polariss-chat-launcher.is-open {
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: var(--ink, #171716);
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28), 0 2px 6px rgba(0, 0, 0, 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.25s var(--ease, ease), box-shadow 0.25s var(--ease, ease), background-color 0.2s ease;
-  outline: none;
 }
 
-.polariss-chat-launcher:hover {
-  transform: translateY(-2px) scale(1.04);
+.polariss-chat-launcher.is-open:hover {
+  transform: translateY(-2px) scale(1.06);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
-  background: #232322;
+  background: #2a2a29;
 }
 
-.polariss-chat-launcher:active {
-  transform: translateY(0) scale(0.98);
-}
-
-.polariss-chat-launcher-badge {
-  position: absolute;
-  top: 1px;
-  right: 1px;
-  width: 14px;
-  height: 14px;
-  background: #06C755;
-  border: 2.5px solid #171716;
-  border-radius: 50%;
+.polariss-chat-launcher.is-open:active {
+  transform: translateY(0) scale(0.96);
 }
 
 .polariss-chat-tooltip {
@@ -108,14 +132,15 @@
 
 /* Header */
 .polariss-chat-header {
-  padding: 14px 18px;
-  background: var(--ink, #171716);
-  color: #ffffff;
+  padding: 8px 16px;
+  background: #ffffff;
+  color: #171716;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid #ebebea;
   flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .polariss-chat-header-info {
@@ -124,39 +149,54 @@
   gap: 10px;
 }
 
-.polariss-chat-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+.polariss-chat-header-brand {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: #7793f3;
-  flex-shrink: 0;
+  gap: 12px;
 }
 
-.polariss-chat-header-titles {
-  display: flex;
-  flex-direction: column;
+.polariss-chat-header-logo {
+  height: 64px;
+  width: auto;
+  max-width: 240px;
+  object-fit: contain;
+  display: block;
+  user-select: none;
 }
 
-.polariss-chat-header-title {
-  font-size: 14.5px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  display: flex;
+.polariss-chat-status-pill {
+  display: inline-flex;
   align-items: center;
   gap: 6px;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  background: rgba(6, 199, 85, 0.08);
+  border: 1px solid rgba(6, 199, 85, 0.22);
+  font-size: 11px;
+  font-weight: 600;
+  color: #059640;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
 .polariss-chat-status-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   background: #06C755;
   border-radius: 50%;
-  box-shadow: 0 0 6px rgba(6, 199, 85, 0.8);
+  box-shadow: 0 0 6px rgba(6, 199, 85, 0.7);
+  animation: polarissPulseDot 2s infinite ease-in-out;
+}
+
+@keyframes polarissPulseDot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0.7;
+  }
 }
 
 .polariss-chat-header-sub {
@@ -173,7 +213,7 @@
 .polariss-chat-icon-btn {
   background: transparent;
   border: none;
-  color: #D4D4CD;
+  color: #666660;
   width: 32px;
   height: 32px;
   border-radius: 8px;
@@ -185,8 +225,8 @@
 }
 
 .polariss-chat-icon-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
+  background: rgba(0, 0, 0, 0.06);
+  color: #171716;
 }
 
 /* Messages container */
@@ -464,9 +504,20 @@
 @media (max-width: 640px) {
   .polariss-chat-launcher {
     bottom: 84px; /* Sits nicely above buybar on mobile */
-    right: 16px;
-    width: 52px;
-    height: 52px;
+    right: 14px;
+  }
+
+  .polariss-chat-launcher.is-closed {
+    width: auto;
+    height: auto;
+  }
+
+  .polariss-chat-launcher-img {
+    width: 145px;
+  }
+
+  .polariss-chat-launcher.is-open {
+    display: none; /* Modal takes bottom sheet with header close button */
   }
 
   .polariss-chat-tooltip {

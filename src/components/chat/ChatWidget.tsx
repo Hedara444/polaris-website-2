@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useId } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   MessageCircle,
   X,
@@ -272,19 +273,22 @@ export function ChatWidget() {
       {/* Floating launcher button */}
       <button
         type="button"
-        className="polariss-chat-launcher"
+        className={`polariss-chat-launcher ${isOpen ? "is-open" : "is-closed"}`}
         onClick={toggleOpen}
-        aria-label={isOpen ? "チャットを閉じる" : "POLARISS AIサポートを開く"}
+        aria-label={isOpen ? "チャットを閉じる" : "ご購入のご相談やご質問はこちら！ MR.HOWに聞く"}
         aria-expanded={isOpen}
       >
-        {isOpen ? <X size={24} /> : <MessageCircle size={26} />}
-        {!isOpen && <span className="polariss-chat-launcher-badge" />}
-
-        {!isOpen && showTooltip && (
-          <div className="polariss-chat-tooltip">
-            <Sparkles size={14} color="#7793f3" />
-            <span>AIに質問する</span>
-          </div>
+        {isOpen ? (
+          <X size={24} />
+        ) : (
+          <Image
+            src="/rag-logo.png"
+            alt="ご購入のご相談やご質問はこちら！ MR.HOWに聞く"
+            width={180}
+            height={120}
+            priority
+            className="polariss-chat-launcher-img"
+          />
         )}
       </button>
 
@@ -298,19 +302,18 @@ export function ChatWidget() {
           {/* Header */}
           <div className="polariss-chat-header">
             <div className="polariss-chat-header-info">
-              <div className="polariss-chat-avatar">
-                <Sparkles size={18} />
-              </div>
-              <div className="polariss-chat-header-titles">
-                <div className="polariss-chat-header-title">
-                  <span>POLARISS AI</span>
-                  <span
-                    className="polariss-chat-status-dot"
-                    title="オンライン"
-                  />
-                </div>
-                <div className="polariss-chat-header-sub">
-                  公式ナレッジ自動応答
+              <div className="polariss-chat-header-brand">
+                <Image
+                  src="/rag-logo.png"
+                  alt="MR.HOW - ご購入のご相談やご質問はこちら！"
+                  width={165}
+                  height={110}
+                  priority
+                  className="polariss-chat-header-logo"
+                />
+                <div className="polariss-chat-status-pill" title="AIサポート オンライン">
+                  <span className="polariss-chat-status-dot" />
+                  <span className="polariss-chat-status-label">オンライン</span>
                 </div>
               </div>
             </div>
