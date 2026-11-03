@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 
 import { siteConfig } from "@/lib/site-config";
+import { setPastHero } from "./buybarState";
 import "./styles/buybar.css";
 
 export function BuybarSection() {
@@ -13,17 +14,16 @@ export function BuybarSection() {
     if (!el) return;
     let lastY = window.scrollY;
     let ticking = false;
+    // Positional state cached by IntersectionObserver instead of reading
+    // getBoundingClientRect() inside the scroll handler — the latter forces a
+    // synchronous layout flush on every scroll frame (heavy on mobile).
+    let pastHero = false;
+    let inFinal = false;
+    let inFoot = false;
 
-    const heroEnd = document.getElementById("heroEnd");
-    const fin = document.getElementById("final");
-    const ft = document.querySelector("footer");
-
-    const update = () => {
+    const apply = () => {
       const y = window.scrollY;
       const down = y > lastY;
-      const pastHero = heroEnd ? heroEnd.getBoundingClientRect().top < 0 : y > 400;
-      const inFinal = fin ? fin.getBoundingClientRect().top < window.innerHeight && fin.getBoundingClientRect().bottom > 0 : false;
-      const inFoot = ft ? ft.getBoundingClientRect().top < window.innerHeight : false;
       const anyFaqOpen = document.querySelector(".acc-item.open") !== null;
 
       if (anyFaqOpen) {
@@ -36,19 +36,56 @@ export function BuybarSection() {
         el.classList.add("show");
       }
       lastY = y;
-      ticking = false;
     };
 
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
+    const schedule = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        apply();
+      });
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
+    const observe = (
+      selector: string,
+      onChange: (visible: boolean) => void,
+    ) => {
+      if (!("IntersectionObserver" in window)) return null;
+      const target = document.querySelector(selector);
+      if (!target) return null;
+      const io = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        if (!entry) return;
+        onChange(entry.isIntersecting);
+        schedule();
+      });
+      io.observe(target);
+      return io;
+    };
+
+    const ios = [
+      // heroEnd is the zero-height boundary after the hero: once it clears the
+      // top of the viewport, we are "past hero", mirroring the old
+      // `heroEnd.getBoundingClientRect().top < 0` check.
+      observe("#heroEnd", (visible) => {
+        pastHero = !visible;
+        setPastHero(pastHero);
+      }),
+      observe("#final", (visible) => {
+        inFinal = visible;
+      }),
+      observe("footer", (visible) => {
+        inFoot = visible;
+      }),
+    ].filter((io): io is IntersectionObserver => io !== null);
+
+    window.addEventListener("scroll", schedule, { passive: true });
     // initial state hidden until scroll up past hero
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      ios.forEach((io) => io.disconnect());
+    };
   }, []);
 
   return (

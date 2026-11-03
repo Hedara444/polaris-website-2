@@ -12,7 +12,7 @@ export default function PublicLayout({
   return (
     <>
       <SiteHeader />
-      <main>{children}</main>
+      <main className="public-main">{children}</main>
       <SiteFooter />
       <ChatWidget />
     </>

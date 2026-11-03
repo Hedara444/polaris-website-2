@@ -1,4 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -22,9 +21,9 @@
   --dark: #161615;
   --green: #06C755;
   --danger: #af1111;
-  --font-jp: "Zen Kaku Gothic New", ui-sans-serif;
-  --jp: "Zen Kaku Gothic New", ui-sans-serif, -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
-  --num: "Manrope", "Zen Kaku Gothic New", ui-sans-serif, sans-serif;
+  --font-jp: var(--font-zen), "Zen Kaku Gothic New", ui-sans-serif;
+  --jp: var(--font-zen), "Zen Kaku Gothic New", ui-sans-serif, -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  --num: var(--font-manrope), "Manrope", var(--font-zen), "Zen Kaku Gothic New", ui-sans-serif, sans-serif;
   --pad: clamp(20px, 7vw, 120px);
   --ease: cubic-bezier(.22, .72, .28, 1);
   --shell: min(1240px, calc(100vw - 64px));
@@ -35,6 +34,14 @@
   --i-route: url("/images/route.webp");
   --i-geo: url("/images/geo.webp");
   --i-device: url("/images/device.webp");
+}
+
+/* Phones never render the hero art above ~2x device width, so serve an
+   ultra-compressed copy on small screens to cut LCP transfer significantly. */
+@media (max-width: 640px) {
+  :root {
+    --i-hero: url("/images/hero-mobile.webp");
+  }
 }
 
 * {
@@ -77,6 +84,17 @@ button {
 
 section {
   scroll-margin-top: 88px
+}
+
+/* Skip rendering off-screen landing sections so their style/layout/paint work
+   (and any infinite CSS animations inside them) is deferred until the user
+   scrolls near them. Gated on contain-intrinsic-size support so older Safari
+   versions that would collapse skipped sections to 0 height are unaffected. */
+@supports (content-visibility: auto) and (contain-intrinsic-size: auto 600px) {
+  .public-main > section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px
+  }
 }
 
 ::selection {

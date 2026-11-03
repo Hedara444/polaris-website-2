@@ -30,22 +30,30 @@ export function CompareSection() {
         nudged = true;
         io.disconnect();
 
-        // Gentle peek: slide a little right, then ease back.
+        // Gentle peek: slide a little right, then ease back. Driven by native
+        // smooth scrolling instead of writing scrollLeft in a rAF loop — each
+        // scrollLeft write forces a synchronous layout, which is costly on
+        // phones (Lighthouse "Forced reflow"/"Style & Layout").
         const distance = Math.min(56, el.scrollWidth - el.clientWidth);
-        const duration = 900;
-        const start = performance.now();
-        const tick = (now: number) => {
-          const t = Math.min(1, (now - start) / duration);
-          // Out-and-back easing: 0 -> 1 -> 0.
-          const k = Math.sin(t * Math.PI);
-          el.scrollLeft = distance * k * k;
-          if (t < 1) {
-            requestAnimationFrame(tick);
-          } else {
-            el.scrollLeft = 0;
-          }
-        };
-        requestAnimationFrame(tick);
+        const peekIn = () => el.scrollTo({ left: distance, behavior: "smooth" });
+        const peekOut = () => el.scrollTo({ left: 0, behavior: "smooth" });
+        peekIn();
+        const t1 = window.setTimeout(peekOut, 460);
+        // Snap guard only if still near the start (i.e. the smooth return was
+        // interrupted); never yank the user's own scroll position.
+        const t2 = window.setTimeout(() => {
+          if (el.scrollLeft <= 4) el.scrollLeft = 0;
+        }, 1500);
+        // User grabbing the table cancels the auto-peek (programmatic smooth
+        // scrolling does NOT fire pointerdown, only user input does).
+        el.addEventListener(
+          "pointerdown",
+          () => {
+            clearTimeout(t1);
+            clearTimeout(t2);
+          },
+          { once: true },
+        );
       },
       { threshold: 0.35 },
     );

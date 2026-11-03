@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { getPastHero } from "./buybarState";
 import "./styles/faq.css";
 
 const items = [
@@ -30,12 +31,7 @@ export function FaqSection() {
     const bar = document.getElementById("buybar") as HTMLElement | null;
     if (!bar) return;
     if (open !== null) bar.classList.add("show");
-    else {
-      // when closing, let scroll logic decide; if not past hero, hide
-      const heroEnd = document.getElementById("heroEnd");
-      const pastHero = heroEnd ? heroEnd.getBoundingClientRect().top < 0 : false;
-      if (!pastHero) bar.classList.remove("show");
-    }
+    else if (!getPastHero()) bar.classList.remove("show");
   }, [open]);
 
   return (

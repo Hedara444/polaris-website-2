@@ -37,3 +37,11 @@
   .nav{gap:11px;font-size:12px}
   .hdr-cta .btn{padding-left:16px;padding-right:16px}
 }
+/* Mobile: a 14px backdrop blur on a sticky header is re-composited on every
+   scroll frame — one of the most expensive per-frame ops on phones (incl.
+   iPhone SE-class CPUs), feeding the Lighthouse "Style & Layout" main-thread
+   time. 6px reads identically at this scale but costs a fraction of a 14px
+   blur, so dial it down on small screens only. */
+@media(max-width:768px){
+  .hdr{backdrop-filter:saturate(160%) blur(6px);-webkit-backdrop-filter:saturate(160%) blur(6px)}
+}
