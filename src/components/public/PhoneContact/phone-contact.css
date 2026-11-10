@@ -1,0 +1,42 @@
+.polariss-phone-contact {
+  position: fixed;
+  left: 24px;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  z-index: 84;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 17px;
+  border: 2px solid #5d6af4;
+  border-radius: 14px;
+  background: #fff;
+  color: #171716;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, .16);
+  transition: background .2s, box-shadow .2s;
+}
+.polariss-phone-contact:hover { background: #f5f6ff; box-shadow: 0 8px 28px rgba(0, 0, 0, .22); }
+.polariss-phone-contact:focus-visible { outline: 3px solid #171716; outline-offset: 4px; }
+.polariss-phone-label { font-family: var(--heading); font-size: 14px; font-weight: 700; line-height: 1.4; }
+.polariss-phone-number { display: flex; align-items: center; gap: 7px; font-family: var(--num); font-size: 24px; font-weight: 800; letter-spacing: -.04em; line-height: 1.4; white-space: nowrap; }
+.polariss-phone-number svg { color: #5d6af4; flex: none; }
+.polariss-phone-hours { font-size: 12px; font-weight: 400; line-height: 1.5; }
+body:has(.buybar.show) .polariss-phone-contact { bottom: calc(100px + env(safe-area-inset-bottom)); }
+body:has(.polariss-chat-window) .polariss-phone-contact,
+body:has(.mnav.open) .polariss-phone-contact { visibility: hidden; pointer-events: none; }
+
+@media (max-width: 640px) {
+  .polariss-phone-contact,
+  body:has(.buybar.show) .polariss-phone-contact {
+    left: 14px;
+    bottom: calc(84px + env(safe-area-inset-bottom));
+    width: min(180px, calc(50vw - 22px));
+    gap: 3px;
+    padding: 9px 6px;
+    border-radius: 11px;
+  }
+  .polariss-phone-label { font-size: 12px; }
+  .polariss-phone-number { font-size: clamp(15px, 4.25vw, 18px); gap: 4px; }
+  .polariss-phone-number svg { width: 16px; height: 16px; }
+  .polariss-phone-hours { font-size: 10.5px; text-align: center; }
+}

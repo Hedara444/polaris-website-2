@@ -1,5 +1,8 @@
 export const siteConfig = {
   name: "POLARISS",
+  phone: "045-264-8772",
+  phoneHref: "tel:0452648772",
+  phoneHours: "火曜–土曜 12:00–19:30",
   shortName: "POLARISS",
   description:
     "POLARISSは、GPS位置情報と相互監視で大切なバイクや車両を見守るサービスです。盗難対策に加え、気象リスク通知で愛車の危険にも備えます。",

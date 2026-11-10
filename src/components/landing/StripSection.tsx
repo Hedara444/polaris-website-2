@@ -1,29 +1,30 @@
-import Link from "next/link";
-import "./styles/strip.css";
+import { MapPin, RadioTower, Satellite, UsersRound } from "lucide-react";
+import styles from "./styles/hero-proof.module.css";
 
 export function StripSection() {
   return (
-    <section className="strip">
-      <div className="strip-in wrap">
-        <Link className="sb" href="#how">
-          <b className="sb-title">LINEで操作</b>
-          <small className="sb-desc">新しいアプリを入れずに使えます</small>
-        </Link>
-        <Link className="sb" href="#story">
-          <b className="sb-title">異変もLINEへ通知</b>
-          <small className="sb-desc">愛車の移動を検知してお知らせ</small>
-        </Link>
-        <Link className="sb" href="#mutual">
-          <div className="sb-head">
-            <b className="sb-title">相互監視</b>
-            <em className="sb-badge">実用新案申請中</em>
+    <section className={styles.proof} aria-label="POLARISSの見守りを支える仕組み">
+      <div className={styles.inner}>
+        <article className={styles.item}>
+          <h2>位置確認の安定性を支える、<br />3つの<span>衛星システム。</span></h2>
+          <p>GPS・GLONASS・日本の「みちびき」に対応。</p>
+          <div className={styles.satellites} aria-hidden="true">
+            {["GPS", "GLONASS", "みちびき"].map((name) => (
+              <div key={name}><b>{name}</b><Satellite size={32} strokeWidth={1.5} /></div>
+            ))}
+            <MapPin className={styles.pin} size={26} fill="#b91f19" color="#b91f19" />
           </div>
-          <small className="sb-desc">POLARISSユーザー同士でも見守る</small>
-        </Link>
-        <div className="sb">
-          <b className="sb-title">バッテリー内蔵</b>
-          <small className="sb-desc">車両からの常時給電にも対応する2通りの給電方法。万が一の電源断にも備えます。</small>
-        </div>
+        </article>
+        <article className={styles.item}>
+          <h2>車両の情報を届ける、<br /><span>複数の国内大手キャリアの通信網。</span></h2>
+          <p>国内大手キャリアの複数回線に対応。</p>
+          <div className={styles.diagram} aria-hidden="true"><RadioTower size={76} strokeWidth={1.2} /></div>
+        </article>
+        <article className={styles.item}>
+          <h2>一人で見守るだけじゃない。<br />ユーザー同士の相互監視。</h2>
+          <p>必要なときに、近くのユーザーへ情報を共有。</p>
+          <div className={styles.diagram} aria-hidden="true"><UsersRound size={76} strokeWidth={1.2} /></div>
+        </article>
       </div>
     </section>
   );

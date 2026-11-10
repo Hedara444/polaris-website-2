@@ -23,25 +23,6 @@ export default async function LandingPage() {
 
   return (
     <>
-      {/* LCP is the hero art, loaded via CSS background-image (--i-hero), so it
-          has no <img fetchpriority> to signal priority. Preload it from HTML
-          discovery time with fetchpriority=high to kick the download early.
-          The media-scoped pair ensures a phone only downloads the 32 KB
-          mobile copy, while larger screens preload the desktop copy. */}
-      <link
-        rel="preload"
-        as="image"
-        media="(max-width: 640px)"
-        href="/images/hero-mobile.webp"
-        fetchPriority="high"
-      />
-      <link
-        rel="preload"
-        as="image"
-        media="(min-width: 641px)"
-        href="/images/hero.webp"
-        fetchPriority="high"
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}

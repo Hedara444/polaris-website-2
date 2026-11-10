@@ -22,6 +22,7 @@
   --green: #06C755;
   --danger: #af1111;
   --font-jp: var(--font-zen), "Zen Kaku Gothic New", ui-sans-serif;
+  --heading: var(--font-noto-sans-jp), "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
   --jp: var(--font-zen), "Zen Kaku Gothic New", ui-sans-serif, -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
   --num: var(--font-manrope), "Manrope", var(--font-zen), "Zen Kaku Gothic New", ui-sans-serif, sans-serif;
   --pad: clamp(20px, 7vw, 120px);
@@ -58,7 +59,7 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--jp);
-  font-weight: 500;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
@@ -108,6 +109,22 @@ section {
 }
 
 /* ---------- shared type ---------- */
+/* Keep the public site's typography consistent across page-specific styles. */
+html .public-main :is(h1, h2, h3, h4, h5, h6, .h2, .h3) {
+  font-family: var(--heading);
+  font-weight: 700;
+}
+
+html .public-main :is(h1, .h1) {
+  font-weight: 900;
+}
+
+html .public-main :is(p, li, dd, dt, td, th, label, input, textarea, select),
+html .ft p {
+  font-family: var(--jp);
+  font-weight: 400;
+}
+
 .eyebrow {
   font-size: 13px;
   font-weight: 700;

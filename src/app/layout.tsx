@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import Script from "next/script";
-import { Manrope, Zen_Kaku_Gothic_New } from "next/font/google";
+import { Manrope, Noto_Sans_JP, Zen_Kaku_Gothic_New } from "next/font/google";
 
 import { siteConfig } from "@/lib/site-config";
 
@@ -23,9 +23,18 @@ const manrope = Manrope({
 // slices are fetched lazily via unicode-range only when text actually uses them.
 const zenKakuGothicNew = Zen_Kaku_Gothic_New({
   subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
+  weight: ["400", "700"],
   display: "swap",
   variable: "--font-zen",
+  adjustFontFallback: true,
+  preload: false,
+});
+
+const notoSansJP = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["700", "900"],
+  display: "swap",
+  variable: "--font-noto-sans-jp",
   adjustFontFallback: true,
   preload: false,
 });
@@ -54,7 +63,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="ja" suppressHydrationWarning className={`${manrope.variable} ${zenKakuGothicNew.variable} h-full antialiased`} data-scroll-behavior="smooth">
+    <html lang="ja" suppressHydrationWarning className={`${manrope.variable} ${zenKakuGothicNew.variable} ${notoSansJP.variable} h-full antialiased`} data-scroll-behavior="smooth">
       {/* Deferred to browser idle (`lazyOnload`): on a slow mobile connection GTM
           + Clarity cost ~700ms of main-thread CPU and 314KB right after hydration,
           inflating TTI. Loading them only when the browser is idle keeps them off

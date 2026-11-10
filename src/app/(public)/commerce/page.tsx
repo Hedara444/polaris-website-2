@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
+import { siteConfig } from "@/lib/site-config";
 import "@/app/(public)/terms/terms.css";
 
 export const metadata = buildMetadata({
@@ -116,9 +117,9 @@ export default function CommercePage() {
               <div>
                 <dt>電話番号</dt>
                 <dd>
-                  045-264-8772
+                  <a href={siteConfig.phoneHref}>{siteConfig.phone}</a>
                   <br />
-                  受付時間11:00～18:00
+                  受付時間：{siteConfig.phoneHours}
                   <br />
                   ※電話が繋がりにくい場合がございます。お急ぎの場合は、弊社ホームページのお問い合わせフォームからご連絡をお願い申し上げます。
                 </dd>
